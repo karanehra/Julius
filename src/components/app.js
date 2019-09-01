@@ -13,15 +13,22 @@ import { Switch, Route } from "react-router-dom";
 import "@styles/app.scss";
 import Dashboard from "./dashboard";
 import ControlCamera from "@material-ui/icons/ControlCamera";
+import RssFeed from "@material-ui/icons/RssFeed";
+import ListIcon from "@material-ui/icons/List";
 import Loader from "./shared/loader";
 import { isAppLoading } from "../utils/helpers";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class Julius extends Component {
   state = {};
 
   componentDidMount() {
     console.log(this.props);
+  }
+
+  routeTo = route => {
+    this.props.history.push(route)
   }
 
   render() {
@@ -54,6 +61,18 @@ class Julius extends Component {
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <RssFeed />
+              </ListItemIcon>
+              <ListItemText primary="Feeds" />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
+              <ListItemText primary="Articles" />
+            </ListItem>
           </List>
         </Drawer>
         <div className="content">
@@ -71,4 +90,4 @@ const mapStateToProps = state => ({
   loading: isAppLoading(state)
 });
 
-export default connect(mapStateToProps)(Julius);
+export default withRouter(connect(mapStateToProps)(Julius));
