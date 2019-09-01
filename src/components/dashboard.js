@@ -4,7 +4,6 @@ import { getDashboardDataAsyncAction } from "../actions/dashboard.actions";
 class Dashboard extends Component {
   state = {};
   componentDidMount() {
-    console.log(this.props);
     this.props.dispatch(getDashboardDataAsyncAction());
   }
   render() {

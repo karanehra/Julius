@@ -13,10 +13,19 @@ import { Switch, Route } from "react-router-dom";
 import "@styles/app.scss";
 import Dashboard from "./dashboard";
 import ControlCamera from "@material-ui/icons/ControlCamera";
+import Loader from "./shared/loader";
+import { isAppLoading } from "../utils/helpers";
+import { connect } from "react-redux";
 
 class Julius extends Component {
   state = {};
+
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
+    const { loading } = this.props;
     return (
       <div className="julius">
         <AppBar position="fixed" className="navbar">
@@ -48,6 +57,7 @@ class Julius extends Component {
           </List>
         </Drawer>
         <div className="content">
+          {loading && <Loader />}
           <Switch>
             <Route exact path="/" component={Dashboard} />
           </Switch>
@@ -57,4 +67,8 @@ class Julius extends Component {
   }
 }
 
-export default Julius;
+const mapStateToProps = state => ({
+  loading: isAppLoading(state)
+});
+
+export default connect(mapStateToProps)(Julius);
