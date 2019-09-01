@@ -1,32 +1,38 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { Table, TableHead, TableCell, TableBody, TableRow } from "@material-ui/core";
+import {
+  Table,
+  TableHead,
+  TableCell,
+  TableBody,
+  TableRow
+} from "@material-ui/core";
+import { callGetArticlesApi } from "../utils/apiService";
 
 class ArticlesPage extends Component {
   componentWillMount() {
-    Axios.get("http://35.202.10.179/articles")
+    callGetArticlesApi()
       .then(res => {
         console.log(res);
         this.setState({
-          data:res.data
-        })
+          data: res.data
+        });
       })
       .catch(err => {
         console.log(err);
       });
   }
   state = {
-    data:[]
+    data: []
   };
+  
   render() {
     return (
       <React.Fragment>
-        <Table >
+        <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Id</TableCell>
-              <TableCell align="right">Title</TableCell>
-              <TableCell align="right">Content</TableCell>
+              <TableCell>Title</TableCell>
               <TableCell align="right">Snippet</TableCell>
               <TableCell align="right">Link</TableCell>
             </TableRow>
@@ -35,10 +41,8 @@ class ArticlesPage extends Component {
             {this.state.data.map(row => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.id}
+                  {row.title}
                 </TableCell>
-                <TableCell align="right">{row.title}</TableCell>
-                <TableCell align="right">{row.content}</TableCell>
                 <TableCell align="right">{row.snippet}</TableCell>
                 <TableCell align="right">{row.link}</TableCell>
               </TableRow>

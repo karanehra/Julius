@@ -1,0 +1,24 @@
+.julius {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  .sidenav {
+    width: 240px !important;
+
+    .topbar {
+      width: 240px !important;
+      border-bottom: 1px solid black;
+    }
+  }
+
+  .navbar {
+    width: calc(100% - 240px) !important;
+  }
+
+  .content {
+    flex-grow: 1;
+    margin-top: 84px;
+    margin-left: 260px;
+  }
+}
