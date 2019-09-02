@@ -19,7 +19,8 @@ const theme = createMuiTheme({
       main: "#673ab7",
       light: "#482880"
     }
-  }
+  },
+  
 });
 
 ReactDOM.render(

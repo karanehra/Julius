@@ -16,6 +16,7 @@ import ControlCamera from "@material-ui/icons/ControlCamera";
 import RssFeed from "@material-ui/icons/RssFeed";
 import ListIcon from "@material-ui/icons/List";
 import SelectAll from "@material-ui/icons/SelectAll";
+import Timer from "@material-ui/icons/Timer";
 import Loader from "./shared/loader";
 import { isAppLoading } from "../utils/helpers";
 import { connect } from "react-redux";
@@ -24,7 +25,9 @@ import FeedsPage from "./feeds";
 import ArticlesPage from "./articles";
 
 class Julius extends Component {
-  state = {};
+  state = {
+    active: null
+  };
 
   componentDidMount() {
     console.log(this.props);
@@ -45,6 +48,9 @@ class Julius extends Component {
     }
   };
 
+  getActiveClass = link => {
+    return link === this.props.location.pathname ? "active" : "";
+  };
 
   render() {
     const { loading } = this.props;
@@ -72,23 +78,45 @@ class Julius extends Component {
             </Typography>
           </Toolbar>
           <List component="nav">
-            <ListItem button className="active" onClick={this.routeTo("/")}>
-              <ListItemIcon classes={{root:"white"}}>
+            <ListItem
+              button
+              className={this.getActiveClass("/")}
+              onClick={this.routeTo("/")}
+            >
+              <ListItemIcon classes={{ root: "white" }}>
                 <ControlCamera />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button onClick={this.routeTo("/feeds")}>
-              <ListItemIcon classes={{root:"white"}}>
+            <ListItem
+              button
+              className={this.getActiveClass("/feeds")}
+              onClick={this.routeTo("/feeds")}
+            >
+              <ListItemIcon classes={{ root: "white" }}>
                 <RssFeed />
               </ListItemIcon>
               <ListItemText primary="Feeds" />
             </ListItem>
-            <ListItem button onClick={this.routeTo("/articles")}>
-              <ListItemIcon classes={{root:"white"}}>
+            <ListItem
+              button
+              className={this.getActiveClass("/articles")}
+              onClick={this.routeTo("/articles")}
+            >
+              <ListItemIcon classes={{ root: "white" }}>
                 <ListIcon />
               </ListItemIcon>
               <ListItemText primary="Articles" />
+            </ListItem>
+            <ListItem
+              button
+              className={this.getActiveClass("/crons")}
+              onClick={this.routeTo("/crons")}
+            >
+              <ListItemIcon classes={{ root: "white" }}>
+                <Timer />
+              </ListItemIcon>
+              <ListItemText primary="Cron" />
             </ListItem>
           </List>
         </Drawer>

@@ -12,3 +12,7 @@ export const callGetStatusDataApi = () => {
 export const callGetFeedsApi = () => {
   return Axios.get(API_BASE_URL + "feed");
 };
+
+export const callAddFeedApi = payload => {
+  return Axios.post(API_BASE_URL + "feed", payload);
+};

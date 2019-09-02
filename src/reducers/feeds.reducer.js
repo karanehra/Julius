@@ -1,12 +1,18 @@
 import {
   GET_FEED_DATA_SUCCESS,
   GET_FEED_DATA_START,
-  GET_FEED_DATA_FAILURE
+  GET_FEED_DATA_FAILURE,
+  ADD_FEED_START,
+  ADD_FEED_SUCCESS,
+  ADD_FEED_FAILURE
 } from "../constants/actionTypes";
 const initialState = {
   loading: false,
   feedData: null,
-  errorData: null
+  errorData: null,
+  addLoading:false,
+  addFeedData:null,
+  addFeedError:null
 };
 
 export default function feedsReducer(state = initialState, action) {
@@ -29,6 +35,28 @@ export default function feedsReducer(state = initialState, action) {
         loading: false,
         feedData: null,
         errorData: action.payload
+      };
+    case ADD_FEED_START:
+      return {
+        ...state,
+        addLoading: true,
+        addFeedData: null,
+        addFeedError: null
+      };
+    case ADD_FEED_SUCCESS:
+      return {
+        ...state,
+        addLoading: true,
+        addFeedData: action.payload,
+        addFeedError: null
+      };
+    
+    case ADD_FEED_FAILURE:
+      return {
+        ...state,
+        addLoading: true,
+        addFeedData: null,
+        addFeedError: action.payload
       };
     default:
       return state;
