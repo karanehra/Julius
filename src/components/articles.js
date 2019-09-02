@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Axios from "axios";
 import {
   Table,
   TableHead,
@@ -7,26 +6,19 @@ import {
   TableBody,
   TableRow
 } from "@material-ui/core";
-import { callGetArticlesApi } from "../utils/apiService";
+import { connect } from "react-redux";
+import { getArticleDataAsyncAction } from "../actions/articles.actions";
 
 class ArticlesPage extends Component {
   componentWillMount() {
-    callGetArticlesApi()
-      .then(res => {
-        console.log(res);
-        this.setState({
-          data: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.props.dispatch(getArticleDataAsyncAction());
   }
   state = {
     data: []
   };
-  
+
   render() {
+    const { articleData } = this.props;
     return (
       <React.Fragment>
         <Table>
@@ -34,19 +26,22 @@ class ArticlesPage extends Component {
             <TableRow>
               <TableCell>Title</TableCell>
               <TableCell align="right">Snippet</TableCell>
-              <TableCell align="right">Link</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.data.map(row => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.title}
-                </TableCell>
-                <TableCell align="right">{row.snippet}</TableCell>
-                <TableCell align="right">{row.link}</TableCell>
-              </TableRow>
-            ))}
+            {articleData &&
+              articleData.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.title}
+                  </TableCell>
+                  <TableCell align="right">{row.snippet}</TableCell>
+                  <TableCell align="right">
+                    <a href={row.link}>Visit</a>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </React.Fragment>
@@ -54,4 +49,8 @@ class ArticlesPage extends Component {
   }
 }
 
-export default ArticlesPage;
+const mapStateToProps = state => ({
+  articleData: state.articlesReducer.articleData
+});
+
+export default connect(mapStateToProps)(ArticlesPage);

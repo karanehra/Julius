@@ -15,10 +15,13 @@ import Dashboard from "./dashboard";
 import ControlCamera from "@material-ui/icons/ControlCamera";
 import RssFeed from "@material-ui/icons/RssFeed";
 import ListIcon from "@material-ui/icons/List";
+import SelectAll from "@material-ui/icons/SelectAll";
 import Loader from "./shared/loader";
 import { isAppLoading } from "../utils/helpers";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import FeedsPage from "./feeds";
+import ArticlesPage from "./articles";
 
 class Julius extends Component {
   state = {};
@@ -27,9 +30,21 @@ class Julius extends Component {
     console.log(this.props);
   }
 
-  routeTo = route => {
-    this.props.history.push(route)
-  }
+  routeTo = route => event => {
+    this.props.history.push(route);
+  };
+
+  getHeader = () => {
+    switch (this.props.location.pathname) {
+      case "/articles":
+        return "Articles";
+      case "/":
+        return "Dashboard";
+      case "/feeds":
+        return "Feeds";
+    }
+  };
+
 
   render() {
     const { loading } = this.props;
@@ -38,7 +53,7 @@ class Julius extends Component {
         <AppBar position="fixed" className="navbar">
           <Toolbar>
             <Typography variant="h6" noWrap>
-              Dashboard
+              {this.getHeader()}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -50,25 +65,27 @@ class Julius extends Component {
           }}
         >
           <Toolbar className="topbar">
-            <Typography variant="h6" noWrap>
+            <SelectAll />
+            &nbsp;
+            <Typography variant="h5" noWrap>
               Julius
             </Typography>
           </Toolbar>
-          <List component="nav" aria-label="main mailbox folders">
-            <ListItem button>
-              <ListItemIcon>
+          <List component="nav">
+            <ListItem button className="active" onClick={this.routeTo("/")}>
+              <ListItemIcon classes={{root:"white"}}>
                 <ControlCamera />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem button onClick={this.routeTo("/feeds")}>
+              <ListItemIcon classes={{root:"white"}}>
                 <RssFeed />
               </ListItemIcon>
               <ListItemText primary="Feeds" />
             </ListItem>
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem button onClick={this.routeTo("/articles")}>
+              <ListItemIcon classes={{root:"white"}}>
                 <ListIcon />
               </ListItemIcon>
               <ListItemText primary="Articles" />
@@ -79,6 +96,8 @@ class Julius extends Component {
           {loading && <Loader />}
           <Switch>
             <Route exact path="/" component={Dashboard} />
+            <Route exact path="/feeds" component={FeedsPage} />
+            <Route exact path="/articles" component={ArticlesPage} />
           </Switch>
         </div>
       </div>
