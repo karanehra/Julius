@@ -23,6 +23,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import FeedsPage from "./feeds";
 import ArticlesPage from "./articles";
+import CronPage from './cron';
 
 class Julius extends Component {
   state = {
@@ -45,6 +46,8 @@ class Julius extends Component {
         return "Dashboard";
       case "/feeds":
         return "Feeds";
+      case "/cronjobs":
+        return "Cron Jobs";
     }
   };
 
@@ -110,8 +113,8 @@ class Julius extends Component {
             </ListItem>
             <ListItem
               button
-              className={this.getActiveClass("/crons")}
-              onClick={this.routeTo("/crons")}
+              className={this.getActiveClass("/cronjobs")}
+              onClick={this.routeTo("/cronjobs")}
             >
               <ListItemIcon classes={{ root: "white" }}>
                 <Timer />
@@ -126,6 +129,7 @@ class Julius extends Component {
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/feeds" component={FeedsPage} />
             <Route exact path="/articles" component={ArticlesPage} />
+            <Route exact path="/cronjobs" component={CronPage} />
           </Switch>
         </div>
       </div>
