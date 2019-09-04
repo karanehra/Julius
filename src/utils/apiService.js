@@ -20,4 +20,8 @@ export const callAddFeedApi = payload => {
 
 export const callGetCronDataApi = () => {
   return Axios.get(CRON_SERVER_BASE_URL);
-}
+};
+
+export const callGetGraphDataApi = () => {
+  return Axios.get(API_BASE_URL + "/dataset");
+};

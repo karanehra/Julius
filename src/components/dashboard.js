@@ -9,6 +9,7 @@ import {
   Button
 } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
+import { getGraphDataAsyncAction } from '../actions/graphs.actions';
 
 class Dashboard extends Component {
   state = {};
@@ -18,6 +19,7 @@ class Dashboard extends Component {
   }
   refreshData = () => {
     this.props.dispatch(getDashboardDataAsyncAction());
+    this.props.dispatch(getGraphDataAsyncAction());
   };
   render() {
     const { dashboardData } = this.props;
@@ -54,7 +56,8 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   dashboardData: state.dashboardReducer.dashboardData,
-  errorData: state.dashboardReducer.errorData
+  errorData: state.dashboardReducer.errorData,
+  graphData: state.graphsReducer.graphData
 });
 
 export default connect(mapStateToProps)(Dashboard);
