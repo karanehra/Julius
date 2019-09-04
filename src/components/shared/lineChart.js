@@ -6,20 +6,35 @@ class LineChart extends Component {
   chartRef = React.createRef();
 
   componentDidMount() {
-    new Chart(this.chartRef.current.getContext('2d'), {
+    let datavals = [];
+    let labels = [];
+    Object.keys(this.props.data).forEach(key => {
+      datavals.push(this.props.data[key]);
+      let d = new Date(parseInt(key));
+      labels.push(d.getDate() + "/" + d.getMonth());
+    });
+    new Chart(this.chartRef.current.getContext("2d"), {
       type: "line",
       data: {
         //Bring in data
-        labels: ["Jan", "Feb", "March"],
+        labels: labels,
         datasets: [
           {
             label: "Sales",
-            data: [86, 67, 91]
+            data: datavals
           }
         ]
       },
       options: {
-        //Customize chart options
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                suggestedMin: 150
+              }
+            }
+          ]
+        }
       }
     });
   }
