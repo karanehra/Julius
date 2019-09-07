@@ -73,81 +73,84 @@ class CronPage extends Component {
     const { cronData } = this.props;
     return (
       <React.Fragment>
-        <Button variant="contained" color="primary" onClick={this.refreshData}>
-          Refresh
-        </Button>
-        {cronData && (
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h5">Status</Typography>
-                  <Typography variant="h2">
-                    {cronData.filter(cron => cron.isRunning).length} of{" "}
-                    {cronData.length} Running
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button variant="contained" color="primary">
-                    Stop
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-            <Grid item xs={4}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h5">Total Jobs</Typography>
-                  <Typography variant="h2">{cronData.length}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell align="right">Status</TableCell>
-                    <TableCell align="right">Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {cronData &&
-                    cronData.map(row => (
-                      <TableRow key={row.id}>
-                        <TableCell component="th" scope="row">
-                          <Typography variant="h6">{row.name}</Typography>
-                        </TableCell>
-                        <TableCell align="right">
-                          {row.isRunning ? (
-                            <div className="green">RUNNING</div>
-                          ) : (
-                            <div className="red">STOPPED</div>
-                          )}
-                        </TableCell>
-                        <TableCell align="right">
-                          {row.isRunning ? (
-                            <this.startInactiveButton />
-                          ) : (
-                            <this.startButton
-                              onClick={this.startCronService(row.id)}
-                            />
-                          )}
-                          {row.isRunning ? (
-                            <this.stopButton
-                              onClick={this.stopCronService(row.id)}
-                            />
-                          ) : (
-                            <this.stopInactiveButton />
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.refreshData}
+            >
+              Refresh
+            </Button>
           </Grid>
-        )}
+          {cronData && (
+            <React.Fragment>
+              <Grid item xs={4}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h5">Status</Typography>
+                    <Typography variant="h2">
+                      {cronData.filter(cron => cron.isRunning).length} of{" "}
+                      {cronData.length} Running
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={4}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h5">Total Jobs</Typography>
+                    <Typography variant="h2">{cronData.length}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell align="right">Status</TableCell>
+                      <TableCell align="right">Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {cronData &&
+                      cronData.map(row => (
+                        <TableRow key={row.id}>
+                          <TableCell component="th" scope="row">
+                            <Typography variant="h6">{row.name}</Typography>
+                          </TableCell>
+                          <TableCell align="right">
+                            {row.isRunning ? (
+                              <div className="green">RUNNING</div>
+                            ) : (
+                              <div className="red">STOPPED</div>
+                            )}
+                          </TableCell>
+                          <TableCell align="right">
+                            {row.isRunning ? (
+                              <this.startInactiveButton />
+                            ) : (
+                              <this.startButton
+                                onClick={this.startCronService(row.id)}
+                              />
+                            )}
+                            {row.isRunning ? (
+                              <this.stopButton
+                                onClick={this.stopCronService(row.id)}
+                              />
+                            ) : (
+                              <this.stopInactiveButton />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </Grid>
+            </React.Fragment>
+          )}
+        </Grid>
       </React.Fragment>
     );
   }

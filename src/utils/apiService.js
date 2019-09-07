@@ -1,5 +1,5 @@
 const API_BASE_URL = "http://35.238.236.191";
-const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800/";
+const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
 
 export const callGetArticlesApi = () => {
@@ -11,11 +11,11 @@ export const callGetStatusDataApi = () => {
 };
 
 export const callGetFeedsApi = () => {
-  return Axios.get(API_BASE_URL + "/feed/");
+  return Axios.get(API_BASE_URL + "/feeds/");
 };
 
 export const callAddFeedApi = payload => {
-  return Axios.post(API_BASE_URL + "/feed/", payload);
+  return Axios.post(API_BASE_URL + "/feeds/", payload);
 };
 
 export const callGetCronDataApi = () => {
@@ -27,8 +27,12 @@ export const callGetGraphDataApi = () => {
 };
 
 export const callStopCronApi = id => {
-  return Axios.get(CRON_SERVER_BASE_URL + "stop/" + id);
+  return Axios.get(CRON_SERVER_BASE_URL + "/stop/" + id);
 };
 export const callStartCronApi = id => {
-  return Axios.get(CRON_SERVER_BASE_URL + "start/" + id);
+  return Axios.get(CRON_SERVER_BASE_URL + "/start/" + id);
+};
+
+export const callGetLogsApi = payload => {
+  return Axios.get(API_BASE_URL + "/logs");
 };

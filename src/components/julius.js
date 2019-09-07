@@ -16,6 +16,7 @@ import ControlCamera from "@material-ui/icons/ControlCamera";
 import RssFeed from "@material-ui/icons/RssFeed";
 import ListIcon from "@material-ui/icons/List";
 import SelectAll from "@material-ui/icons/SelectAll";
+import Info from "@material-ui/icons/Info";
 import Timer from "@material-ui/icons/Timer";
 import Loader from "./shared/loader";
 import { isAppLoading } from "../utils/helpers";
@@ -24,6 +25,7 @@ import { withRouter } from "react-router-dom";
 import FeedsPage from "./feeds";
 import ArticlesPage from "./articles";
 import CronPage from './cron';
+import LogsPage from './logs';
 
 class Julius extends Component {
   state = {
@@ -48,6 +50,8 @@ class Julius extends Component {
         return "Feeds";
       case "/cronjobs":
         return "Cron Jobs";
+      case "/logs":
+        return "Logs";
     }
   };
 
@@ -121,6 +125,16 @@ class Julius extends Component {
               </ListItemIcon>
               <ListItemText primary="Cron" />
             </ListItem>
+            <ListItem
+              button
+              className={this.getActiveClass("/logs")}
+              onClick={this.routeTo("/logs")}
+            >
+              <ListItemIcon classes={{ root: "white" }}>
+                <Info />
+              </ListItemIcon>
+              <ListItemText primary="Logs" />
+            </ListItem>
           </List>
         </Drawer>
         <div className="content">
@@ -130,6 +144,7 @@ class Julius extends Component {
             <Route exact path="/feeds" component={FeedsPage} />
             <Route exact path="/articles" component={ArticlesPage} />
             <Route exact path="/cronjobs" component={CronPage} />
+            <Route exact path="/logs" component={LogsPage} />
           </Switch>
         </div>
       </div>
