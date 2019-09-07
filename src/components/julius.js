@@ -24,19 +24,22 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import FeedsPage from "./feeds";
 import ArticlesPage from "./articles";
-import CronPage from './cron';
-import LogsPage from './logs';
+import CronPage from "./cron";
+import LogsPage from "./logs";
+import { deviceDetectAcion } from "../actions/device.actions";
+import { isMobile } from "react-device-detect";
 
 class Julius extends Component {
   state = {
-    active: null
+    isMobileDrawerOpen: false
   };
 
   componentDidMount() {
-    console.log(this.props);
+    this.props.dispatch(deviceDetectAcion(isMobile));
   }
 
   routeTo = route => event => {
+    this.setState({isMobileDrawerOpen:false})
     this.props.history.push(route);
   };
 
@@ -59,85 +62,115 @@ class Julius extends Component {
     return link === this.props.location.pathname ? "active" : "";
   };
 
+  toggleMobileDrawer = () => {
+    this.setState({
+      isMobileDrawerOpen: !this.state.isMobileDrawerOpen
+    });
+  };
+
+  getNavigationMarkup = () => (
+    <List component="nav">
+      <ListItem
+        button
+        className={this.getActiveClass("/")}
+        onClick={this.routeTo("/")}
+      >
+        <ListItemIcon classes={{ root: "white" }}>
+          <ControlCamera />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+      <ListItem
+        button
+        className={this.getActiveClass("/feeds")}
+        onClick={this.routeTo("/feeds")}
+      >
+        <ListItemIcon classes={{ root: "white" }}>
+          <RssFeed />
+        </ListItemIcon>
+        <ListItemText primary="Feeds" />
+      </ListItem>
+      <ListItem
+        button
+        className={this.getActiveClass("/articles")}
+        onClick={this.routeTo("/articles")}
+      >
+        <ListItemIcon classes={{ root: "white" }}>
+          <ListIcon />
+        </ListItemIcon>
+        <ListItemText primary="Articles" />
+      </ListItem>
+      <ListItem
+        button
+        className={this.getActiveClass("/cronjobs")}
+        onClick={this.routeTo("/cronjobs")}
+      >
+        <ListItemIcon classes={{ root: "white" }}>
+          <Timer />
+        </ListItemIcon>
+        <ListItemText primary="Cron" />
+      </ListItem>
+      <ListItem
+        button
+        className={this.getActiveClass("/logs")}
+        onClick={this.routeTo("/logs")}
+      >
+        <ListItemIcon classes={{ root: "white" }}>
+          <Info />
+        </ListItemIcon>
+        <ListItemText primary="Logs" />
+      </ListItem>
+    </List>
+  );
+
   render() {
-    const { loading } = this.props;
+    const { isMobileDrawerOpen } = this.state;
+    const { loading, isMobile } = this.props;
     return (
-      <div className="julius">
-        <AppBar position="fixed" className="navbar">
-          <Toolbar>
-            <Typography variant="h6" noWrap>
-              {this.getHeader()}
-            </Typography>
+      <div className={isMobile ? "julius mb" : "julius"}>
+        <AppBar position="fixed" className={isMobile ? "navbar mb" : "navbar"}>
+          <Toolbar className="navbar-toolbar">
+            {isMobile ? (
+              <React.Fragment>
+                <div className="menu" onClick={this.toggleMobileDrawer}>
+                  <ListIcon/>
+                </div>
+                <SelectAll />
+                &nbsp;
+                <Typography variant="h5" noWrap>
+                  Julius
+                </Typography>
+              </React.Fragment>
+            ) : (
+              <Typography variant="h6" noWrap>
+                {this.getHeader()}
+              </Typography>
+            )}
           </Toolbar>
         </AppBar>
-        <Drawer
-          variant="permanent"
-          anchor="left"
-          classes={{
-            paper: "sidenav"
-          }}
-        >
-          <Toolbar className="topbar">
-            <SelectAll />
-            &nbsp;
-            <Typography variant="h5" noWrap>
-              Julius
-            </Typography>
-          </Toolbar>
-          <List component="nav">
-            <ListItem
-              button
-              className={this.getActiveClass("/")}
-              onClick={this.routeTo("/")}
-            >
-              <ListItemIcon classes={{ root: "white" }}>
-                <ControlCamera />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
-            <ListItem
-              button
-              className={this.getActiveClass("/feeds")}
-              onClick={this.routeTo("/feeds")}
-            >
-              <ListItemIcon classes={{ root: "white" }}>
-                <RssFeed />
-              </ListItemIcon>
-              <ListItemText primary="Feeds" />
-            </ListItem>
-            <ListItem
-              button
-              className={this.getActiveClass("/articles")}
-              onClick={this.routeTo("/articles")}
-            >
-              <ListItemIcon classes={{ root: "white" }}>
-                <ListIcon />
-              </ListItemIcon>
-              <ListItemText primary="Articles" />
-            </ListItem>
-            <ListItem
-              button
-              className={this.getActiveClass("/cronjobs")}
-              onClick={this.routeTo("/cronjobs")}
-            >
-              <ListItemIcon classes={{ root: "white" }}>
-                <Timer />
-              </ListItemIcon>
-              <ListItemText primary="Cron" />
-            </ListItem>
-            <ListItem
-              button
-              className={this.getActiveClass("/logs")}
-              onClick={this.routeTo("/logs")}
-            >
-              <ListItemIcon classes={{ root: "white" }}>
-                <Info />
-              </ListItemIcon>
-              <ListItemText primary="Logs" />
-            </ListItem>
-          </List>
-        </Drawer>
-        <div className="content">
+        {isMobile ? (
+          <Drawer open={isMobileDrawerOpen} onClose={this.toggleMobileDrawer}>
+            {this.getNavigationMarkup()}
+          </Drawer>
+        ) : (
+          <Drawer
+            variant="permanent"
+            anchor="left"
+            classes={{
+              paper: "sidenav"
+            }}
+          >
+            <Toolbar className="topbar">
+              <SelectAll />
+              &nbsp;
+              <Typography variant="h5" noWrap>
+                Julius
+              </Typography>
+            </Toolbar>
+            {this.getNavigationMarkup()}
+          </Drawer>
+        )}
+        <div className={isMobile ? "content mb" : "content"}>
           {loading && <Loader />}
           <Switch>
             <Route exact path="/" component={Dashboard} />
@@ -153,7 +186,8 @@ class Julius extends Component {
 }
 
 const mapStateToProps = state => ({
-  loading: isAppLoading(state)
+  loading: isAppLoading(state),
+  isMobile: state.deviceReducer.isMobile
 });
 
 export default withRouter(connect(mapStateToProps)(Julius));

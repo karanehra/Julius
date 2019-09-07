@@ -70,7 +70,7 @@ class CronPage extends Component {
   };
 
   render() {
-    const { cronData } = this.props;
+    const { cronData, isMobile } = this.props;
     return (
       <React.Fragment>
         <Grid container spacing={2}>
@@ -85,18 +85,17 @@ class CronPage extends Component {
           </Grid>
           {cronData && (
             <React.Fragment>
-              <Grid item xs={4}>
+              <Grid item xs={isMobile ? 12 : 4}>
                 <Card>
                   <CardContent>
                     <Typography variant="h5">Status</Typography>
                     <Typography variant="h2">
-                      {cronData.filter(cron => cron.isRunning).length} of{" "}
-                      {cronData.length} Running
+                      {cronData.filter(cron => cron.isRunning).length} Running
                     </Typography>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={isMobile ? 12 : 4}>
                 <Card>
                   <CardContent>
                     <Typography variant="h5">Total Jobs</Typography>
@@ -109,7 +108,7 @@ class CronPage extends Component {
                   <TableHead>
                     <TableRow>
                       <TableCell>Name</TableCell>
-                      <TableCell align="right">Status</TableCell>
+                      <TableCell>Status</TableCell>
                       <TableCell align="right">Actions</TableCell>
                     </TableRow>
                   </TableHead>
@@ -120,7 +119,7 @@ class CronPage extends Component {
                           <TableCell component="th" scope="row">
                             <Typography variant="h6">{row.name}</Typography>
                           </TableCell>
-                          <TableCell align="right">
+                          <TableCell>
                             {row.isRunning ? (
                               <div className="green">RUNNING</div>
                             ) : (
@@ -158,7 +157,8 @@ class CronPage extends Component {
 
 const mapStateToProps = state => ({
   cronData: state.cronReducer.cronData,
-  errorData: state.cronReducer.errorData
+  errorData: state.cronReducer.errorData,
+  isMobile: state.deviceReducer.isMobile
 });
 
 export default connect(mapStateToProps)(CronPage);

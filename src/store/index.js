@@ -7,6 +7,7 @@ import articlesReducer from "../reducers/articles.reducer";
 import cronReducer from "../reducers/cron.reducer";
 import graphsReducer from "../reducers/graphs.reducer";
 import logsReducer from "../reducers/logs.reducer";
+import deviceReducer from '../reducers/device.reducer';
 
 export default createStore(
   combineReducers({
@@ -15,7 +16,8 @@ export default createStore(
     articlesReducer,
     cronReducer,
     graphsReducer,
-    logsReducer
+    logsReducer,
+    deviceReducer
   }),
   {},
   applyMiddleware(logger, thunk)
