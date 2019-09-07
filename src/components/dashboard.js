@@ -50,8 +50,7 @@ class Dashboard extends Component {
             <Grid item xs={4}>
               <Card>
                 <CardContent>
-                  <Typography variant="h5">Feeds</Typography>
-                  {graphData && <LineChart data={graphData} />}
+                  {graphData && <LineChart label={"Articles"} data={graphData} />}
                 </CardContent>
               </Card>
             </Grid>

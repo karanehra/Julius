@@ -14,14 +14,16 @@ class LineChart extends Component {
       labels.push(d.getDate() + "/" + d.getMonth());
     });
     new Chart(this.chartRef.current.getContext("2d"), {
-      type: "line",
+      type: "bar",
       data: {
-        //Bring in data
         labels: labels,
         datasets: [
           {
-            label: "Sales",
-            data: datavals
+            label: this.props.label,
+            data: datavals,
+            borderColor:"#ef5350",
+            backgroundColor:"#ef5350",
+            pointRadius:4
           }
         ]
       },
@@ -34,6 +36,9 @@ class LineChart extends Component {
               }
             }
           ]
+        },
+        legend:{
+          onClick: e => e.stopPropagation()
         }
       }
     });
