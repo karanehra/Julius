@@ -10,8 +10,9 @@ const initalState = {
 };
 
 export default function logsReducer(state = initalState, action) {
-  switch (action.payload) {
+  switch (action.type) {
     case GET_LOGS_DATA_START:
+      console.log(action)
       return {
         ...state,
         loading: true

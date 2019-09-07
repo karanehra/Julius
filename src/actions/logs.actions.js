@@ -23,12 +23,11 @@ export const getLogsAsyncAction = payload => {
     dispatch(getLogsStartAction());
     callGetLogsApi(payload)
       .then(res => {
-        console.log(res);
-        getLogsSuccessAction(res);
+        dispatch(getLogsSuccessAction(res.data));
       })
       .catch(err => {
         console.log(err);
-        getLogsFailureAction(err);
+        dispatch(getLogsFailureAction(err));
       });
   };
 };

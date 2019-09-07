@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { getArticleDataAsyncAction } from "../actions/articles.actions";
 
 class ArticlesPage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(getArticleDataAsyncAction());
   }
   state = {

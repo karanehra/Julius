@@ -3,6 +3,7 @@ export const isAppLoading = state => {
     state.dashboardReducer.loading ||
     state.feedsReducer.loading ||
     state.articlesReducer.loading||
-    state.cronReducer.loading
+    state.cronReducer.loading || 
+    state.logsReducer.loading
   );
 };

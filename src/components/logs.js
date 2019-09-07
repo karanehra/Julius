@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { getLogsAsyncAction } from '../actions/logs.actions';
 
 class LogsPage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(getLogsAsyncAction());
   }
   state = {
@@ -25,23 +25,27 @@ class LogsPage extends Component {
           <TableHead>
             <TableRow>
               <TableCell>Title</TableCell>
-              <TableCell align="right">Snippet</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell align="right">Description</TableCell>
+              <TableCell align="right">Type</TableCell>
+              <TableCell align="right">Timestamp</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {logsData &&
+            {logsData &&
               logsData.map(row => (
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     {row.title}
                   </TableCell>
-                  <TableCell align="right">{row.snippet}</TableCell>
+                  <TableCell align="right">{row.description}</TableCell>
                   <TableCell align="right">
-                    <a href={row.link}>Visit</a>
+                    {row.log_type}
+                  </TableCell>
+                  <TableCell align="right">
+                    {row.createdAt}
                   </TableCell>
                 </TableRow>
-              ))} */}
+              ))}
           </TableBody>
         </Table>
       </React.Fragment>
