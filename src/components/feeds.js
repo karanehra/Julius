@@ -19,6 +19,7 @@ import Cancel from "@material-ui/icons/Cancel";
 import Link from "@material-ui/icons/Link";
 import "@styles/feeds.scss";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import GenericText from './shared/genericText';
 
 class FeedsPage extends Component {
   state = {
@@ -51,19 +52,14 @@ class FeedsPage extends Component {
 
   addFeed = () => {
     let payload = {
-      url: this.state.addingFeedUrl
+      url: this.state.addingFeedUrl.split(";")
     };
     this.props.dispatch(addFeedAsyncAction(payload));
   };
 
   render() {
-    const { feedData } = this.props;
-    const {
-      expandedPanel,
-      feedAddPanelVisible,
-      addLoading,
-      addFeedData
-    } = this.state;
+    const { feedData, addFeedData } = this.props;
+    const { expandedPanel, feedAddPanelVisible } = this.state;
     return (
       <React.Fragment>
         <div className="actions">
@@ -90,16 +86,10 @@ class FeedsPage extends Component {
                 <Typography variant="h6">Add New Feed</Typography>
               </Grid>
 
-              {addLoading ? (
-                addFeedData ? (
-                  <Grid item xs={10} className="add-text">
-                    Added Feed
-                  </Grid>
-                ) : (
-                  <Grid item xs={10} className="add-text">
-                    Adding Feed
-                  </Grid>
-                )
+              {addFeedData ? (
+                <Grid item xs={10} className="add-text">
+                  Added Feed
+                </Grid>
               ) : (
                 <React.Fragment>
                   <Grid item xs={8}>
@@ -146,12 +136,23 @@ class FeedsPage extends Component {
               >
                 <Typography>{feed.title}</Typography>
               </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
-                </Typography>
+              <ExpansionPanelDetails className="feed-details">
+                <div>
+                  <GenericText size={14} bold>Id:</GenericText>
+                  <GenericText size={12}>{feed.id}</GenericText>
+                </div>
+                <div>
+                  <GenericText size={14} bold>Description:</GenericText>
+                  <GenericText size={12}>{feed.description}</GenericText>
+                </div>
+                <div>
+                  <GenericText size={14} bold>Created At:</GenericText>
+                  <GenericText size={12}>{feed.createdAt}</GenericText>
+                </div>
+                <div>
+                  <GenericText size={14} bold>Image Url:</GenericText>
+                  <GenericText size={12}>{feed.image_url}</GenericText>
+                </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
           ))}

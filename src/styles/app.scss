@@ -59,14 +59,19 @@
     margin-top: 84px;
     margin-left: 260px;
     margin-right: 20px;
-    overflow: hidden;
     box-sizing: border-box;
 
     &.mb {
       width: 100vw;
+      overflow: hidden;
       box-sizing: border-box;
       margin: 0 !important;
       padding: 70px 10px;
     }
   }
+}
+
+* {
+  font-family: 'Lato', sans-serif !important;
+
 }
