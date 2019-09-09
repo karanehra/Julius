@@ -1,4 +1,5 @@
-const API_BASE_URL = "http://35.238.236.191";
+// const API_BASE_URL = "http://35.238.236.191";
+const API_BASE_URL = "http://localhost:3000";
 const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
 
@@ -35,4 +36,8 @@ export const callStartCronApi = id => {
 
 export const callGetLogsApi = payload => {
   return Axios.get(API_BASE_URL + "/logs");
+};
+
+export const callParseArticleApi = payload => {
+  return Axios.post(API_BASE_URL + "/articles/parse", payload);
 };
