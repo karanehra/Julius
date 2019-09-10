@@ -5,14 +5,10 @@ import {
   dashboardLayoutChangeAction,
   dashboardLayoutChangeMobileAction
 } from "../actions/dashboard.actions";
-import {
-  Typography,
-  Button,
-  Paper
-} from "@material-ui/core";
+import { Typography, Button, Paper } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import { getGraphDataAsyncAction } from "../actions/graphs.actions";
-import LineChart from "./shared/lineChart";
+import CustomChart from "./shared/lineChart";
 import GridLayout from "react-grid-layout";
 import "../../node_modules/react-grid-layout/css/styles.css";
 import "../../node_modules/react-resizable/css/styles.css";
@@ -63,7 +59,23 @@ class Dashboard extends Component {
               <Typography variant="h2">{dashboardData.feeds}</Typography>
             </Paper>
             <Paper className="datacard" key="c">
-              {graphData && <LineChart label={"Articles"} data={graphData} />}
+              {graphData && (
+                <CustomChart
+                  type={"bar"}
+                  label={"Articles Added"}
+                  data={graphData.addedDaily}
+                  splice={7}
+                />
+              )}
+            </Paper>
+            <Paper className="datacard" key="d">
+              {graphData && (
+                <CustomChart
+                  type={"line"}
+                  label={"Total Articles"}
+                  data={graphData.dailyCount}
+                />
+              )}
             </Paper>
           </GridLayout>
         )}

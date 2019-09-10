@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://35.238.236.191";
-// const API_BASE_URL = "http://localhost:3000";
+// const API_BASE_URL = "http://35.238.236.191";
+const API_BASE_URL = "http://localhost:3000";
 const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
 

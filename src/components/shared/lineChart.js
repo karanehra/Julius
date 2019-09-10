@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Chart from "chart.js";
 
-class LineChart extends Component {
+class CustomChart extends Component {
   state = {};
   chartRef = React.createRef();
 
@@ -14,16 +14,19 @@ class LineChart extends Component {
       labels.push(d.getDate() + "/" + d.getMonth());
     });
     new Chart(this.chartRef.current.getContext("2d"), {
-      type: "bar",
+      type: this.props.type,
       data: {
-        labels: labels.splice(-7),
+        labels: this.props.splice ? labels.splice(-this.props.splice) : labels,
         datasets: [
           {
             label: this.props.label,
-            data: datavals.splice(-7),
-            borderColor:"#ef5350",
-            backgroundColor:"#ef5350",
-            pointRadius:4
+            data: this.props.splice
+              ? datavals.splice(-this.props.splice)
+              : datavals,
+            borderColor: this.props.type === "line" ? "#ef5350" : "#ef5350",
+            backgroundColor:
+              this.props.type === "line" ? "rgba(0,0,0,0)" : "#ef5350",
+            pointRadius: 4
           }
         ]
       },
@@ -37,7 +40,7 @@ class LineChart extends Component {
             }
           ]
         },
-        legend:{
+        legend: {
           onClick: e => e.stopPropagation()
         }
       }
@@ -52,4 +55,4 @@ class LineChart extends Component {
   }
 }
 
-export default LineChart;
+export default CustomChart;
