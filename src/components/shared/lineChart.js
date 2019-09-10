@@ -16,11 +16,11 @@ class LineChart extends Component {
     new Chart(this.chartRef.current.getContext("2d"), {
       type: "bar",
       data: {
-        labels: labels,
+        labels: labels.splice(-7),
         datasets: [
           {
             label: this.props.label,
-            data: datavals,
+            data: datavals.splice(-7),
             borderColor:"#ef5350",
             backgroundColor:"#ef5350",
             pointRadius:4

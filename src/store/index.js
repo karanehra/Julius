@@ -7,7 +7,9 @@ import articlesReducer from "../reducers/articles.reducer";
 import cronReducer from "../reducers/cron.reducer";
 import graphsReducer from "../reducers/graphs.reducer";
 import logsReducer from "../reducers/logs.reducer";
-import deviceReducer from '../reducers/device.reducer';
+import deviceReducer from "../reducers/device.reducer";
+
+let persistedState = JSON.parse(localStorage.getItem("juliusStore")) || {};
 
 export default createStore(
   combineReducers({
@@ -19,6 +21,6 @@ export default createStore(
     logsReducer,
     deviceReducer
   }),
-  {},
+  persistedState,
   applyMiddleware(logger, thunk)
 );

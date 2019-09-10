@@ -23,6 +23,10 @@ const theme = createMuiTheme({
   
 });
 
+store.subscribe(() => {
+  localStorage.setItem("juliusStore", JSON.stringify(store.getState()))
+})
+
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>

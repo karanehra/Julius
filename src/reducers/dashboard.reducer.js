@@ -1,12 +1,16 @@
 import {
   GET_DASHBOARD_DATA_START,
   GET_DASHBOARD_DATA_SUCCESS,
-  GET_DASHBOARD_DATA_FAILURE
+  GET_DASHBOARD_DATA_FAILURE,
+  DASHBOARD_LAYOUT_CHANGE,
+  DASHBOARD_LAYOUT_CHANGE_MOBILE
 } from "../constants/actionTypes";
 const initialState = {
   loading: false,
   dashboardData: null,
-  errorData: null
+  errorData: null,
+  layout:null,
+  layoutMobile:null
 };
 
 export default function dashboardReducer(state = initialState, action) {
@@ -30,6 +34,16 @@ export default function dashboardReducer(state = initialState, action) {
         errorData: action.payload,
         dashboardData: null
       };
+    case DASHBOARD_LAYOUT_CHANGE:
+      return {
+        ...state,
+        layout: action.payload
+      }
+    case DASHBOARD_LAYOUT_CHANGE_MOBILE:
+      return {
+        ...state,
+        layoutMobile: action.payload
+      }
     default:
       return state;
   }
