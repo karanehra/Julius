@@ -16,6 +16,7 @@ import ControlCamera from "@material-ui/icons/ControlCamera";
 import RssFeed from "@material-ui/icons/RssFeed";
 import ListIcon from "@material-ui/icons/List";
 import SelectAll from "@material-ui/icons/SelectAll";
+import CloudDownload from "@material-ui/icons/CloudDownload";
 import Info from "@material-ui/icons/Info";
 import Timer from "@material-ui/icons/Timer";
 import Loader from "./shared/loader";
@@ -109,6 +110,16 @@ class Julius extends Component {
           <Timer />
         </ListItemIcon>
         <ListItemText primary="Cron" />
+      </ListItem>
+      <ListItem
+        button
+        className={this.getActiveClass("/dumps")}
+        onClick={this.routeTo("/dumps")}
+      >
+        <ListItemIcon classes={{ root: "white" }}>
+          <CloudDownload />
+        </ListItemIcon>
+        <ListItemText primary="Dumps" />
       </ListItem>
       <ListItem
         button

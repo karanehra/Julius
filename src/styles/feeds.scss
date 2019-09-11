@@ -3,14 +3,19 @@
 }
 
 .add-feed-cont {
-  padding:10px 20px;
+  padding: 10px 20px;
   margin: 10px 0;
-  
-  .add-text{
+
+  .add-text {
     display: flex;
     align-items: center;
   }
 }
-.feed-details{
+
+.feed-details {
   display: block !important;
+  background-color: #f3f3f3ab;
+  .action-btn {
+    margin-bottom: 5px;
+  }
 }

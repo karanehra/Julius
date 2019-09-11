@@ -21,16 +21,20 @@ class ArticlesPage extends Component {
   }
   state = {
     isContentDialogOpen: false,
-    dialogContent: null
+    dialogData: null
   };
 
-  parseArticle = link => event => {
+  parseArticle = article => event => {
     event.preventDefault();
     event.stopPropagation();
     callParseArticleApi({
-      url: link
+      url: article.link
     }).then(res => {
-      this.setState({ dialogContent: res.data });
+      let data = {
+        article,
+        parsed: res.data
+      };
+      this.setState({ dialogData: data });
       this.switchContentDialog();
     });
   };
@@ -43,17 +47,8 @@ class ArticlesPage extends Component {
 
   render() {
     const { articleData, isMobile } = this.props;
-    const { isContentDialogOpen, dialogContent } = this.state;
+    const { isContentDialogOpen, dialogData } = this.state;
     return (
-      // <React.Fragment>
-      //   {isMobile ? (
-      //     articleData &&
-      //     articleData.map(row => (
-      //       <Paper className="article-cont-mb" key={row.id}>
-      //         {row.title}
-      //       </Paper>
-      //     ))
-      //   ) : (
       <React.Fragment>
         {articleData &&
           articleData.map((article, i) => (
@@ -66,11 +61,13 @@ class ArticlesPage extends Component {
                   content: "article-summary"
                 }}
               >
-                <Typography>{article.title}</Typography>
+                <Typography className="article-title">
+                  {article.title}
+                </Typography>
                 {!isMobile && (
                   <Button
                     variant="outlined"
-                    onClick={this.parseArticle(article.link)}
+                    onClick={this.parseArticle(article)}
                     color="primary"
                   >
                     Get Content
@@ -81,48 +78,64 @@ class ArticlesPage extends Component {
                 {isMobile && (
                   <Button
                     variant="outlined"
-                    onClick={this.parseArticle(article.link)}
+                    onClick={this.parseArticle(article)}
                     color="primary"
                     fullWidth
+                    classes={{
+                      root: "action-btn"
+                    }}
                   >
                     Get Content
                   </Button>
                 )}
                 <div>
-                  <GenericText size={14} bold>
-                    Id:
+                  <GenericText size={14} bold indent>
+                    Source:
                   </GenericText>
-                  <GenericText size={12}>{article.id}</GenericText>
+                  <GenericText size={12}>{article.feed.title}</GenericText>
                 </div>
                 <div>
-                  <GenericText size={14} bold>
+                  <GenericText size={14} bold indent>
                     Snippet:
                   </GenericText>
                   <GenericText size={12}>{article.snippet}</GenericText>
                 </div>
                 <div>
-                  <GenericText size={14} bold>
+                  <GenericText size={14} bold indent>
                     Added At:
                   </GenericText>
                   <GenericText size={12}>{article.createdAt}</GenericText>
                 </div>
                 <div>
-                  <GenericText size={14} bold>
+                  <GenericText size={14} bold indent>
                     Url:
                   </GenericText>
                   <a target="_blank" href={article.link}>
                     Visit
                   </a>
                 </div>
+                <div>
+                  <GenericText size={14} bold indent>
+                    Id:
+                  </GenericText>
+                  <GenericText size={12}>{article.id}</GenericText>
+                </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
           ))}
-        <Dialog open={isContentDialogOpen} onClose={this.switchContentDialog}>
-          {dialogContent}
-        </Dialog>
+        {isContentDialogOpen && (
+          <Dialog
+            classes={{ paper: "dialog-cont" }}
+            open={isContentDialogOpen}
+            onClose={this.switchContentDialog}
+          >
+            <GenericText size={22} gutters={10} bold>
+              {dialogData.article.title}
+            </GenericText>
+            {dialogData.parsed}
+          </Dialog>
+        )}
       </React.Fragment>
-      //   )}
-      // </React.Fragment>
     );
   }
 }

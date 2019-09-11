@@ -19,7 +19,7 @@ import Cancel from "@material-ui/icons/Cancel";
 import Link from "@material-ui/icons/Link";
 import "@styles/feeds.scss";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import GenericText from './shared/genericText';
+import GenericText from "./shared/genericText";
 
 class FeedsPage extends Component {
   state = {
@@ -58,7 +58,7 @@ class FeedsPage extends Component {
   };
 
   render() {
-    const { feedData, addFeedData } = this.props;
+    const { feedData, addFeedData, isMobile } = this.props;
     const { expandedPanel, feedAddPanelVisible } = this.state;
     return (
       <React.Fragment>
@@ -82,7 +82,7 @@ class FeedsPage extends Component {
         {feedAddPanelVisible && (
           <Paper className="add-feed-cont">
             <Grid container spacing={2}>
-              <Grid item xs={2} className="add-text">
+              <Grid item xs={isMobile ? 12 : 2} className="add-text">
                 <Typography variant="h6">Add New Feed</Typography>
               </Grid>
 
@@ -92,7 +92,7 @@ class FeedsPage extends Component {
                 </Grid>
               ) : (
                 <React.Fragment>
-                  <Grid item xs={8}>
+                  <Grid item xs={isMobile?12:8}>
                     <TextField
                       InputProps={{
                         startAdornment: (
@@ -138,19 +138,27 @@ class FeedsPage extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails className="feed-details">
                 <div>
-                  <GenericText size={14} bold>Id:</GenericText>
+                  <GenericText size={14} bold>
+                    Id:
+                  </GenericText>
                   <GenericText size={12}>{feed.id}</GenericText>
                 </div>
                 <div>
-                  <GenericText size={14} bold>Description:</GenericText>
+                  <GenericText size={14} bold>
+                    Description:
+                  </GenericText>
                   <GenericText size={12}>{feed.description}</GenericText>
                 </div>
                 <div>
-                  <GenericText size={14} bold>Created At:</GenericText>
+                  <GenericText size={14} bold>
+                    Created At:
+                  </GenericText>
                   <GenericText size={12}>{feed.createdAt}</GenericText>
                 </div>
                 <div>
-                  <GenericText size={14} bold>Image Url:</GenericText>
+                  <GenericText size={14} bold>
+                    Image Url:
+                  </GenericText>
                   <GenericText size={12}>{feed.image_url}</GenericText>
                 </div>
               </ExpansionPanelDetails>
@@ -164,7 +172,8 @@ class FeedsPage extends Component {
 const mapStateToProps = state => ({
   feedData: state.feedsReducer.feedData,
   addLoading: state.feedsReducer.addLoading,
-  addFeedData: state.feedsReducer.addFeedData
+  addFeedData: state.feedsReducer.addFeedData,
+  isMobile: state.deviceReducer.isMobile
 });
 
 export default connect(mapStateToProps)(FeedsPage);
