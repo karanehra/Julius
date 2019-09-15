@@ -4,23 +4,40 @@ import {
   TableHead,
   TableCell,
   TableBody,
-  TableRow
+  TableRow,
+  Button
 } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getLogsAsyncAction } from '../actions/logs.actions';
+import { getLogsAsyncAction } from "../actions/logs.actions";
+import { callClearLogsApi } from "../utils/apiService";
 
 class LogsPage extends Component {
   componentDidMount() {
-    this.props.dispatch(getLogsAsyncAction());
+    this.getLogData();
   }
-  state = {
-    data: []
+  clearLogs = () => {
+    callClearLogsApi().then(res => {
+      if (res.status === 200) {
+        this.getLogData();
+      }
+    });
+  };
+
+  getLogData = () => {
+    this.props.dispatch(getLogsAsyncAction());
   };
 
   render() {
     const { logsData } = this.props;
     return (
       <React.Fragment>
+        <Button color="secondary" variant="contained" onClick={this.getLogData}>
+          Refresh
+        </Button>
+        &nbsp;
+        <Button color="primary" variant="contained" onClick={this.clearLogs}>
+          Clear Logs
+        </Button>
         <Table>
           <TableHead>
             <TableRow>
@@ -38,12 +55,8 @@ class LogsPage extends Component {
                     {row.title}
                   </TableCell>
                   <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">
-                    {row.log_type}
-                  </TableCell>
-                  <TableCell align="right">
-                    {row.createdAt}
-                  </TableCell>
+                  <TableCell align="right">{row.log_type}</TableCell>
+                  <TableCell align="right">{row.createdAt}</TableCell>
                 </TableRow>
               ))}
           </TableBody>

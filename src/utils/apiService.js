@@ -38,6 +38,10 @@ export const callGetLogsApi = payload => {
   return Axios.get(API_BASE_URL + "/logs");
 };
 
+export const callClearLogsApi = payload => {
+  return Axios.get(API_BASE_URL + "/logs/clear");
+};
+
 export const callParseArticleApi = payload => {
   return Axios.post(API_BASE_URL + "/articles/parse", payload);
 };
