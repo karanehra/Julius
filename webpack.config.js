@@ -1,4 +1,5 @@
 const htmlWebPackPlugin = require("html-webpack-plugin");
+const Brotli = require("brotli-webpack-plugin");
 const path = require("path");
 module.exports = env => {
   return {
@@ -23,7 +24,18 @@ module.exports = env => {
       new htmlWebPackPlugin({
         template: "./src/index.html",
         filename: "./index.html"
-      })
+      }),
+      ...(env.NODE_ENV === "production"
+        ? [
+            new Brotli({
+              asset: "[path].br[query]",
+              test: /\.(js|css|html|svg)$/,
+              threshold: 10240,
+              minRatio: 0.8,
+              deleteOriginalAssets: true
+            })
+          ]
+        : [])
     ],
     devServer: {
       historyApiFallback: true,
