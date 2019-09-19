@@ -20,22 +20,15 @@ module.exports = env => {
         }
       ]
     },
+    output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "main.js"
+    },
     plugins: [
       new htmlWebPackPlugin({
         template: "./src/index.html",
         filename: "./index.html"
       }),
-      ...(env.NODE_ENV === "production"
-        ? [
-            new Brotli({
-              asset: "[path].br[query]",
-              test: /\.(js|css|html|svg)$/,
-              threshold: 10240,
-              minRatio: 0.8,
-              deleteOriginalAssets: true
-            })
-          ]
-        : [])
     ],
     devServer: {
       historyApiFallback: true,
