@@ -147,8 +147,7 @@ class Julius extends Component {
                   <ListIcon/>
                 </div>
                 <SelectAll />
-                &nbsp;
-                <Typography variant="h5" noWrap>
+                <Typography className="brand" variant="h5" noWrap>
                   Julius
                 </Typography>
               </React.Fragment>
@@ -173,8 +172,7 @@ class Julius extends Component {
           >
             <Toolbar className="topbar">
               <SelectAll />
-              &nbsp;
-              <Typography variant="h5" noWrap>
+              <Typography className="brand" variant="h5" noWrap>
                 Julius
               </Typography>
             </Toolbar>

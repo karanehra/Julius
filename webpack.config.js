@@ -22,7 +22,7 @@ module.exports = env => {
     },
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "main.js"
+      filename: "[hash].js"
     },
     plugins: [
       new htmlWebPackPlugin({
