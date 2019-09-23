@@ -6,29 +6,16 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
+import theme from "./constants/theme";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: "#f27573",
-      main: "#ef5350",
-      dark: "#a73a38"
-    },
-    secondary: {
-      light: "#8561c5",
-      main: "#673ab7",
-      light: "#482880"
-    }
-  },
-  
-});
+const MUI_THEME = createMuiTheme(theme);
 
 store.subscribe(() => {
-  localStorage.setItem("juliusStore", JSON.stringify(store.getState()))
-})
+  localStorage.setItem("juliusStore", JSON.stringify(store.getState()));
+});
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={MUI_THEME}>
     <Provider store={store}>
       <Router>
         <Julius />

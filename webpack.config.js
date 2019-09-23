@@ -24,6 +24,11 @@ module.exports = env => {
       path: path.resolve(__dirname, "dist"),
       filename: "[hash].js"
     },
+    optimization:{
+      splitChunks:{
+        chunks:'all'
+      }
+    },
     plugins: [
       new htmlWebPackPlugin({
         template: "./src/index.html",
@@ -38,7 +43,8 @@ module.exports = env => {
     resolve: {
       alias: {
         "@styles": path.resolve(__dirname, "src/styles"),
-        "@assets": path.resolve(__dirname, "src/assets")
+        "@assets": path.resolve(__dirname, "src/assets"),
+        "@components": path.resolve(__dirname, "src/components")
       }
     }
   };

@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import "@styles/app.scss";
-import Dashboard from "./dashboard";
 import ControlCamera from "@material-ui/icons/ControlCamera";
 import RssFeed from "@material-ui/icons/RssFeed";
 import ListIcon from "@material-ui/icons/List";
@@ -23,12 +22,16 @@ import Loader from "./shared/loader";
 import { isAppLoading } from "../utils/helpers";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import FeedsPage from "./feeds";
-import ArticlesPage from "./articles";
-import CronPage from "./cron";
-import LogsPage from "./logs";
 import { deviceDetectAcion } from "../actions/device.actions";
 import { isMobile } from "react-device-detect";
+import juliusRoutes from "../constants/routes";
+import {
+  DASHBOARD_ROUTE_PATH,
+  FEEDS_ROUTE_PATH,
+  ARTICLES_ROUTE_PATH,
+  CRONJOBS_ROUTE_PATH,
+  LOGS_ROUTE_PATH
+} from "../constants/routeUrls";
 
 class Julius extends Component {
   state = {
@@ -40,21 +43,21 @@ class Julius extends Component {
   }
 
   routeTo = route => event => {
-    this.setState({isMobileDrawerOpen:false})
+    this.setState({ isMobileDrawerOpen: false });
     this.props.history.push(route);
   };
 
   getHeader = () => {
     switch (this.props.location.pathname) {
-      case "/articles":
+      case ARTICLES_ROUTE_PATH:
         return "Articles";
-      case "/":
+      case DASHBOARD_ROUTE_PATH:
         return "Dashboard";
-      case "/feeds":
+      case FEEDS_ROUTE_PATH:
         return "Feeds";
-      case "/cronjobs":
+      case CRONJOBS_ROUTE_PATH:
         return "Cron Jobs";
-      case "/logs":
+      case LOGS_ROUTE_PATH:
         return "Logs";
     }
   };
@@ -73,8 +76,8 @@ class Julius extends Component {
     <List component="nav">
       <ListItem
         button
-        className={this.getActiveClass("/")}
-        onClick={this.routeTo("/")}
+        className={this.getActiveClass(DASHBOARD_ROUTE_PATH)}
+        onClick={this.routeTo(DASHBOARD_ROUTE_PATH)}
       >
         <ListItemIcon classes={{ root: "white" }}>
           <ControlCamera />
@@ -83,8 +86,8 @@ class Julius extends Component {
       </ListItem>
       <ListItem
         button
-        className={this.getActiveClass("/feeds")}
-        onClick={this.routeTo("/feeds")}
+        className={this.getActiveClass(FEEDS_ROUTE_PATH)}
+        onClick={this.routeTo(FEEDS_ROUTE_PATH)}
       >
         <ListItemIcon classes={{ root: "white" }}>
           <RssFeed />
@@ -93,8 +96,8 @@ class Julius extends Component {
       </ListItem>
       <ListItem
         button
-        className={this.getActiveClass("/articles")}
-        onClick={this.routeTo("/articles")}
+        className={this.getActiveClass(ARTICLES_ROUTE_PATH)}
+        onClick={this.routeTo(ARTICLES_ROUTE_PATH)}
       >
         <ListItemIcon classes={{ root: "white" }}>
           <ListIcon />
@@ -103,8 +106,8 @@ class Julius extends Component {
       </ListItem>
       <ListItem
         button
-        className={this.getActiveClass("/cronjobs")}
-        onClick={this.routeTo("/cronjobs")}
+        className={this.getActiveClass(CRONJOBS_ROUTE_PATH)}
+        onClick={this.routeTo(CRONJOBS_ROUTE_PATH)}
       >
         <ListItemIcon classes={{ root: "white" }}>
           <Timer />
@@ -123,8 +126,8 @@ class Julius extends Component {
       </ListItem>
       <ListItem
         button
-        className={this.getActiveClass("/logs")}
-        onClick={this.routeTo("/logs")}
+        className={this.getActiveClass(LOGS_ROUTE_PATH)}
+        onClick={this.routeTo(LOGS_ROUTE_PATH)}
       >
         <ListItemIcon classes={{ root: "white" }}>
           <Info />
@@ -139,12 +142,16 @@ class Julius extends Component {
     const { loading, isMobile } = this.props;
     return (
       <div className={isMobile ? "julius mb" : "julius"}>
-        <AppBar position="fixed" className={isMobile ? "navbar mb" : "navbar"}>
-          <Toolbar className="navbar-toolbar">
+        <AppBar
+          color="primary"
+          position="fixed"
+          className={isMobile ? "navbar mb" : "navbar"}
+        >
+          <Toolbar color="primary" className="navbar-toolbar">
             {isMobile ? (
               <React.Fragment>
                 <div className="menu" onClick={this.toggleMobileDrawer}>
-                  <ListIcon/>
+                  <ListIcon />
                 </div>
                 <SelectAll />
                 <Typography className="brand" variant="h5" noWrap>
@@ -182,11 +189,14 @@ class Julius extends Component {
         <div className={isMobile ? "content mb" : "content"}>
           {loading && <Loader />}
           <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route exact path="/feeds" component={FeedsPage} />
-            <Route exact path="/articles" component={ArticlesPage} />
-            <Route exact path="/cronjobs" component={CronPage} />
-            <Route exact path="/logs" component={LogsPage} />
+            {juliusRoutes.map((route, i) => (
+              <Route
+                exact
+                key={i}
+                path={route.path}
+                component={route.component}
+              />
+            ))}
           </Switch>
         </div>
       </div>
