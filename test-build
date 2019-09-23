@@ -1,4 +1,4 @@
-sudo -rm -rf dist/
-sudo npm run buildprod
+sudo rm -rf dist/
+npm run buildprod
 cd dist/
 python -m SimpleHTTPServer

@@ -1,6 +1,6 @@
 const htmlWebPackPlugin = require("html-webpack-plugin");
-const Brotli = require("brotli-webpack-plugin");
 const path = require("path");
+const webpack = require('webpack')
 module.exports = env => {
   return {
     module: {
@@ -24,9 +24,9 @@ module.exports = env => {
       path: path.resolve(__dirname, "dist"),
       filename: "[hash].js"
     },
-    optimization:{
-      splitChunks:{
-        chunks:'all'
+    optimization: {
+      splitChunks: {
+        chunks: "all"
       }
     },
     plugins: [
@@ -34,6 +34,11 @@ module.exports = env => {
         template: "./src/index.html",
         filename: "./index.html"
       }),
+      new webpack.DefinePlugin({
+        "process.env": {
+          NODE_ENV: JSON.stringify("production")
+        }
+      })
     ],
     devServer: {
       historyApiFallback: true,
@@ -45,7 +50,8 @@ module.exports = env => {
         "@styles": path.resolve(__dirname, "src/styles"),
         "@assets": path.resolve(__dirname, "src/assets"),
         "@components": path.resolve(__dirname, "src/components")
-      }
+      },
+      extensions: [".js", ".scss"]
     }
   };
 };

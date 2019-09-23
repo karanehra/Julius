@@ -10,6 +10,8 @@ import theme from "./constants/theme";
 
 const MUI_THEME = createMuiTheme(theme);
 
+console.log(process.env)
+
 store.subscribe(() => {
   localStorage.setItem("juliusStore", JSON.stringify(store.getState()));
 });
