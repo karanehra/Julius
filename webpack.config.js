@@ -1,6 +1,7 @@
 const htmlWebPackPlugin = require("html-webpack-plugin");
+const cssPlugin = require("mini-css-extract-plugin");
 const path = require("path");
-const webpack = require('webpack')
+const webpack = require("webpack");
 module.exports = env => {
   return {
     module: {
@@ -12,7 +13,11 @@ module.exports = env => {
         },
         {
           test: /\.s?css$/,
-          use: ["style-loader", "css-loader", "sass-loader"]
+          use: [
+            env.NODE_ENV === "production" ? cssPlugin.loader : "style-loader",
+            "css-loader",
+            "sass-loader"
+          ]
         },
         {
           test: /\.(png|gif|svg)$/,
@@ -38,6 +43,9 @@ module.exports = env => {
         "process.env": {
           NODE_ENV: JSON.stringify("production")
         }
+      }),
+      new cssPlugin({
+        filename: "[name].css"
       })
     ],
     devServer: {
