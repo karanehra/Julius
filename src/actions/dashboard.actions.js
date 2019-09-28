@@ -1,11 +1,11 @@
-import { callGetStatusDataApi } from "../utils/apiService";
+import { callGetStatusDataApi } from "@utils/apis/apiService";
 import {
   GET_DASHBOARD_DATA_START,
   GET_DASHBOARD_DATA_SUCCESS,
   GET_DASHBOARD_DATA_FAILURE,
   DASHBOARD_LAYOUT_CHANGE,
   DASHBOARD_LAYOUT_CHANGE_MOBILE
-} from "../constants/actionTypes";
+} from "@constants/actionTypes";
 
 const getDashboardDataStartAction = () => ({
   type: GET_DASHBOARD_DATA_START

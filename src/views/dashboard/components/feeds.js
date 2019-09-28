@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   getFeedDataAsyncAction,
   addFeedAsyncAction
-} from "../../../actions/feeds.actions";
+} from "@actions/feeds.actions";
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -17,9 +17,9 @@ import {
 } from "@material-ui/core";
 import Cancel from "@material-ui/icons/Cancel";
 import Link from "@material-ui/icons/Link";
-import "@styles/feeds.scss";
+import "@styles/views/feeds.scss";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import GenericText from "../../../shared/genericText";
+import GenericText from "@shared/genericText";
 
 class FeedsPage extends Component {
   state = {

@@ -6,8 +6,7 @@ import {
   USER_SIGNUP_FAILURE,
   USER_LOGIN_FAILURE
 } from "@constants/actionTypes";
-import { callUserSignupApi } from "@utils/apiService";
-import { callUserLoginpApi } from '../utils/apiService';
+import { callUserSignupApi, callUserLoginpApi } from "@utils/apis/login.api.js";
 
 const userSignupStartAction = () => ({
   type: USER_SIGNUP_START
@@ -59,4 +58,3 @@ export const userLoginAsyncAction = payload => {
       });
   };
 };
-

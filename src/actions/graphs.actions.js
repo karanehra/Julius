@@ -3,7 +3,7 @@ import {
   GET_GRAPH_DATA_SUCCESS,
   GET_GRAPH_DATA_FAILURE
 } from "../constants/actionTypes";
-import { callGetGraphDataApi } from "../utils/apiService";
+import { callGetGraphDataApi } from "@utils/apis/apiService";
 
 const getGraphDataStartAction = () => ({
   type: GET_GRAPH_DATA_START

@@ -8,8 +8,8 @@ import {
   Button
 } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getLogsAsyncAction } from "../../../actions/logs.actions";
-import { callClearLogsApi } from "../../../utils/apiService";
+import { getLogsAsyncAction } from "@actions/logs.actions";
+import { callClearLogsApi } from "@utils/apis/apiService";
 
 class LogsPage extends Component {
   componentDidMount() {

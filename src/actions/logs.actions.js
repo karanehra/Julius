@@ -3,7 +3,7 @@ import {
   GET_LOGS_DATA_SUCCESS,
   GET_LOGS_DATA_FAILURE
 } from "../constants/actionTypes";
-import { callGetLogsApi } from "../utils/apiService";
+import { callGetLogsApi } from "@utils/apis/apiService";
 
 const getLogsStartAction = () => ({
   type: GET_LOGS_DATA_START

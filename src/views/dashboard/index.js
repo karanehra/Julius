@@ -83,8 +83,8 @@ class Dashboard extends Component {
     <List component="nav">
       <ListItem
         button
-        className={this.getActiveClass(DASHBOARD_ROUTE_PATH)}
-        onClick={this.routeTo(DASHBOARD_ROUTE_PATH)}
+        className={this.getActiveClass("/dashboard/home")}
+        onClick={this.routeTo("/dashboard/home")}
       >
         <ListItemIcon classes={{ root: "white" }}>
           <ControlCamera />
@@ -196,19 +196,14 @@ class Dashboard extends Component {
         <div className={isMobile ? "content mb" : "content"}>
           {loading && <Loader />}
           <Switch>
-            {/* {juliusDashboardRoutes.map((route, i) => (
+            {juliusDashboardRoutes.map((route, i) => (
               <Route
                 exact
                 key={i}
                 path={route.path}
                 component={route.component}
               />
-            ))} */}
-            <Route
-                exact
-                path={"/dashboard/home"}
-                component={Home}
-              />
+            ))}
           </Switch>
           asdas
         </div>

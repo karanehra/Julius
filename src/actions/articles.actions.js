@@ -3,7 +3,7 @@ import {
   GET_ARTICLE_DATA_SUCCESS,
   GET_ARTICLE_DATA_FAILURE
 } from "../constants/actionTypes";
-import { callGetArticlesApi } from "../utils/apiService";
+import { callGetArticlesApi } from "@utils/apis/apiService";
 
 const getArticleDataStartAction = () => ({
   type: GET_ARTICLE_DATA_START

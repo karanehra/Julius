@@ -1,4 +1,4 @@
-import { callGetFeedsApi, callAddFeedApi } from "../utils/apiService";
+import { callGetFeedsApi, callAddFeedApi } from "@utils/apis/apiService";
 import {
   GET_FEED_DATA_SUCCESS,
   GET_FEED_DATA_START,

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getCronDataAsyncAction } from "../../../actions/cron.actions";
+import { getCronDataAsyncAction } from "@actions/cron.actions";
 import {
   CardContent,
   CardActions,
@@ -16,9 +16,9 @@ import {
 import Card from "@material-ui/core/Card";
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import Stop from "@material-ui/icons/Stop";
-import "@styles/cron.scss";
+import "@styles/views/cron.scss";
 import { styled } from "@material-ui/styles";
-import { callStopCronApi, callStartCronApi } from "../../../utils/apiService";
+import { callStopCronApi, callStartCronApi } from "@utils/apis/apiService";
 
 class CronPage extends Component {
   state = {};

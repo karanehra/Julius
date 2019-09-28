@@ -10,6 +10,7 @@ import {
   SIGNUP_ROUTE_PATH,
   HOME_ROUTE_PATH
 } from "./routeUrls";
+import Dashboard from "../views/dashboard";
 
 export const juliusRoutes = [
   {
@@ -33,41 +34,7 @@ export const juliusRoutes = [
       loading: Loader
     })
   }
-  // {
-  //   path: DASHBOARD_ROUTE_PATH,
-  // component: Loadable({
-  //   loader: () => import("../components/dashboard"),
-  //   loading: Loader
-  // })
-  // },
-  // {
-  //   path: FEEDS_ROUTE_PATH,
-  //   component: Loadable({
-  //     loader: () => import("@components/feeds"),
-  //     loading: Loader
-  //   })
-  // },
-  // {
-  //   path: ARTICLES_ROUTE_PATH,
-  //   component: Loadable({
-  //     loader: () => import("@components/articles"),
-  //     loading: Loader
-  //   })
-  // },
-  // {
-  //   path: CRONJOBS_ROUTE_PATH,
-  //   component: Loadable({
-  //     loader: () => import("@components/cron"),
-  //     loading: Loader
-  //   })
-  // },
-  // {
-  //   path: LOGS_ROUTE_PATH,
-  //   component: Loadable({
-  //     loader: () => import("@components/logs"),
-  //     loading: Loader
-  //   })
-  // }
+  
 ];
 
 export const juliusDashboardRoutes = [
@@ -75,6 +42,34 @@ export const juliusDashboardRoutes = [
     path: HOME_ROUTE_PATH,
     component: Loadable({
       loader: () => import("@views/dashboard/components/home"),
+      loading: Loader
+    })
+  },
+  {
+    path: FEEDS_ROUTE_PATH,
+    component: Loadable({
+      loader: () => import("@views/dashboard/components/feeds"),
+      loading: Loader
+    })
+  },
+  {
+    path: ARTICLES_ROUTE_PATH,
+    component: Loadable({
+      loader: () => import("@views/dashboard/components/articles"),
+      loading: Loader
+    })
+  },
+  {
+    path: CRONJOBS_ROUTE_PATH,
+    component: Loadable({
+      loader: () => import("@views/dashboard/components/cron"),
+      loading: Loader
+    })
+  },
+  {
+    path: LOGS_ROUTE_PATH,
+    component: Loadable({
+      loader: () => import("@views/dashboard/components/logs"),
       loading: Loader
     })
   }

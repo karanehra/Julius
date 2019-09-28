@@ -9,11 +9,11 @@ import {
   Dialog
 } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getArticleDataAsyncAction } from "../../../actions/articles.actions";
+import { getArticleDataAsyncAction } from "@actions/articles.actions";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import GenericText from "../../../shared/genericText";
-import { callParseArticleApi } from "../../../utils/apiService";
-import "@styles/articles.scss";
+import GenericText from "@shared/genericText";
+import { callParseArticleApi } from "@utils/apis/apiService";
+import "@styles/views/articles.scss";
 
 class ArticlesPage extends Component {
   componentDidMount() {

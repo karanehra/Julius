@@ -1,4 +1,4 @@
-import {  callGetCronDataApi } from "../utils/apiService";
+import {  callGetCronDataApi } from "@utils/apis/apiService";
 import {
   GET_CRON_DATA_START,
   GET_CRON_DATA_SUCCESS,
