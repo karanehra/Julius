@@ -4,11 +4,14 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
-      "@views/*": ["src/views/*"],
       "@actions/*": ["src/actions/*"],
+      "@assets/*": ["src/assets/*"],
       "@constants/*": ["src/constants/*"],
-      "Shared/*": ["src/shared/*"],
-      "App/*": ["src/*"]
+      "@reducers/*": ["src/reducers/*"],
+      "@shared/*": ["src/shared/*"],
+      "@store/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
+      "@views/*": ["src/views/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

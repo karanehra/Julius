@@ -9,8 +9,8 @@ import {
   ListItemIcon,
   ListItemText
 } from "@material-ui/core";
-// import { Switch, Route } from "react-router-dom";
-import "@styles/app.scss";
+import { Switch, Route } from "react-router-dom";
+import "@styles/views/app.scss";
 import ControlCamera from "@material-ui/icons/ControlCamera";
 import RssFeed from "@material-ui/icons/RssFeed";
 import ListIcon from "@material-ui/icons/List";
@@ -18,13 +18,12 @@ import SelectAll from "@material-ui/icons/SelectAll";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import Info from "@material-ui/icons/Info";
 import Timer from "@material-ui/icons/Timer";
-// import Loader from "./shared/loader";
-import { isAppLoading } from "../../utils/helpers";
+import Loader from "@shared/loader";
+import { isAppLoading } from "@utils/helpers";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { deviceDetectAcion } from "@actions/device.actions";
 import { isMobile } from "react-device-detect";
-// import juliusRoutes from "../constants/routes";
 import {
   DASHBOARD_ROUTE_PATH,
   FEEDS_ROUTE_PATH,
@@ -32,14 +31,21 @@ import {
   CRONJOBS_ROUTE_PATH,
   LOGS_ROUTE_PATH
 } from "@constants/routeUrls";
+import { juliusDashboardRoutes } from "@constants/routes";
+import { LOGIN_ROUTE_PATH } from "../../constants/routeUrls";
 
-class Julius extends Component {
+class Dashboard extends Component {
   state = {
     isMobileDrawerOpen: false
   };
 
   componentDidMount() {
-    this.props.dispatch(deviceDetectAcion(isMobile));
+    const { userData, dispatch, history } = this.props;
+    if (!userData) {
+      history.push(LOGIN_ROUTE_PATH);
+    } else {
+      this.props.dispatch(deviceDetectAcion(isMobile));
+    }
   }
 
   routeTo = route => event => {
@@ -187,9 +193,9 @@ class Julius extends Component {
           </Drawer>
         )}
         <div className={isMobile ? "content mb" : "content"}>
-          {/* {loading && <Loader />}
+          {loading && <Loader />}
           <Switch>
-            {juliusRoutes.map((route, i) => (
+            {juliusDashboardRoutes.map((route, i) => (
               <Route
                 exact
                 key={i}
@@ -197,7 +203,7 @@ class Julius extends Component {
                 component={route.component}
               />
             ))}
-          </Switch> */}
+          </Switch>
           asdas
         </div>
       </div>
@@ -207,7 +213,8 @@ class Julius extends Component {
 
 const mapStateToProps = state => ({
   loading: isAppLoading(state),
-  isMobile: state.deviceReducer.isMobile
+  isMobile: state.deviceReducer.isMobile,
+  userData: state.usersReducer.userData
 });
 
-export default withRouter(connect(mapStateToProps)(Julius));
+export default withRouter(connect(mapStateToProps)(Dashboard));

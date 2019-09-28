@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import juliusRoutes from './constants/routes';
-import { Switch } from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import { juliusRoutes } from "./constants/routes";
+import { Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 class Julius extends Component {
   state = {};

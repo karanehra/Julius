@@ -51,12 +51,13 @@ module.exports = env => {
     },
     resolve: {
       alias: {
-        "@styles": path.resolve(__dirname, "src/styles"),
-        "@assets": path.resolve(__dirname, "src/assets"),
-        "@components": path.resolve(__dirname, "src/components"),
-        "@views": path.resolve(__dirname, "src/views"),
         "@actions": path.resolve(__dirname, "src/actions"),
+        "@assets": path.resolve(__dirname, "src/assets"),
         "@constants": path.resolve(__dirname, "src/constants"),
+        "@shared": path.resolve(__dirname, "src/shared"),
+        "@styles": path.resolve(__dirname, "src/styles"),
+        "@utils": path.resolve(__dirname, "src/utils"),
+        "@views": path.resolve(__dirname, "src/views")
       },
       extensions: [".js", ".scss"]
     }

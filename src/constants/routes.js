@@ -1,5 +1,5 @@
 import Loadable from "react-loadable";
-import Loader from "@components/shared/loader";
+import Loader from "@shared/loader";
 import {
   DASHBOARD_ROUTE_PATH,
   FEEDS_ROUTE_PATH,
@@ -7,10 +7,11 @@ import {
   CRONJOBS_ROUTE_PATH,
   LOGS_ROUTE_PATH,
   LOGIN_ROUTE_PATH,
-  SIGNUP_ROUTE_PATH
+  SIGNUP_ROUTE_PATH,
+  HOME_ROUTE_PATH
 } from "./routeUrls";
 
-const juliusRoutes = [
+export const juliusRoutes = [
   {
     path: LOGIN_ROUTE_PATH,
     component: Loadable({
@@ -68,4 +69,13 @@ const juliusRoutes = [
   //   })
   // }
 ];
-export default juliusRoutes;
+
+export const juliusDashboardRoutes = [
+  {
+    path: HOME_ROUTE_PATH,
+    component: Loadable({
+      loader: () => import("@views/dashboard/components/home"),
+      loading: Loader
+    })
+  }
+];
