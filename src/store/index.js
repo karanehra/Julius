@@ -8,6 +8,7 @@ import cronReducer from "../reducers/cron.reducer";
 import graphsReducer from "../reducers/graphs.reducer";
 import logsReducer from "../reducers/logs.reducer";
 import deviceReducer from "../reducers/device.reducer";
+import usersReducer from "../reducers/users.reducer";
 
 let persistedState = JSON.parse(localStorage.getItem("juliusStore")) || {};
 
@@ -19,7 +20,8 @@ export default createStore(
     cronReducer,
     graphsReducer,
     logsReducer,
-    deviceReducer
+    deviceReducer,
+    usersReducer
   }),
   persistedState,
   applyMiddleware(logger, thunk)

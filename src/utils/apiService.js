@@ -45,3 +45,11 @@ export const callClearLogsApi = payload => {
 export const callParseArticleApi = payload => {
   return Axios.post(API_BASE_URL + "/articles/parse", payload);
 };
+
+export const callUserSignupApi = payload => {
+  return Axios.post(API_BASE_URL + "/users/signup", payload);
+};
+
+export const callUserLoginpApi = payload => {
+  return Axios.post(API_BASE_URL + "/users/login", payload);
+};
