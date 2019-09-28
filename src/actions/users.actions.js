@@ -1,8 +1,13 @@
 import {
   USER_SIGNUP_START,
-  USER_SIGNUP_SUCCESS
-} from "../constants/actionTypes";
-import { callUserSignupApi } from "../utils/apiService";
+  USER_SIGNUP_SUCCESS,
+  USER_LOGIN_START,
+  USER_LOGIN_SUCCESS,
+  USER_SIGNUP_FAILURE,
+  USER_LOGIN_FAILURE
+} from "@constants/actionTypes";
+import { callUserSignupApi } from "@utils/apiService";
+import { callUserLoginpApi } from '../utils/apiService';
 
 const userSignupStartAction = () => ({
   type: USER_SIGNUP_START
@@ -13,7 +18,7 @@ const userSignupSuccessAction = userData => ({
 });
 
 const userSignupFailureAction = errData => ({
-  type: USER_SIGNUP_SUCCESS,
+  type: USER_SIGNUP_FAILURE,
   payload: errData
 });
 
@@ -29,3 +34,29 @@ export const userSignupAsyncAction = payload => {
       });
   };
 };
+const userLoginStartAction = () => ({
+  type: USER_LOGIN_START
+});
+const userLoginSuccessAction = userData => ({
+  type: USER_LOGIN_SUCCESS,
+  payload: userData
+});
+
+const userLoginFailureAction = errData => ({
+  type: USER_LOGIN_FAILURE,
+  payload: errData
+});
+
+export const userLoginAsyncAction = payload => {
+  return dispatch => {
+    dispatch(userLoginStartAction());
+    callUserLoginpApi(payload)
+      .then(res => {
+        dispatch(userLoginSuccessAction(res.data));
+      })
+      .catch(err => {
+        dispatch(userLoginFailureAction(err));
+      });
+  };
+};
+

@@ -1,11 +1,15 @@
 import {
   USER_SIGNUP_START,
   USER_SIGNUP_SUCCESS,
-  USER_SIGNUP_FAILURE
+  USER_SIGNUP_FAILURE,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE,
+  USER_LOGIN_START
 } from "../constants/actionTypes";
 const initialState = {
   signupData: null,
   loading: false,
+  userData: null,
   errorData: null
 };
 
@@ -18,6 +22,12 @@ export default function usersReducer(state = initialState, action) {
       return { ...state, loading: false, signupData: payload, errorData: null };
     case USER_SIGNUP_FAILURE:
       return { ...state, loading: false, errorData: payload, signupata: null };
+    case USER_LOGIN_START:
+      return { ...state, loading: true };
+    case USER_LOGIN_SUCCESS:
+      return { ...state, loading: false, userData: payload, errorData: null };
+    case USER_LOGIN_FAILURE:
+      return { ...state, loading: false, errorData: payload, userData: null };
     default:
       return state;
   }

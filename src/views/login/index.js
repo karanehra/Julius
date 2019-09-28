@@ -3,6 +3,7 @@ import { Paper, TextField, Button } from "@material-ui/core/";
 import "@styles/views/login.scss";
 import GenericText from "@shared/genericText";
 import { connect } from "react-redux";
+import { userLoginAsyncAction } from "@actions/users.actions";
 
 class LoginPage extends Component {
   state = {
@@ -16,6 +17,7 @@ class LoginPage extends Component {
 
   handleSubmit = () => {
     console.log(this.state);
+    this.props.dispatch(userLoginAsyncAction(this.state));
   };
 
   render() {
