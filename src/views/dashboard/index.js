@@ -33,6 +33,7 @@ import {
 } from "@constants/routeUrls";
 import { juliusDashboardRoutes } from "@constants/routes";
 import { LOGIN_ROUTE_PATH } from "../../constants/routeUrls";
+import Home from './components/home';
 
 class Dashboard extends Component {
   state = {
@@ -195,14 +196,19 @@ class Dashboard extends Component {
         <div className={isMobile ? "content mb" : "content"}>
           {loading && <Loader />}
           <Switch>
-            {juliusDashboardRoutes.map((route, i) => (
+            {/* {juliusDashboardRoutes.map((route, i) => (
               <Route
                 exact
                 key={i}
                 path={route.path}
                 component={route.component}
               />
-            ))}
+            ))} */}
+            <Route
+                exact
+                path={"/dashboard/home"}
+                component={Home}
+              />
           </Switch>
           asdas
         </div>

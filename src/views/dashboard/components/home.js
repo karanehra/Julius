@@ -16,6 +16,7 @@ import "../../../../node_modules/react-resizable/css/styles.css";
 class Home extends Component {
   state = {};
   componentDidMount() {
+    console.log("asdsa")
     this.refreshData();
   }
   refreshData = () => {
