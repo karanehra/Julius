@@ -1,0 +1,22 @@
+.article-cont-mb {
+  padding: 10px;
+  margin-bottom: 10px;
+
+}
+
+.article-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .article-title {
+    max-width: 80%
+  }
+}
+.action-btn{
+  margin-bottom: 5px;
+}
+.dialog-cont{
+  max-width: 1200px !important;
+  padding:20px;
+}
