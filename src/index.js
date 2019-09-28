@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import Julius from "./components/julius";
+import Julius from "./julius";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";

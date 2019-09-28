@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "@views/*": ["src/views/*"],
+      "@actions/*": ["src/actions/*"],
+      "@constants/*": ["src/constants/*"],
+      "Shared/*": ["src/shared/*"],
+      "App/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

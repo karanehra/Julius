@@ -39,11 +39,7 @@ module.exports = env => {
         template: "./src/index.html",
         filename: "./index.html"
       }),
-      new webpack.DefinePlugin({
-        "process.env": {
-          NODE_ENV: JSON.stringify("production")
-        }
-      }),
+      new webpack.DefinePlugin({}),
       new cssPlugin({
         filename: "[name].css"
       })
@@ -57,7 +53,10 @@ module.exports = env => {
       alias: {
         "@styles": path.resolve(__dirname, "src/styles"),
         "@assets": path.resolve(__dirname, "src/assets"),
-        "@components": path.resolve(__dirname, "src/components")
+        "@components": path.resolve(__dirname, "src/components"),
+        "@views": path.resolve(__dirname, "src/views"),
+        "@actions": path.resolve(__dirname, "src/actions"),
+        "@constants": path.resolve(__dirname, "src/constants"),
       },
       extensions: [".js", ".scss"]
     }
