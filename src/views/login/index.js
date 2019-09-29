@@ -4,6 +4,8 @@ import "@styles/views/login.scss";
 import GenericText from "@shared/genericText";
 import { connect } from "react-redux";
 import { userLoginAsyncAction } from "@actions/users.actions";
+import { withRouter } from "react-router-dom";
+import { HOME_ROUTE_PATH } from "../../constants/routeUrls";
 
 class LoginPage extends Component {
   state = {
@@ -16,8 +18,16 @@ class LoginPage extends Component {
   };
 
   handleSubmit = () => {
-    console.log(this.state);
-    this.props.dispatch(userLoginAsyncAction(this.state));
+    this.props
+      .dispatch(userLoginAsyncAction(this.state))
+      .then(res => {
+        if (res.status === 200) {
+          this.props.history.push(HOME_ROUTE_PATH);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -63,4 +73,4 @@ const mapStateToProps = state => ({
   loading: state.usersReducer.loading
 });
 
-export default connect(mapStateToProps)(LoginPage);
+export default withRouter(connect(mapStateToProps)(LoginPage));

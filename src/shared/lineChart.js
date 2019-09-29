@@ -8,11 +8,13 @@ class CustomChart extends Component {
   componentDidMount() {
     let datavals = [];
     let labels = [];
-    Object.keys(this.props.data).forEach(key => {
-      datavals.push(this.props.data[key]);
-      let d = new Date(parseInt(key));
-      labels.push(d.getDate() + "/" + d.getMonth());
-    });
+    if (this.props.data) {
+      Object.keys(this.props.data).forEach(key => {
+        datavals.push(this.props.data[key]);
+        let d = new Date(parseInt(key));
+        labels.push(d.getDate() + "/" + d.getMonth());
+      });
+    }
     new Chart(this.chartRef.current.getContext("2d"), {
       type: this.props.type,
       data: {

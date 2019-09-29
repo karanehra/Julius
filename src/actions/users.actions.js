@@ -49,12 +49,14 @@ const userLoginFailureAction = errData => ({
 export const userLoginAsyncAction = payload => {
   return dispatch => {
     dispatch(userLoginStartAction());
-    callUserLoginpApi(payload)
+    return callUserLoginpApi(payload)
       .then(res => {
         dispatch(userLoginSuccessAction(res.data));
+        return res;
       })
       .catch(err => {
         dispatch(userLoginFailureAction(err));
+        throw err;
       });
   };
 };

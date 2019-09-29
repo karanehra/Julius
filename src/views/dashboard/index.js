@@ -205,7 +205,6 @@ class Dashboard extends Component {
               />
             ))}
           </Switch>
-          asdas
         </div>
       </div>
     );

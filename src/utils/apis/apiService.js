@@ -4,11 +4,12 @@ const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
 import store from "../../store";
 
-
 let axios = Axios.create({
-  headers: {
-    Authorization: "Bearer " + store.getState().usersReducer.userData.token
-  }
+  headers: store.getState().usersReducer.userData
+    ? {
+        Authorization: "Bearer " + store.getState().usersReducer.userData.token
+      }
+    : {}
 });
 
 export const callGetArticlesApi = () => {
