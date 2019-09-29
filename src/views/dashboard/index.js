@@ -32,8 +32,8 @@ import {
   LOGS_ROUTE_PATH
 } from "@constants/routeUrls";
 import { juliusDashboardRoutes } from "@constants/routes";
-import { LOGIN_ROUTE_PATH } from "../../constants/routeUrls";
-import Home from './components/home';
+import { LOGIN_ROUTE_PATH, HOME_ROUTE_PATH } from "../../constants/routeUrls";
+import Home from "./components/home";
 
 class Dashboard extends Component {
   state = {
@@ -58,7 +58,7 @@ class Dashboard extends Component {
     switch (this.props.location.pathname) {
       case ARTICLES_ROUTE_PATH:
         return "Articles";
-      case DASHBOARD_ROUTE_PATH:
+      case HOME_ROUTE_PATH:
         return "Dashboard";
       case FEEDS_ROUTE_PATH:
         return "Feeds";
@@ -146,7 +146,7 @@ class Dashboard extends Component {
 
   render() {
     const { isMobileDrawerOpen } = this.state;
-    const { loading, isMobile } = this.props;
+    const { loading, isMobile, userData } = this.props;
     return (
       <div className={isMobile ? "julius mb" : "julius"}>
         <AppBar
@@ -166,9 +166,17 @@ class Dashboard extends Component {
                 </Typography>
               </React.Fragment>
             ) : (
-              <Typography variant="h6" noWrap>
-                {this.getHeader()}
-              </Typography>
+              <div className="toolbar-cont">
+                <Typography variant="h6" noWrap>
+                  {this.getHeader()}
+                </Typography>
+                <div className="left">
+                  <Typography variant="h6" noWrap>
+                    Hello, {userData.firstname}
+                  </Typography>
+                  <div className="dp"></div>
+                </div>
+              </div>
             )}
           </Toolbar>
         </AppBar>
@@ -214,7 +222,7 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
   loading: isAppLoading(state),
   isMobile: state.deviceReducer.isMobile,
-  userData: state.usersReducer.userData
+  userData: state.usersReducer.userData.user
 });
 
 export default withRouter(connect(mapStateToProps)(Dashboard));

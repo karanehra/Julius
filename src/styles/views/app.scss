@@ -30,7 +30,8 @@
       background-color: #ee5350;
       box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
       color: white;
-      .brand{
+
+      .brand {
         margin-left: 10px;
       }
     }
@@ -46,8 +47,29 @@
 
     .navbar-toolbar {
       padding-left: 30px;
-      .brand{
+
+      .brand {
         margin-left: 10px;
+      }
+
+      .toolbar-cont {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .left {
+          display: flex;
+
+          .dp {
+            height: 35px;
+            width: 35px;
+            background-color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 20px;
+          }
+        }
       }
     }
 
