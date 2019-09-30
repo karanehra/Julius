@@ -26,7 +26,6 @@ import { withRouter } from "react-router-dom";
 import { deviceDetectAcion } from "@actions/device.actions";
 import { isMobile } from "react-device-detect";
 import {
-  DASHBOARD_ROUTE_PATH,
   FEEDS_ROUTE_PATH,
   ARTICLES_ROUTE_PATH,
   CRONJOBS_ROUTE_PATH,
@@ -34,7 +33,6 @@ import {
 } from "@constants/routeUrls";
 import { juliusDashboardRoutes } from "@constants/routes";
 import { LOGIN_ROUTE_PATH, HOME_ROUTE_PATH } from "../../constants/routeUrls";
-import Home from "./components/home";
 import GenericText from "../../shared/genericText";
 
 class Dashboard extends Component {
@@ -44,7 +42,7 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    const { userData, dispatch, history } = this.props;
+    const { userData, history } = this.props;
     if (!userData) {
       history.push(LOGIN_ROUTE_PATH);
     } else {
@@ -52,7 +50,7 @@ class Dashboard extends Component {
     }
   }
 
-  routeTo = route => event => {
+  routeTo = route => () => {
     this.setState({ isMobileDrawerOpen: false });
     this.props.history.push(route);
   };

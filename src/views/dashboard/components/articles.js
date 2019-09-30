@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Paper,
   ExpansionPanel,
   ExpansionPanelSummary,
   Typography,
@@ -110,7 +109,11 @@ class ArticlesPage extends Component {
                   <GenericText size={14} bold indent>
                     Url:
                   </GenericText>
-                  <a target="_blank" href={article.link}>
+                  <a
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={article.link}
+                  >
                     Visit
                   </a>
                 </div>

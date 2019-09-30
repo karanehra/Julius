@@ -43,11 +43,11 @@ export const callStartCronApi = id => {
   return axios.get(CRON_SERVER_BASE_URL + "/start/" + id);
 };
 
-export const callGetLogsApi = payload => {
+export const callGetLogsApi = () => {
   return axios.get(API_BASE_URL + "/logs");
 };
 
-export const callClearLogsApi = payload => {
+export const callClearLogsApi = () => {
   return axios.get(API_BASE_URL + "/logs/clear");
 };
 

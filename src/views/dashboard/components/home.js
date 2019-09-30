@@ -6,7 +6,6 @@ import {
   dashboardLayoutChangeMobileAction
 } from "@actions/dashboard.actions";
 import { Typography, Button, Paper } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
 import { getGraphDataAsyncAction } from "@actions/graphs.actions";
 import CustomChart from "@shared/lineChart";
 import GridLayout from "react-grid-layout";

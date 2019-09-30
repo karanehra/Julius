@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { getCronDataAsyncAction } from "@actions/cron.actions";
 import {
   CardContent,
-  CardActions,
   Grid,
   Typography,
   Button,
@@ -45,7 +44,7 @@ class CronPage extends Component {
     color: "#ff00001a"
   });
 
-  stopCronService = id => event => {
+  stopCronService = id => () => {
     callStopCronApi(id)
       .then(res => {
         if (res.status === 200) {
@@ -57,7 +56,7 @@ class CronPage extends Component {
       });
   };
 
-  startCronService = id => event => {
+  startCronService = id => () => {
     callStartCronApi(id)
       .then(res => {
         if (res.status === 200) {

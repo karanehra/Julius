@@ -18,7 +18,7 @@ const getGraphDataFailureAction = err => ({
   type: GET_GRAPH_DATA_FAILURE,
   payload: err
 });
-export const getGraphDataAsyncAction = payload => {
+export const getGraphDataAsyncAction = () => {
   return dispatch => {
     dispatch(getGraphDataStartAction());
     callGetGraphDataApi()

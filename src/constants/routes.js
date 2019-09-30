@@ -10,7 +10,6 @@ import {
   SIGNUP_ROUTE_PATH,
   HOME_ROUTE_PATH
 } from "./routeUrls";
-import Dashboard from "../views/dashboard";
 
 export const juliusRoutes = [
   {
@@ -34,7 +33,6 @@ export const juliusRoutes = [
       loading: Loader
     })
   }
-  
 ];
 
 export const juliusDashboardRoutes = [

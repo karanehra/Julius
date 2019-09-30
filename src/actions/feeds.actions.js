@@ -36,7 +36,7 @@ const addFeedFailureAction = err => ({
   payload: err
 });
 
-export const getFeedDataAsyncAction = payload => {
+export const getFeedDataAsyncAction = () => {
   return dispatch => {
     dispatch(getFeedDataStartAction());
     callGetFeedsApi()
