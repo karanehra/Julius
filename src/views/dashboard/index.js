@@ -7,7 +7,8 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Button
 } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import "@styles/views/app.scss";
@@ -34,10 +35,12 @@ import {
 import { juliusDashboardRoutes } from "@constants/routes";
 import { LOGIN_ROUTE_PATH, HOME_ROUTE_PATH } from "../../constants/routeUrls";
 import Home from "./components/home";
+import GenericText from "../../shared/genericText";
 
 class Dashboard extends Component {
   state = {
-    isMobileDrawerOpen: false
+    isMobileDrawerOpen: false,
+    isProfileDrawerOpen: false
   };
 
   componentDidMount() {
@@ -78,6 +81,17 @@ class Dashboard extends Component {
       isMobileDrawerOpen: !this.state.isMobileDrawerOpen
     });
   };
+
+  toggleProfileDrawer = () => {
+    this.setState({
+      isProfileDrawerOpen: !this.state.isProfileDrawerOpen
+    });
+  };
+
+  logout = () => {
+    this.props.history.push(LOGIN_ROUTE_PATH);
+    localStorage.clear();
+  }
 
   getNavigationMarkup = () => (
     <List component="nav">
@@ -145,7 +159,7 @@ class Dashboard extends Component {
   );
 
   render() {
-    const { isMobileDrawerOpen } = this.state;
+    const { isMobileDrawerOpen, isProfileDrawerOpen } = this.state;
     const { loading, isMobile, userData } = this.props;
     return (
       <div className={isMobile ? "julius mb" : "julius"}>
@@ -174,12 +188,29 @@ class Dashboard extends Component {
                   <Typography variant="h6" noWrap>
                     Hello, {userData.firstname}
                   </Typography>
-                  <div className="dp"></div>
+                  <div onClick={this.toggleProfileDrawer} className="dp"></div>
                 </div>
               </div>
             )}
           </Toolbar>
         </AppBar>
+        {!isMobile && (
+          <Drawer
+            open={isProfileDrawerOpen}
+            onClose={this.toggleProfileDrawer}
+            anchor="right"
+          >
+            <div className="profile-drawer">
+              <GenericText size={34} gutters={5} bold>
+                {userData.firstname + " " + userData.lastname}
+              </GenericText>
+              <GenericText gutters={15} size={14}>
+                {userData.email}
+              </GenericText>
+              <Button onClick={this.logout} color="primary" variant="contained">Logout</Button>
+            </div>
+          </Drawer>
+        )}
         {isMobile ? (
           <Drawer open={isMobileDrawerOpen} onClose={this.toggleMobileDrawer}>
             {this.getNavigationMarkup()}

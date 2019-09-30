@@ -76,6 +76,8 @@
     &.mb {
       width: 100vw !important;
     }
+
+
   }
 
 
@@ -109,4 +111,11 @@
 .datacard {
   padding: 10px 15px;
   box-sizing: border-box;
+}
+
+.profile-drawer {
+  width: 40vw;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
