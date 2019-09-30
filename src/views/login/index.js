@@ -6,12 +6,18 @@ import { connect } from "react-redux";
 import { userLoginAsyncAction } from "@actions/users.actions";
 import { withRouter } from "react-router-dom";
 import { HOME_ROUTE_PATH } from "../../constants/routeUrls";
+import { isMobile } from "react-device-detect";
+import { deviceDetectAcion } from '@actions/device.actions';
 
 class LoginPage extends Component {
   state = {
     email: "",
     password: ""
   };
+
+  componentDidMount(){
+    this.props.dispatch(deviceDetectAcion(isMobile))
+  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -32,9 +38,10 @@ class LoginPage extends Component {
 
   render() {
     const { email, password } = this.state;
+    const { isMobile } = this.props;
     return (
       <div className="login-wrapper">
-        <Paper className="login-box">
+        <Paper className={isMobile ? "login-box mb" : "login-box"}>
           <GenericText size={34} bold gutters={35}>
             Login To Julius
           </GenericText>
@@ -70,7 +77,8 @@ class LoginPage extends Component {
 
 const mapStateToProps = state => ({
   userData: state.usersReducer.userData,
-  loading: state.usersReducer.loading
+  loading: state.usersReducer.loading,
+  isMobile: state.deviceReducer.isMobile
 });
 
 export default withRouter(connect(mapStateToProps)(LoginPage));

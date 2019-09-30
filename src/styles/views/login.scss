@@ -1,16 +1,30 @@
 @import "../index.scss";
 
-.login-wrapper{
+.login-wrapper {
   @extend %true-center-flex;
   width: 100%;
   height: 100vh;
-  .login-box{
+
+  .login-box {
     @extend %vertical-centered-flex;
     width: 30%;
-    padding: 30px;
-    .field{
+    padding: 40px;
+
+    .field {
       width: 60%;
       margin-bottom: 15px;
     }
+
+    &.mb {
+      width: 100%;
+      margin: 30px;
+
+      .field {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
   }
+
+
 }
