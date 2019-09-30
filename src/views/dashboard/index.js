@@ -91,7 +91,7 @@ class Dashboard extends Component {
   logout = () => {
     this.props.history.push(LOGIN_ROUTE_PATH);
     localStorage.clear();
-  }
+  };
 
   getNavigationMarkup = () => (
     <List component="nav">
@@ -207,13 +207,21 @@ class Dashboard extends Component {
               <GenericText gutters={15} size={14}>
                 {userData.email}
               </GenericText>
-              <Button onClick={this.logout} color="primary" variant="contained">Logout</Button>
+              <Button onClick={this.logout} color="primary" variant="contained">
+                Logout
+              </Button>
             </div>
           </Drawer>
         )}
         {isMobile ? (
           <Drawer open={isMobileDrawerOpen} onClose={this.toggleMobileDrawer}>
+            <div className="mb-drawer-profile">
+              {userData.firstname + " " + userData.lastname}
+            </div>
             {this.getNavigationMarkup()}
+            <Button onClick={this.logout} color="primary" variant="contained">
+              Logout
+            </Button>
           </Drawer>
         ) : (
           <Drawer
