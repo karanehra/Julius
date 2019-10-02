@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://api.karanehra.me";
-// const API_BASE_URL = "http://localhost:3000";
+// const API_BASE_URL = "http://api.karanehra.me";
+const API_BASE_URL = "http://localhost:3000";
 const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
 import store from "../../store";
@@ -61,4 +61,12 @@ export const callGetNotesApi = payload => {
 
 export const callPostNoteApi = payload => {
   return axios.post(API_BASE_URL + "/notes", payload);
+};
+
+export const callGetUserBoardsApi = userId => {
+  return Axios.get(API_BASE_URL + "/boards/" + userId);
+};
+
+export const callPostBoardApi = payload => {
+  return Axios.post(API_BASE_URL + "/boards", payload);
 };

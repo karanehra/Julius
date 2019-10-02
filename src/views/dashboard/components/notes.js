@@ -1,12 +1,20 @@
 import React, { Component } from "react";
 import "@styles/views/notes.scss";
 import { Grid, Button, TextField } from "@material-ui/core";
+import { connect } from "react-redux";
+import { getUserBoardsDataAsync } from "../../../actions/notes.action";
+import { callPostBoardApi } from "../../../utils/apis/apiService";
+import GenericText from '../../../shared/genericText';
 
 class NotesPage extends Component {
   state = {
-    boards: [],
     isBoardCreationActive: false
   };
+
+  componentDidMount() {
+    const { dispatch, userData } = this.props;
+    dispatch(getUserBoardsDataAsync(userData.id));
+  }
 
   drag = event => {
     event.dataTransfer.setData("id", event.target.id);
@@ -15,50 +23,60 @@ class NotesPage extends Component {
   allowDrop = event => {
     event.preventDefault();
   };
-  
+
   drop = event => {
     event.preventDefault();
     var data = event.dataTransfer.getData("id");
     event.target.appendChild(document.getElementById(data));
   };
 
-  createBoard = () => {
-    let board = {
-      title: null
-    };
-    let { boards } = this.state;
-    boards.push(board);
+  toggleBoardCreation = () => {
     this.setState({
-      boards
+      isBoardCreationActive: !this.state.isBoardCreationActive
+    });
+  };
+
+  createBoard = () => {
+    const { dispatch, userData } = this.props;
+    callPostBoardApi({
+      name: "Board",
+      userId: userData.id
+    }).then(res => {
+      dispatch(getUserBoardsDataAsync(userData.id));
     });
   };
 
   render() {
-    const { boards } = this.state;
+    const { isBoardCreationActive } = this.state;
     return (
       <React.Fragment>
-        <Button variant="contained" color="primary" onClick={this.createBoard}>
-          Add Board
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.toggleBoardCreation}
+        >
+          {isBoardCreationActive ? "Cancel" : "Add Board"}
         </Button>
-        <Grid container>
-          {boards.map((board, i) => (
+        <Grid container spacing={2}>
+          {isBoardCreationActive && (
+            <Grid onDrop={this.drop} onDragOver={this.allowDrop} item xs={4}>
+              <div className="board">
+                <TextField variant="outlined" label="Enter Board Name" />
+                <Button variant="outlined" onClick={this.createBoard}>Ok</Button>
+              </div>
+            </Grid>
+          )}
+          {this.props.boards.map((board, i) => (
             <Grid
               key={i}
               onDrop={this.drop}
               onDragOver={this.allowDrop}
               item
               xs={4}
-              className="board"
             >
-              {board.title ? (
-                board.title
-              ) : (
-                <TextField
-                  variant="outlined"
-                  margin="dense"
-                  label="Enter Board Name"
-                />
-              )}
+              <div className="board">
+                <GenericText size={24} bold>{board.name}</GenericText>
+              </div>
             </Grid>
           ))}
         </Grid>
@@ -67,4 +85,9 @@ class NotesPage extends Component {
   }
 }
 
-export default NotesPage;
+const mapStateToProps = state => ({
+  userData: state.usersReducer.userData.user,
+  boards: state.notesReducer.boardsData
+});
+
+export default connect(mapStateToProps)(NotesPage);
