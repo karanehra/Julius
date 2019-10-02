@@ -54,3 +54,11 @@ export const callClearLogsApi = () => {
 export const callParseArticleApi = payload => {
   return axios.post(API_BASE_URL + "/articles/parse", payload);
 };
+
+export const callGetNotesApi = payload => {
+  return axios.get(API_BASE_URL + "/notes", payload);
+};
+
+export const callPostNoteApi = payload => {
+  return axios.post(API_BASE_URL + "/notes", payload);
+};
