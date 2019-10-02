@@ -3,8 +3,11 @@ import "@styles/views/notes.scss";
 import { Grid, Button, TextField } from "@material-ui/core";
 import { connect } from "react-redux";
 import { getUserBoardsDataAsync } from "../../../actions/notes.action";
-import { callPostBoardApi } from "../../../utils/apis/apiService";
-import GenericText from '../../../shared/genericText';
+import {
+  callPostBoardApi,
+  callDeleteUserBoardApi
+} from "../../../utils/apis/apiService";
+import GenericText from "../../../shared/genericText";
 
 class NotesPage extends Component {
   state = {
@@ -17,7 +20,7 @@ class NotesPage extends Component {
   }
 
   drag = event => {
-    event.dataTransfer.setData("id", event.target.id);
+    event.dataTransfer.setData("abc", event.target.id);
   };
 
   allowDrop = event => {
@@ -26,7 +29,7 @@ class NotesPage extends Component {
 
   drop = event => {
     event.preventDefault();
-    var data = event.dataTransfer.getData("id");
+    var data = event.dataTransfer.getData("abc");
     event.target.appendChild(document.getElementById(data));
   };
 
@@ -46,39 +49,85 @@ class NotesPage extends Component {
     });
   };
 
+  deleteBoard = boardId => () => {
+    const { dispatch, userData } = this.props;
+    callDeleteUserBoardApi(boardId).then(res => {
+      if (res.status === 200) {
+        dispatch(getUserBoardsDataAsync(userData.id));
+      }
+    });
+  };
+
   render() {
     const { isBoardCreationActive } = this.state;
+    const { boards } = this.props;
     return (
       <React.Fragment>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.toggleBoardCreation}
-        >
-          {isBoardCreationActive ? "Cancel" : "Add Board"}
-        </Button>
+        <div className="actions">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.toggleBoardCreation}
+          >
+            {isBoardCreationActive ? "Cancel" : "Add Board"}
+          </Button>
+        </div>
         <Grid container spacing={2}>
           {isBoardCreationActive && (
-            <Grid onDrop={this.drop} onDragOver={this.allowDrop} item xs={4}>
+            <Grid item xs={4}>
               <div className="board">
-                <TextField variant="outlined" label="Enter Board Name" />
-                <Button variant="outlined" onClick={this.createBoard}>Ok</Button>
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  label="Enter Board Name"
+                />
+                <Button variant="outlined" onClick={this.createBoard}>
+                  Ok
+                </Button>
               </div>
             </Grid>
           )}
-          {this.props.boards.map((board, i) => (
-            <Grid
-              key={i}
-              onDrop={this.drop}
-              onDragOver={this.allowDrop}
-              item
-              xs={4}
-            >
-              <div className="board">
-                <GenericText size={24} bold>{board.name}</GenericText>
-              </div>
-            </Grid>
-          ))}
+          {boards &&
+            boards.map((board, i) => (
+              <Grid
+                key={i}
+                onDrop={this.drop}
+                onDragOver={this.allowDrop}
+                item
+                xs={4}
+              >
+                <div className="board">
+                  <div className="name">
+                    <GenericText size={24} bold>
+                      {board.name}
+                    </GenericText>
+                  </div>
+                  <div
+                    className="notes"
+                    onDrop={this.drop}
+                    onDragOver={this.allowDrop}
+                  >
+                    <div
+                      className="note"
+                      id={"hey" + i}
+                      draggable
+                      onDragStart={this.drag}
+                    >
+                      asdasd
+                    </div>
+                  </div>
+                  <div className="actions">
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      onClick={this.deleteBoard(board.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              </Grid>
+            ))}
         </Grid>
       </React.Fragment>
     );

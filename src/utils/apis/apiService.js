@@ -64,9 +64,13 @@ export const callPostNoteApi = payload => {
 };
 
 export const callGetUserBoardsApi = userId => {
-  return Axios.get(API_BASE_URL + "/boards/" + userId);
+  return axios.get(API_BASE_URL + "/boards/" + userId);
 };
 
 export const callPostBoardApi = payload => {
-  return Axios.post(API_BASE_URL + "/boards", payload);
+  return axios.post(API_BASE_URL + "/boards", payload);
+};
+
+export const callDeleteUserBoardApi = boardId => {
+  return axios.delete(API_BASE_URL + "/boards/" + boardId);
 };
