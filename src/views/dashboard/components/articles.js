@@ -91,7 +91,7 @@ class ArticlesPage extends Component {
                   <GenericText size={14} bold indent>
                     Source:
                   </GenericText>
-                  <GenericText size={12}>{article.feed.title}</GenericText>
+                  <GenericText size={12}>{article.feedId}</GenericText>
                 </div>
                 <div>
                   <GenericText size={14} bold indent>
