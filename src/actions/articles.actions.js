@@ -25,7 +25,7 @@ export const getArticleDataAsyncAction = payload => {
     callGetArticlesApi()
       .then(res => {
         console.log(res.data);
-        dispatch(getArticleDataSuccessAction(res.data));
+        dispatch(getArticleDataSuccessAction(res.data.data));
       })
       .catch(err => {
         console.log(err);

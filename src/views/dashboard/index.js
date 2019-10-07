@@ -184,7 +184,7 @@ class Dashboard extends Component {
                 </Typography>
                 <div className="left">
                   <Typography variant="h6" noWrap>
-                    Hello, {userData.firstname}
+                    Hello, {userData.firstName}
                   </Typography>
                   <div onClick={this.toggleProfileDrawer} className="dp"></div>
                 </div>
@@ -200,7 +200,7 @@ class Dashboard extends Component {
           >
             <div className="profile-drawer">
               <GenericText size={34} gutters={5} bold>
-                {userData.firstname + " " + userData.lastname}
+                {userData.firstName + " " + userData.lastName}
               </GenericText>
               <GenericText gutters={15} size={14}>
                 {userData.email}
@@ -214,7 +214,7 @@ class Dashboard extends Component {
         {isMobile ? (
           <Drawer open={isMobileDrawerOpen} onClose={this.toggleMobileDrawer}>
             <div className="mb-drawer-profile">
-              {userData.firstname + " " + userData.lastname}
+              {userData.firstName + " " + userData.lastName}
             </div>
             {this.getNavigationMarkup()}
             <Button onClick={this.logout} color="primary" variant="contained">
@@ -259,7 +259,7 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
   loading: isAppLoading(state),
   isMobile: state.deviceReducer.isMobile,
-  userData: state.usersReducer.userData.user
+  userData: state.usersReducer.userData
 });
 
 export default withRouter(connect(mapStateToProps)(Dashboard));

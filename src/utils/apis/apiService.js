@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://api.karanehra.me";
-// const API_BASE_URL = "http://localhost:3000";
+// const API_BASE_URL = "http://api.karanehra.me";
+const API_BASE_URL = "http://localhost:3000";
 const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
 import store from "../../store";
@@ -7,7 +7,7 @@ import store from "../../store";
 let axios = Axios.create({
   headers: store.getState().usersReducer.userData
     ? {
-        Authorization: "Bearer " + store.getState().usersReducer.userData.token
+        Authorization: "Bearer " + store.getState().usersReducer.token
       }
     : {}
 });
