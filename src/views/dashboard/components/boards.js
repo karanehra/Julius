@@ -9,14 +9,15 @@ import {
 } from "../../../utils/apis/apiService";
 import GenericText from "../../../shared/genericText";
 
-class NotesPage extends Component {
+class BoardsPage extends Component {
   state = {
-    isBoardCreationActive: false
+    isBoardCreationActive: false,
+    newBoardName: ""
   };
 
   componentDidMount() {
     const { dispatch, userData } = this.props;
-    dispatch(getUserBoardsDataAsync(userData.id));
+    dispatch(getUserBoardsDataAsync(userData._id));
   }
 
   drag = event => {
@@ -41,11 +42,12 @@ class NotesPage extends Component {
 
   createBoard = () => {
     const { dispatch, userData } = this.props;
+    const { newBoardName } = this.state;
     callPostBoardApi({
-      name: "Board",
-      userId: userData.id
+      title: newBoardName,
+      userId: userData._id
     }).then(res => {
-      dispatch(getUserBoardsDataAsync(userData.id));
+      dispatch(getUserBoardsDataAsync(userData._id));
     });
   };
 
@@ -53,8 +55,15 @@ class NotesPage extends Component {
     const { dispatch, userData } = this.props;
     callDeleteUserBoardApi(boardId).then(res => {
       if (res.status === 200) {
-        dispatch(getUserBoardsDataAsync(userData.id));
+        dispatch(getUserBoardsDataAsync(userData._id));
       }
+    });
+  };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
     });
   };
 
@@ -80,6 +89,8 @@ class NotesPage extends Component {
                   variant="outlined"
                   margin="dense"
                   label="Enter Board Name"
+                  name="newBoardName"
+                  onChange={this.handleChange}
                 />
                 <Button variant="outlined" onClick={this.createBoard}>
                   Ok
@@ -99,7 +110,7 @@ class NotesPage extends Component {
                 <div className="board">
                   <div className="name">
                     <GenericText size={24} bold>
-                      {board.name}
+                      {board.title}
                     </GenericText>
                   </div>
                   <div
@@ -120,7 +131,7 @@ class NotesPage extends Component {
                     <Button
                       color="secondary"
                       variant="contained"
-                      onClick={this.deleteBoard(board.id)}
+                      onClick={this.deleteBoard(board._id)}
                     >
                       Delete
                     </Button>
@@ -135,8 +146,8 @@ class NotesPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  userData: state.usersReducer.userData.user,
+  userData: state.usersReducer.userData,
   boards: state.notesReducer.boardsData
 });
 
-export default connect(mapStateToProps)(NotesPage);
+export default connect(mapStateToProps)(BoardsPage);

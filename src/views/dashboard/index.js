@@ -19,6 +19,7 @@ import SelectAll from "@material-ui/icons/SelectAll";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import Info from "@material-ui/icons/Info";
 import Timer from "@material-ui/icons/Timer";
+import Note from "@material-ui/icons/Note";
 import Loader from "@shared/loader";
 import { isAppLoading } from "@utils/helpers";
 import { connect } from "react-redux";
@@ -32,7 +33,7 @@ import {
   LOGS_ROUTE_PATH
 } from "@constants/routeUrls";
 import { juliusDashboardRoutes } from "@constants/routes";
-import { LOGIN_ROUTE_PATH, HOME_ROUTE_PATH, NOTES_ROUTE_PATH } from "../../constants/routeUrls";
+import { LOGIN_ROUTE_PATH, HOME_ROUTE_PATH, BOARDS_ROUTE_PATH } from "../../constants/routeUrls";
 import GenericText from "../../shared/genericText";
 
 class Dashboard extends Component {
@@ -155,13 +156,13 @@ class Dashboard extends Component {
       </ListItem>
       <ListItem
         button
-        className={this.getActiveClass(NOTES_ROUTE_PATH)}
-        onClick={this.routeTo(NOTES_ROUTE_PATH)}
+        className={this.getActiveClass(BOARDS_ROUTE_PATH)}
+        onClick={this.routeTo(BOARDS_ROUTE_PATH)}
       >
         <ListItemIcon classes={{ root: "white" }}>
-          <Info />
+          <Note />
         </ListItemIcon>
-        <ListItemText primary="Notes" />
+        <ListItemText primary="Boards" />
       </ListItem>
     </List>
   );
