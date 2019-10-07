@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "@styles/views/notes.scss";
-import { Grid, Button, TextField } from "@material-ui/core";
+import { Grid, Button, TextField, InputAdornment } from "@material-ui/core";
+import Check from "@material-ui/icons/Check";
 import { connect } from "react-redux";
-import { getUserBoardsDataAsync } from "../../../actions/notes.action";
+import { getUserBoardsDataAsync } from "../../../actions/boards.action";
 import {
   callPostBoardApi,
   callDeleteUserBoardApi
@@ -12,7 +13,8 @@ import GenericText from "../../../shared/genericText";
 class BoardsPage extends Component {
   state = {
     isBoardCreationActive: false,
-    newBoardName: ""
+    newBoardName: "",
+    newCardTitle: ""
   };
 
   componentDidMount() {
@@ -67,8 +69,12 @@ class BoardsPage extends Component {
     });
   };
 
+  createNote = id => () => {
+    console.log(id);
+  };
+
   render() {
-    const { isBoardCreationActive } = this.state;
+    const { isBoardCreationActive, newCardTitle } = this.state;
     const { boards } = this.props;
     return (
       <React.Fragment>
@@ -126,6 +132,25 @@ class BoardsPage extends Component {
                     >
                       asdasd
                     </div>
+                    <TextField
+                      variant="outlined"
+                      margin="dense"
+                      label="Add Card"
+                      name="newCardTitle"
+                      value={newCardTitle}
+                      onChange={this.handleChange}
+                      fullWidth
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment
+                            position="end"
+                            onClick={this.createNote(board._id)}
+                          >
+                            <Check />
+                          </InputAdornment>
+                        )
+                      }}
+                    />
                   </div>
                   <div className="actions">
                     <Button
