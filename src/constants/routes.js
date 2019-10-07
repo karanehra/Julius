@@ -8,7 +8,8 @@ import {
   LOGS_ROUTE_PATH,
   LOGIN_ROUTE_PATH,
   SIGNUP_ROUTE_PATH,
-  HOME_ROUTE_PATH
+  HOME_ROUTE_PATH,
+  NOTES_ROUTE_PATH
 } from "./routeUrls";
 
 export const juliusRoutes = [
@@ -68,6 +69,13 @@ export const juliusDashboardRoutes = [
     path: LOGS_ROUTE_PATH,
     component: Loadable({
       loader: () => import("@views/dashboard/components/logs"),
+      loading: Loader
+    })
+  },
+  {
+    path: NOTES_ROUTE_PATH,
+    component: Loadable({
+      loader: () => import("@views/dashboard/components/notes"),
       loading: Loader
     })
   }

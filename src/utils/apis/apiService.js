@@ -54,3 +54,23 @@ export const callClearLogsApi = () => {
 export const callParseArticleApi = payload => {
   return axios.post(API_BASE_URL + "/articles/parse", payload);
 };
+
+export const callGetNotesApi = payload => {
+  return axios.get(API_BASE_URL + "/notes", payload);
+};
+
+export const callPostNoteApi = payload => {
+  return axios.post(API_BASE_URL + "/notes", payload);
+};
+
+export const callGetUserBoardsApi = userId => {
+  return axios.get(API_BASE_URL + "/boards/" + userId);
+};
+
+export const callPostBoardApi = payload => {
+  return axios.post(API_BASE_URL + "/boards", payload);
+};
+
+export const callDeleteUserBoardApi = boardId => {
+  return axios.delete(API_BASE_URL + "/boards/" + boardId);
+};

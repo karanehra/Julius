@@ -32,7 +32,7 @@ import {
   LOGS_ROUTE_PATH
 } from "@constants/routeUrls";
 import { juliusDashboardRoutes } from "@constants/routes";
-import { LOGIN_ROUTE_PATH, HOME_ROUTE_PATH } from "../../constants/routeUrls";
+import { LOGIN_ROUTE_PATH, HOME_ROUTE_PATH, NOTES_ROUTE_PATH } from "../../constants/routeUrls";
 import GenericText from "../../shared/genericText";
 
 class Dashboard extends Component {
@@ -152,6 +152,16 @@ class Dashboard extends Component {
           <Info />
         </ListItemIcon>
         <ListItemText primary="Logs" />
+      </ListItem>
+      <ListItem
+        button
+        className={this.getActiveClass(NOTES_ROUTE_PATH)}
+        onClick={this.routeTo(NOTES_ROUTE_PATH)}
+      >
+        <ListItemIcon classes={{ root: "white" }}>
+          <Info />
+        </ListItemIcon>
+        <ListItemText primary="Notes" />
       </ListItem>
     </List>
   );
