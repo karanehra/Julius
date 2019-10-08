@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import "@styles/views/notes.scss";
+import "@styles/views/boards.scss";
 import { Grid, Button, TextField, InputAdornment } from "@material-ui/core";
 import Check from "@material-ui/icons/Check";
 import { connect } from "react-redux";
 import { getUserBoardsDataAsync } from "../../../actions/boards.action";
 import {
   callPostBoardApi,
-  callDeleteUserBoardApi
+  callDeleteUserBoardApi,
+  callPostCardApi,
+  callPutCardApi
 } from "../../../utils/apis/apiService";
 import GenericText from "../../../shared/genericText";
 
@@ -14,7 +16,8 @@ class BoardsPage extends Component {
   state = {
     isBoardCreationActive: false,
     newBoardName: "",
-    newCardTitle: ""
+    newCardTitle: "",
+    addingCardToBoardId: null
   };
 
   componentDidMount() {
@@ -33,6 +36,15 @@ class BoardsPage extends Component {
   drop = event => {
     event.preventDefault();
     var data = event.dataTransfer.getData("abc");
+    console.log(data, event.target.id);
+    callPutCardApi(
+      {
+        boardId: event.target.id
+      },
+      data
+    ).then(res => {
+      console.log(res);
+    });
     event.target.appendChild(document.getElementById(data));
   };
 
@@ -50,6 +62,10 @@ class BoardsPage extends Component {
       userId: userData._id
     }).then(res => {
       dispatch(getUserBoardsDataAsync(userData._id));
+      this.setState({
+        isBoardCreationActive: false,
+        newBoardName: ""
+      });
     });
   };
 
@@ -69,12 +85,40 @@ class BoardsPage extends Component {
     });
   };
 
-  createNote = id => () => {
-    console.log(id);
+  createCard = id => () => {
+    const payload = {
+      title: this.state.newCardTitle,
+      boardId: id
+    };
+    callPostCardApi(payload).then(res => {
+      if (res.status === 201) {
+        this.setState({
+          addingCardToBoardId: null,
+          newCardTitle: ""
+        });
+        this.componentDidMount();
+      }
+    });
+  };
+
+  switchCardAddition = id => () => {
+    this.setState({
+      addingCardToBoardId: id
+    });
+  };
+
+  cancelCardAdditon = () => {
+    this.setState({
+      addingCardToBoardId: null
+    });
   };
 
   render() {
-    const { isBoardCreationActive, newCardTitle } = this.state;
+    const {
+      isBoardCreationActive,
+      newCardTitle,
+      addingCardToBoardId
+    } = this.state;
     const { boards } = this.props;
     return (
       <React.Fragment>
@@ -106,13 +150,7 @@ class BoardsPage extends Component {
           )}
           {boards &&
             boards.map((board, i) => (
-              <Grid
-                key={i}
-                onDrop={this.drop}
-                onDragOver={this.allowDrop}
-                item
-                xs={4}
-              >
+              <Grid key={i} item xs={4}>
                 <div className="board">
                   <div className="name">
                     <GenericText size={24} bold>
@@ -120,39 +158,58 @@ class BoardsPage extends Component {
                     </GenericText>
                   </div>
                   <div
-                    className="notes"
+                    className="cards"
+                    id={board._id}
                     onDrop={this.drop}
                     onDragOver={this.allowDrop}
                   >
-                    <div
-                      className="note"
-                      id={"hey" + i}
-                      draggable
-                      onDragStart={this.drag}
-                    >
-                      asdasd
-                    </div>
-                    <TextField
-                      variant="outlined"
-                      margin="dense"
-                      label="Add Card"
-                      name="newCardTitle"
-                      value={newCardTitle}
-                      onChange={this.handleChange}
-                      fullWidth
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment
-                            position="end"
-                            onClick={this.createNote(board._id)}
-                          >
-                            <Check />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
+                    {board.cards.map(card => (
+                      <div
+                        key={card._id}
+                        className="card"
+                        id={card._id}
+                        draggable
+                        onDragStart={this.drag}
+                      >
+                        {card.title}
+                      </div>
+                    ))}
+                    {addingCardToBoardId === board._id && (
+                      <TextField
+                        variant="outlined"
+                        margin="dense"
+                        label="Add Card"
+                        name="newCardTitle"
+                        value={newCardTitle}
+                        onChange={this.handleChange}
+                        fullWidth
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment
+                              position="end"
+                              onClick={this.createCard(board._id)}
+                            >
+                              <Check />
+                            </InputAdornment>
+                          )
+                        }}
+                      />
+                    )}
                   </div>
                   <div className="actions">
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={
+                        addingCardToBoardId === board._id
+                          ? this.cancelCardAdditon
+                          : this.switchCardAddition(board._id)
+                      }
+                    >
+                      {addingCardToBoardId === board._id
+                        ? "Cancel"
+                        : "Add Card"}
+                    </Button>
                     <Button
                       color="secondary"
                       variant="contained"

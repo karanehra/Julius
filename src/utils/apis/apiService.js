@@ -59,9 +59,13 @@ export const callGetNotesApi = payload => {
   return axios.get(API_BASE_URL + "/notes", payload);
 };
 
-export const callPostNoteApi = payload => {
-  return axios.post(API_BASE_URL + "/notes", payload);
+export const callPostCardApi = payload => {
+  return axios.post(API_BASE_URL + "/cards", payload);
 };
+
+export const callPutCardApi = (payload, cardId) => {
+  return axios.put(API_BASE_URL + `/cards/${cardId}`, payload)
+}
 
 export const callGetUserBoardsApi = userId => {
   return axios.get(API_BASE_URL + "/boards/" + userId);

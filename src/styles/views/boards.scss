@@ -13,17 +13,18 @@
     margin-bottom: 10px;
   }
 
-  .notes {
+  .cards {
     min-height: 200px;
     background-color: #d0d0d0;
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 20px;
 
-    .note {
+    .card {
       background-color: white;
       border-radius: 5px;
       padding: 10px;
+      margin-bottom: 5px;
     }
   }
 
