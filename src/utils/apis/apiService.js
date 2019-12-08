@@ -1,5 +1,5 @@
 // const API_BASE_URL = "http://api.karanehra.me";
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "http://localhost:3001";
 const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
 import store from "../../store";
@@ -37,10 +37,10 @@ export const callGetGraphDataApi = () => {
 };
 
 export const callStopCronApi = id => {
-  return axios.get(CRON_SERVER_BASE_URL + "/stop/" + id);
+  return axios.get(CRON_SERVER_BASE_URL + `/stop/${id}`);
 };
 export const callStartCronApi = id => {
-  return axios.get(CRON_SERVER_BASE_URL + "/start/" + id);
+  return axios.get(CRON_SERVER_BASE_URL + `/start/${id}`);
 };
 
 export const callGetLogsApi = () => {
@@ -64,11 +64,11 @@ export const callPostCardApi = payload => {
 };
 
 export const callPutCardApi = (payload, cardId) => {
-  return axios.put(API_BASE_URL + `/cards/${cardId}`, payload)
-}
+  return axios.put(API_BASE_URL + `/cards/${cardId}`, payload);
+};
 
 export const callGetUserBoardsApi = userId => {
-  return axios.get(API_BASE_URL + "/boards/" + userId);
+  return axios.get(API_BASE_URL + `/boards/${userId}`);
 };
 
 export const callPostBoardApi = payload => {
@@ -76,5 +76,27 @@ export const callPostBoardApi = payload => {
 };
 
 export const callDeleteUserBoardApi = boardId => {
-  return axios.delete(API_BASE_URL + "/boards/" + boardId);
+  return axios.delete(API_BASE_URL + `/boards/${boardId}`);
+};
+
+/**
+ * Calls the create new tree endpoint
+ * @param {Object} payload Request payload
+ * @param {string} payload.title Tree title
+ * @param {string} payload.userID Tree owner userID
+ * @param {Object} payload.userID Tree object representation
+ */
+export const callPostTreeApi = payload => {
+  return Axios.post(API_BASE_URL + "/tree", payload);
+};
+
+/**
+ * Calls the create new tree node endpoint
+ * @param {Object} payload Request payload
+ * @param {string} payload.title Node title
+ * @param {string} payload.parent Node parent's nodeID
+ * @param {Array<string>} payload.children Node's children nodeID
+ */
+export const callPostTreeNodeApi = payload => {
+  return Axios.post(API_BASE_URL + "/node", payload);
 };

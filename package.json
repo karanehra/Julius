@@ -13,7 +13,11 @@
     "type": "git",
     "url": "git+https://github.com/karanehra/Julius.git"
   },
-  "author": "",
+  "author": {
+    "name": "Karan Nehra",
+    "email": "karanehra@gmail.com",
+    "url": "https://github.com/karanehra"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/karanehra/Julius/issues"
