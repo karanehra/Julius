@@ -28,7 +28,7 @@ export class TreeHandler {
    * @param {string} ID The ID of the parent node
    */
   appendToNodeByID(node, ID) {
-    for (let child of node.children) {
+    for (let child of this.children) {
       if (child.ID === ID) {
         child.children.push(node);
         return;
@@ -58,3 +58,17 @@ export class Node {
     this.ID = getUUID(5);
   }
 }
+
+/**
+ * Decomposes a tree into a plain js object
+ * @param {TreeHandler} tree The tree to decompose to an object
+ */
+export const getTreeObjectRepresentation = tree => {
+  let a = {
+    title: tree.title
+    children: []
+  };
+  for(let child of tree.children){
+    let p = getTreeObjectRepresentation(child)
+  }
+};
