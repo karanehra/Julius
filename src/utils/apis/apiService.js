@@ -84,7 +84,7 @@ export const callDeleteUserBoardApi = boardId => {
  * @param {Object} payload Request payload
  * @param {string} payload.title Tree title
  * @param {string} payload.userID Tree owner userID
- * @param {Object} payload.userID Tree object representation
+ * @param {Object} payload.representation Tree object representation
  */
 export const callPostTreeApi = payload => {
   return Axios.post(API_BASE_URL + "/tree", payload);
