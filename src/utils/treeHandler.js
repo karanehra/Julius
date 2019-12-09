@@ -65,10 +65,12 @@ export class Node {
  */
 export const getTreeObjectRepresentation = tree => {
   let a = {
-    title: tree.title
+    title: tree.title,
     children: []
   };
-  for(let child of tree.children){
-    let p = getTreeObjectRepresentation(child)
+  for (let child of tree.children) {
+    let p = getTreeObjectRepresentation(child);
+    a.children.push(p);
   }
+  return a;
 };
