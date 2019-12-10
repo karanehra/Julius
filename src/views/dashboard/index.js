@@ -30,10 +30,13 @@ import {
   FEEDS_ROUTE_PATH,
   ARTICLES_ROUTE_PATH,
   CRONJOBS_ROUTE_PATH,
-  LOGS_ROUTE_PATH
+  LOGS_ROUTE_PATH,
+  LOGIN_ROUTE_PATH,
+  HOME_ROUTE_PATH,
+  BOARDS_ROUTE_PATH,
+  TREES_ROUTE_PATH
 } from "@constants/routeUrls";
 import { juliusDashboardRoutes } from "@constants/routes";
-import { LOGIN_ROUTE_PATH, HOME_ROUTE_PATH, BOARDS_ROUTE_PATH } from "../../constants/routeUrls";
 import GenericText from "../../shared/genericText";
 
 class Dashboard extends Component {
@@ -163,6 +166,16 @@ class Dashboard extends Component {
           <Note />
         </ListItemIcon>
         <ListItemText primary="Boards" />
+      </ListItem>
+      <ListItem
+        button
+        className={this.getActiveClass(TREES_ROUTE_PATH)}
+        onClick={this.routeTo(TREES_ROUTE_PATH)}
+      >
+        <ListItemIcon classes={{ root: "white" }}>
+          <Note />
+        </ListItemIcon>
+        <ListItemText primary="Trees" />
       </ListItem>
     </List>
   );

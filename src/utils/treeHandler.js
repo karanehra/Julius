@@ -1,4 +1,6 @@
 import { getUUID } from "./helpers";
+import { callPostTreeApi } from "./apis/apiService";
+import store from "../store";
 
 export class TreeHandler {
   title = null;
@@ -12,6 +14,15 @@ export class TreeHandler {
    */
   constructor(title) {
     if (title) this.title = title;
+    callPostTreeApi({
+      userID: store.getState().usersReducer.userData._id,
+      title: this.title,
+      representation: getTreeObjectRepresentation(this)
+    }).then(res => {
+      if (res.status === 200) {
+        console.log("done");
+      }
+    });
   }
 
   /**

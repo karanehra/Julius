@@ -14,18 +14,21 @@ import "../../../../node_modules/react-resizable/css/styles.css";
 
 class Home extends Component {
   state = {};
+
   componentDidMount() {
-    console.log("asdsa")
     this.refreshData();
   }
+
   refreshData = () => {
-    this.props.dispatch(getDashboardDataAsyncAction());
-    this.props.dispatch(getGraphDataAsyncAction());
+    const { dispatch } = this.props;
+    dispatch(getDashboardDataAsyncAction());
+    dispatch(getGraphDataAsyncAction());
   };
   handleLayoutChange = layout => {
-    this.props.isMobile
-      ? this.props.dispatch(dashboardLayoutChangeMobileAction(layout))
-      : this.props.dispatch(dashboardLayoutChangeAction(layout));
+    const { isMobile, dispatch } = this.props;
+    isMobile
+      ? dispatch(dashboardLayoutChangeMobileAction(layout))
+      : dispatch(dashboardLayoutChangeAction(layout));
   };
 
   render() {

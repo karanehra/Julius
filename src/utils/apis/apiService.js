@@ -100,3 +100,11 @@ export const callPostTreeApi = payload => {
 export const callPostTreeNodeApi = payload => {
   return Axios.post(API_BASE_URL + "/node", payload);
 };
+
+/**
+ * Gets all trees associated with the given userID
+ * @param {string} userID The userID whose trees to get
+ */
+export const callGetUserTreesApi = userID => {
+  return Axios.get(API_BASE_URL + `/tree/user/${userID}`);
+};

@@ -9,7 +9,8 @@ import {
   LOGIN_ROUTE_PATH,
   SIGNUP_ROUTE_PATH,
   HOME_ROUTE_PATH,
-  BOARDS_ROUTE_PATH
+  BOARDS_ROUTE_PATH,
+  TREES_ROUTE_PATH
 } from "./routeUrls";
 
 export const juliusRoutes = [
@@ -76,6 +77,13 @@ export const juliusDashboardRoutes = [
     path: BOARDS_ROUTE_PATH,
     component: Loadable({
       loader: () => import("@views/dashboard/components/boards"),
+      loading: Loader
+    })
+  },
+  {
+    path: TREES_ROUTE_PATH,
+    component: Loadable({
+      loader: () => import("@views/dashboard/components/trees"),
       loading: Loader
     })
   }
