@@ -108,3 +108,14 @@ export const callPostTreeNodeApi = payload => {
 export const callGetUserTreesApi = userID => {
   return Axios.get(API_BASE_URL + `/tree/user/${userID}`);
 };
+
+/**
+ * Updates the tree with given ID with the provided payload
+ * @param {string} treeID The treeID to update
+ * @param {Object} payload The treeID to update
+ * @param {string=} payload.title The tree title
+ * @param {Object=} payload.representation The tree object representation
+ */
+export const callPatchTreeApi = (treeID, payload) => {
+  return Axios.patch(API_BASE_URL + `/tree/${treeID}`, payload);
+};
