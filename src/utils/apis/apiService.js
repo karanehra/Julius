@@ -102,7 +102,7 @@ export const callGetTreeByIdApi = treeID => {
  * @param {Object} payload Request payload
  * @param {string} payload.title Node title
  * @param {string} payload.parent Node parent's nodeID
- * @param {Array<string>} payload.children Node's children nodeID
+ * @param {Array<string>} payload.children Node's children nodeIDs
  */
 export const callPostTreeNodeApi = payload => {
   return Axios.post(API_BASE_URL + "/node", payload);
