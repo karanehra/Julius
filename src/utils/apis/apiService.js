@@ -1,4 +1,3 @@
-// const API_BASE_URL = "http://api.karanehra.me";
 const API_BASE_URL = "http://localhost:3001";
 const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
@@ -88,6 +87,14 @@ export const callDeleteUserBoardApi = boardId => {
  */
 export const callPostTreeApi = payload => {
   return Axios.post(API_BASE_URL + "/tree", payload);
+};
+
+/**
+ * Fetches the tree with the provided ID
+ * @param {string} treeID The ID of the tree being fetched
+ */
+export const callGetTreeByIdApi = treeID => {
+  return Axios.get(API_BASE_URL + `/tree/${treeID}`);
 };
 
 /**
