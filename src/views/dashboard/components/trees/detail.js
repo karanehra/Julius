@@ -52,6 +52,68 @@ class TreeDetailPage extends Component {
     this.setState({ activeNodeID });
   };
 
+  recursiveRenderer = (children, parentx, parenty, parentRadius) => {
+    const { activeNodeID } = this.state;
+    let a =
+      children.length &&
+      children.map((child, i) => (
+        <React.Fragment key={i}>
+          <g onClick={this.setActiveNode(child.ID)}>
+            <circle
+              cx={
+                parentx +
+                parentRadius *
+                  2 *
+                  Math.cos(((Math.PI * 2) / children.length) * i)
+              }
+              cy={
+                parenty +
+                parentRadius *
+                  2 *
+                  Math.sin(((Math.PI * 2) / children.length) * i)
+              }
+              r={parentRadius / 2}
+              fill={"white"}
+              stroke={activeNodeID === child.ID ? "blue" : "red"}
+              strokeWidth="3"
+            ></circle>
+            <text
+              textAnchor="middle"
+              x={
+                parentx +
+                parentRadius *
+                  2 *
+                  Math.cos(((Math.PI * 2) / children.length) * i)
+              }
+              y={
+                parenty +
+                parentRadius *
+                  2 *
+                  Math.sin(((Math.PI * 2) / children.length) * i)
+              }
+            >
+              {child.title}
+            </text>
+          </g>
+          {child.children.length &&
+            this.recursiveRenderer(
+              child.children,
+              parentx +
+                parentRadius *
+                  2 *
+                  Math.cos(((Math.PI * 2) / children.length) * i),
+              parenty +
+                parentRadius *
+                  2 *
+                  Math.sin(((Math.PI * 2) / children.length) * i),
+              parentRadius / 2
+            )}
+        </React.Fragment>
+      ));
+
+    return a;
+  };
+
   render() {
     const { addNodeTitle, treeInstance, activeNodeID } = this.state;
     return (
@@ -88,44 +150,12 @@ class TreeDetailPage extends Component {
                 {treeInstance.title}
               </text>
             </g>
-            {treeInstance.children.length &&
-              treeInstance.children.map((child, i) => (
-                <g key={i} onClick={this.setActiveNode(child.ID)}>
-                  <circle
-                    cx={
-                      (window.innerWidth - 280) / 2 +
-                      100 *
-                        Math.cos(
-                          ((Math.PI * 2) / treeInstance.children.length) * i
-                        )
-                    }
-                    cy={
-                      (window.innerHeight - 104) / 2 +
-                      100 *
-                        Math.sin(
-                          ((Math.PI * 2) / treeInstance.children.length) * i
-                        )
-                    }
-                    r={100}
-                    fill={"white"}
-                    stroke={activeNodeID === child.ID ? "blue" : "red"}
-                    strokeWidth="3"
-                  ></circle>
-                  <text
-                    textAnchor="middle"
-                    x={
-                      (window.innerWidth - 280) / 2 +
-                      100 * Math.cos(Math.PI / 2)
-                    }
-                    y={
-                      (window.innerHeight - 104) / 2 +
-                      100 * Math.sin(Math.PI / 2)
-                    }
-                  >
-                    {treeInstance.title}
-                  </text>
-                </g>
-              ))}
+            {this.recursiveRenderer(
+              treeInstance.children,
+              (window.innerWidth - 280) / 2,
+              (window.innerHeight - 104) / 2,
+              100
+            )}
           </svg>
         )}
       </React.Fragment>
