@@ -1,46 +1,5 @@
 import { getUUID } from "./helpers";
 
-export class TreeHandler {
-  title = null;
-  parent = null;
-  /**@type {Array<Node>} */
-  children = [];
-
-  /**
-   * Instantiates a new tree
-   * @param {string=} title The name of the tree
-   */
-  constructor(title) {
-    if (title) this.title = title;
-  }
-
-  /**
-   * Adds a node to the topmost node
-   * @param {Node} node The node to append to the topmost node
-   */
-  addNodeToMaster(node) {
-    this.children.push(node);
-  }
-
-  /**
-   * Appends the given node to a node with the given ID
-   * @param {Node} node The node to append
-   * @param {string} ID The ID of the parent node
-   */
-  appendToNodeByID(node, ID) {
-    for (let child of this.children) {
-      if (child.ID === ID) {
-        child.children.push(node);
-        return;
-      } else {
-        for (let child1 of child.children) {
-          this.appendToNodeByID(child1, ID);
-        }
-      }
-    }
-  }
-}
-
 export class Node {
   title = null;
   /**@type {Node} */
@@ -79,9 +38,20 @@ export class Node {
    * @param {string} ID The ID of the parent node
    */
   addNodeByID(node, ID) {
+    if (this.ID == ID) {
+      if (this.parent) {
+        node.level = this.level++;
+      } else {
+        this.level = 0;
+        node.level = 1;
+      }
+      this.children.push(node);
+      return;
+    }
     for (let child of this.children) {
       if (child.ID === ID) {
         node.parent = ID;
+        node.level = this.level++;
         child.children.push(node);
         return;
       } else {
