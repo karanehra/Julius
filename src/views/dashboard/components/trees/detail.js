@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { callGetTreeByIdApi } from "../../../../utils/apis/apiService";
 import { TextField, Button } from "@material-ui/core/";
+import { Node, composeTreeFromObject } from "../../../../utils/treeHandler";
 
 class TreeDetailPage extends Component {
   state = {
@@ -8,6 +9,8 @@ class TreeDetailPage extends Component {
     representation: null,
     addNodeTitle: ""
   };
+
+  treeMaintainer = new Node();
 
   handleChange = event => {
     const { name, value } = event.target;
@@ -25,8 +28,12 @@ class TreeDetailPage extends Component {
         treeData: res.data,
         representation: res.data.representation
       });
+      if (res.data.representation) {
+        console.log(composeTreeFromObject(res.data.representation));
+      }
     });
   }
+
   handleAddNode = () => {
     const {
       match: {
