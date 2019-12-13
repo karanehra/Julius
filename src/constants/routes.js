@@ -91,7 +91,7 @@ export const juliusDashboardRoutes = [
   {
     path: TREE_DETAIL_ROUTE_PATH,
     component: Loadable({
-      loader: () => import("@views/dashboard/components/trees/detail"),
+      loader: () => import("@views/dashboard/components/trees/detailNew"),
       loading: Loader
     })
   }

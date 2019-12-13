@@ -150,12 +150,13 @@ class TreeDetailPage extends Component {
                 {treeInstance.title}
               </text>
             </g>
-            {this.recursiveRenderer(
-              treeInstance.children,
-              (window.innerWidth - 280) / 2,
-              (window.innerHeight - 104) / 2,
-              100
-            )}
+            {treeInstance.children.length &&
+              this.recursiveRenderer(
+                treeInstance.children,
+                (window.innerWidth - 280) / 2,
+                (window.innerHeight - 104) / 2,
+                100
+              )}
           </svg>
         )}
       </React.Fragment>

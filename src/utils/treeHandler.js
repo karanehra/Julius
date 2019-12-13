@@ -55,8 +55,12 @@ export class Node {
         child.children.push(node);
         return;
       } else {
-        for (let subchild of child.children) {
-          this.addNodeByID(subchild, ID);
+        if (child.children.length) {
+          for (let subchild of child.children) {
+            this.addNodeByID(subchild, ID);
+          }
+        } else {
+          return;
         }
       }
     }
