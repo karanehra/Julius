@@ -56,16 +56,43 @@ class TreeDetailPage extends Component {
     console.log(event);
   };
 
+  dragStartX = "";
+  dragStartY = "";
+
   drag = event => {
-    console.log("drag", event.target);
+    this.dragStartX = event.clientX;
+    this.dragStartY = event.clientY;
+    event.dataTransfer.setData("some", event.target.id);
   };
 
   drop = event => {
-    console.log("drop", event);
+    event.persist();
+    let data = event.dataTransfer.getData("some");
+    document.getElementById(data).style.top = event.clientY;
+    document.getElementById(data).style.left = event.clientX;
   };
 
   allowDrop = event => {
-    console.log("allowdrop", event);
+    event.preventDefault();
+    console.log(
+      this.dragStartX - event.clientX,
+      this.dragStartY - event.clientY
+    );
+    console.log(event.target.id);
+    let diffX = event.clientX - this.dragStartX;
+    let diffY = event.clientY - this.dragStartY;
+    event.target.style.left = `${event.target.style.left + diffX}px`;
+    event.target.style.top = `${event.target.style.top + diffY}px`;
+    // console.log(
+    //   "allowdrop",
+    //   event.clientX,
+    //   event.clientY,
+    //   event.screenX,
+    //   event.screenY,
+    //   event.currentTarget
+    // );
+    // event.currentTarget.style.top = event.clientX;
+    // event.currentTarget.style.left = event.clientY;
   };
 
   render() {
@@ -93,9 +120,10 @@ class TreeDetailPage extends Component {
         >
           {treeInstance && (
             <div
-              style={{ width: "300px", height: "300px" }}
+              style={{ width: "300px", height: "300px", position: "absolute" }}
               draggable
               onDragStart={this.drag}
+              id="div1"
             >
               <svg width={300} height={300}>
                 <g onClick={this.setActiveNode(treeInstance.ID)}>
