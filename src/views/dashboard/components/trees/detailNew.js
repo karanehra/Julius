@@ -14,7 +14,10 @@ class TreeDetailPage extends Component {
     treeInstance: null,
     activeNodeID: "",
     nodes: [],
-    connectionLines: []
+    connectionLines: [],
+    translateX: 0,
+    translateY: 0,
+    zoom: 1
   };
 
   handleChange = event => {
@@ -126,13 +129,31 @@ class TreeDetailPage extends Component {
     this.selectedNode = null;
   };
 
+  translateRight = () => {
+    this.setState({ translateX: this.state.translateX + 10 });
+  };
+  translateLeft = () => {
+    this.setState({ translateX: this.state.translateX - 10 });
+  };
+
+  handleZoom = event => {
+    if (event.deltaY > 0) {
+      this.setState({ zoom: this.state.zoom + 0.01 });
+    } else {
+      this.setState({ zoom: this.state.zoom - 0.01 });
+    }
+  };
+
   render() {
     const {
       addNodeTitle,
       nodes,
       activeNodeID,
       joinNodeTitle,
-      connectionLines
+      connectionLines,
+      translateX,
+      translateY,
+      zoom
     } = this.state;
     return (
       <React.Fragment>
@@ -174,40 +195,63 @@ class TreeDetailPage extends Component {
           >
             Join
           </Button>
+          <Button
+            variant="contained"
+            size="large"
+            color="primary"
+            onClick={this.translateRight}
+          >
+            Right
+          </Button>
+          <Button
+            variant="contained"
+            size="large"
+            color="primary"
+            onClick={this.translateLeft}
+          >
+            Left
+          </Button>
         </div>
         <svg
           height={`${window.innerHeight - 104}px`}
           width={`${window.innerWidth - 280}px`}
           className="drag-area"
+          onWheel={this.handleZoom}
         >
-          {connectionLines.length > 0 &&
-            connectionLines.map((line, i) => (
-              <line
-                key={i}
-                stroke="black"
-                x1={line.x1}
-                x2={line.x2}
-                y1={line.y1}
-                y2={line.y2}
-                strokeWidth={2}
-              ></line>
-            ))}
-          {nodes.length > 0 &&
-            nodes.map((node, i) => (
-              <circle
-                key={i}
-                onMouseDown={this.onClickDown(node.ID)}
-                id={`node-${node.ID}`}
-                onMouseMove={this.onClickDrag}
-                onMouseUp={this.onClickUp}
-                cx={(window.innerWidth - 280) / 2}
-                cy={(window.innerHeight - 104) / 2}
-                r={30}
-                fill={"white"}
-                strokeWidth="3"
-                stroke={"black"}
-              ></circle>
-            ))}
+          <g
+            transform={`translate(${translateX} ${translateY}),scale(${zoom})`}
+          >
+            {connectionLines.length > 0 &&
+              connectionLines.map((line, i) => (
+                <line
+                  key={i}
+                  stroke="black"
+                  x1={line.x1}
+                  x2={line.x2}
+                  y1={line.y1}
+                  y2={line.y2}
+                  strokeWidth={2}
+                ></line>
+              ))}
+            {nodes.length > 0 &&
+              nodes.map((node, i) => (
+                <circle
+                  key={i}
+                  onMouseDown={this.onClickDown(node.ID)}
+                  id={`node-${node.ID}`}
+                  onMouseMove={this.onClickDrag}
+                  onMouseUp={this.onClickUp}
+                  cx={(window.innerWidth - 280) / 2}
+                  cy={(window.innerHeight - 104) / 2}
+                  r={50}
+                  fill={activeNodeID === node.ID ? "lightblue" : "white"}
+                  strokeWidth="3"
+                  stroke={"black"}
+                >
+                  <div>Hello</div>
+                </circle>
+              ))}
+          </g>
         </svg>
       </React.Fragment>
     );
