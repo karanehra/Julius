@@ -46,37 +46,6 @@ class TreeDetailPage extends Component {
     this.setState({ nodes });
   };
 
-  setActiveNode = activeNodeID => () => {
-    this.setState({ activeNodeID });
-  };
-
-  dragStartX = "";
-  dragStartY = "";
-  diffX = "";
-  diffY = "";
-
-  drag = activeNodeID => event => {
-    this.dragStartX = event.clientX;
-    this.dragStartY = event.clientY;
-    event.dataTransfer.setData("some", event.target.id);
-    this.setState({ activeNodeID });
-  };
-
-  drop = event => {
-    event.persist();
-    let data = event.dataTransfer.getData("some");
-    document.getElementById(data).style.top =
-      document.getElementById(data).offsetTop + this.diffY;
-    document.getElementById(data).style.left =
-      document.getElementById(data).offsetLeft + this.diffX;
-  };
-
-  allowDrop = event => {
-    event.preventDefault();
-    this.diffX = event.clientX - this.dragStartX;
-    this.diffY = event.clientY - this.dragStartY;
-  };
-
   handleJoinNode = () => {
     const { joinNodeTitle, nodes } = this.state;
     let node = new Node(joinNodeTitle);
@@ -85,18 +54,76 @@ class TreeDetailPage extends Component {
   };
 
   addLine = newNodeID => {
-    console.log("addline");
     const { activeNodeID, connectionLines } = this.state;
     let activeNode = document.getElementById(`node-${activeNodeID}`);
     let newNode = document.getElementById(`node-${newNodeID}`);
     let line = {
-      x1: activeNode.offsetLeft + activeNode.offsetWidth / 2,
-      y1: activeNode.offsetTop + activeNode.offsetHeight / 2,
-      x2: newNode.offsetLeft + newNode.offsetWidth / 2,
-      y2: newNode.offsetTop + newNode.offsetHeight / 2
+      x1: activeNode.getAttribute("cx"),
+      y1: activeNode.getAttribute("cy"),
+      x2: newNode.getAttribute("cx"),
+      y2: newNode.getAttribute("cy"),
+      id1: activeNodeID,
+      id2: newNodeID
     };
     connectionLines.push(line);
     this.setState({ connectionLines });
+  };
+
+  selectedNode = null;
+  dragStartX = "";
+  dragStartY = "";
+  diffX = "";
+  diffY = "";
+
+  onClickDown = activeNodeID => event => {
+    const { clientX, clientY, target } = event;
+    this.dragStartX = clientX;
+    this.dragStartY = clientY;
+    this.selectedNode = target;
+    this.setState({ activeNodeID });
+  };
+
+  onClickDrag = e => {
+    const { activeNodeID } = this.state;
+    if (this.selectedNode) {
+      var dx =
+        parseInt(this.selectedNode.getAttribute("cx")) +
+        e.clientX -
+        this.dragStartX;
+      var dy =
+        parseInt(this.selectedNode.getAttribute("cy")) +
+        e.clientY -
+        this.dragStartY;
+      this.dragStartX = e.clientX;
+      this.dragStartY = e.clientY;
+      this.selectedNode.setAttribute("cx", dx);
+      this.selectedNode.setAttribute("cy", dy);
+      this.updateLines(activeNodeID);
+    }
+  };
+
+  updateLines = nodeID => {
+    const { connectionLines } = this.state;
+    for (let i = 0; i < connectionLines.length; i++) {
+      if (connectionLines[i].id1 === nodeID) {
+        connectionLines[i] = {
+          ...connectionLines[i],
+          x1: document.getElementById(`node-${nodeID}`).getAttribute("cx"),
+          y1: document.getElementById(`node-${nodeID}`).getAttribute("cy")
+        };
+      } else if (connectionLines[i].id2 === nodeID) {
+        connectionLines[i] = {
+          ...connectionLines[i],
+          x2: document.getElementById(`node-${nodeID}`).getAttribute("cx"),
+          y2: document.getElementById(`node-${nodeID}`).getAttribute("cy")
+        };
+      }
+    }
+    this.setState({ connectionLines });
+  };
+
+  onClickUp = () => {
+    this.selectedNode = null;
   };
 
   render() {
@@ -148,43 +175,40 @@ class TreeDetailPage extends Component {
             Join
           </Button>
         </div>
-        <div
+        <svg
+          height={`${window.innerHeight - 104}px`}
+          width={`${window.innerWidth - 280}px`}
           className="drag-area"
-          style={{
-            height: `${window.innerHeight - 104}px`,
-            width: `${window.innerWidth - 280}px`
-          }}
-          onDrop={this.drop}
-          onDragOver={this.allowDrop}
         >
-          {nodes.length > 0 &&
-            nodes.map((node, i) => (
-              <div
-                key={i}
-                className={activeNodeID === node.ID ? "node active" : "node"}
-                draggable
-                onDragStart={this.drag(node.ID)}
-                id={`node-${node.ID}`}
-                onClick={this.setActiveNode(node.ID)}
-              >
-                {node.title}
-              </div>
-            ))}
-        </div>
-        {connectionLines.length > 0 && (
-          <svg>
-            {connectionLines.map((line, i) => (
+          {connectionLines.length > 0 &&
+            connectionLines.map((line, i) => (
               <line
-                stroke="black"
                 key={i}
+                stroke="black"
                 x1={line.x1}
                 x2={line.x2}
                 y1={line.y1}
                 y2={line.y2}
+                strokeWidth={2}
               ></line>
             ))}
-          </svg>
-        )}
+          {nodes.length > 0 &&
+            nodes.map((node, i) => (
+              <circle
+                key={i}
+                onMouseDown={this.onClickDown(node.ID)}
+                id={`node-${node.ID}`}
+                onMouseMove={this.onClickDrag}
+                onMouseUp={this.onClickUp}
+                cx={(window.innerWidth - 280) / 2}
+                cy={(window.innerHeight - 104) / 2}
+                r={30}
+                fill={"white"}
+                strokeWidth="3"
+                stroke={"black"}
+              ></circle>
+            ))}
+        </svg>
       </React.Fragment>
     );
   }

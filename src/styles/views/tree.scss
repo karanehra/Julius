@@ -1,0 +1,29 @@
+@import "../index.scss";
+
+.toolbar {
+  @extend %horizontal-flex;
+
+  .selected-node {
+    margin-right: 10px;
+  }
+}
+
+.drag-area {
+  background-image: radial-gradient(darkgray 10%, transparent 0);
+  background-size: 10px 10px;
+
+  .node {
+    @extend %true-center-flex;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 3px solid black;
+    background-color: white;
+    z-index: 1000000;
+
+    &.active {
+      border: 3px dashed black;
+    }
+  }
+}
