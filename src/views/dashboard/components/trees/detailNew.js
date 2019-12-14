@@ -9,10 +9,12 @@ class TreeDetailPage extends Component {
     treeData: null,
     representation: null,
     addNodeTitle: "",
+    joinNodeTitle: "",
     /**@type {Node} */
     treeInstance: null,
-    activeNodeID: "none",
-    nodes: []
+    activeNodeID: "",
+    nodes: [],
+    connectionLines: []
   };
 
   handleChange = event => {
@@ -75,8 +77,36 @@ class TreeDetailPage extends Component {
     this.diffY = event.clientY - this.dragStartY;
   };
 
+  handleJoinNode = () => {
+    const { joinNodeTitle, nodes } = this.state;
+    let node = new Node(joinNodeTitle);
+    nodes.push(node);
+    this.setState({ nodes }, () => this.addLine(node.ID));
+  };
+
+  addLine = newNodeID => {
+    console.log("addline");
+    const { activeNodeID, connectionLines } = this.state;
+    let activeNode = document.getElementById(`node-${activeNodeID}`);
+    let newNode = document.getElementById(`node-${newNodeID}`);
+    let line = {
+      x1: activeNode.offsetLeft + activeNode.offsetWidth / 2,
+      y1: activeNode.offsetTop + activeNode.offsetHeight / 2,
+      x2: newNode.offsetLeft + newNode.offsetWidth / 2,
+      y2: newNode.offsetTop + newNode.offsetHeight / 2
+    };
+    connectionLines.push(line);
+    this.setState({ connectionLines });
+  };
+
   render() {
-    const { addNodeTitle, nodes, activeNodeID } = this.state;
+    const {
+      addNodeTitle,
+      nodes,
+      activeNodeID,
+      joinNodeTitle,
+      connectionLines
+    } = this.state;
     return (
       <React.Fragment>
         <div className="toolbar">
@@ -98,6 +128,24 @@ class TreeDetailPage extends Component {
             onClick={this.handleAddNode}
           >
             Add
+          </Button>
+          <TextField
+            variant="outlined"
+            label={`Join node to ${activeNodeID}`}
+            value={joinNodeTitle}
+            margin="dense"
+            name="joinNodeTitle"
+            onChange={this.handleChange}
+            disabled={!activeNodeID}
+          />
+          <Button
+            variant="contained"
+            size="large"
+            color="primary"
+            onClick={this.handleJoinNode}
+            disabled={!activeNodeID}
+          >
+            Join
           </Button>
         </div>
         <div
@@ -123,6 +171,20 @@ class TreeDetailPage extends Component {
               </div>
             ))}
         </div>
+        {connectionLines.length > 0 && (
+          <svg>
+            {connectionLines.map((line, i) => (
+              <line
+                stroke="black"
+                key={i}
+                x1={line.x1}
+                x2={line.x2}
+                y1={line.y1}
+                y2={line.y2}
+              ></line>
+            ))}
+          </svg>
+        )}
       </React.Fragment>
     );
   }
