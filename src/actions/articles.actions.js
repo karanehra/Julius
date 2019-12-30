@@ -19,12 +19,18 @@ const getArticleDataFailureAction = err => ({
   payload: err
 });
 
+/**
+ * Redux Action.
+ * Dispatches the get article data action
+ * @param {number} payload.page The page number of results
+ * @param {number} payload.pageSize The number of results on each page
+ * @param {number} payload.query The query string for articles
+ */
 export const getArticleDataAsyncAction = payload => {
   return dispatch => {
     dispatch(getArticleDataStartAction());
-    callGetArticlesApi()
+    callGetArticlesApi(payload)
       .then(res => {
-        console.log(res.data);
         dispatch(getArticleDataSuccessAction(res.data.data));
       })
       .catch(err => {

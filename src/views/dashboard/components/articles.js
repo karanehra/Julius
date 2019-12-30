@@ -16,7 +16,7 @@ import "@styles/views/articles.scss";
 
 class ArticlesPage extends Component {
   componentDidMount() {
-    this.props.dispatch(getArticleDataAsyncAction());
+    this.props.dispatch(getArticleDataAsyncAction({ page: 1, pageSize: 10 }));
   }
   state = {
     isContentDialogOpen: false,

@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = "http://localhost:3007";
 const CRON_SERVER_BASE_URL = API_BASE_URL + ":8800";
 import Axios from "axios";
 import store from "../../store";
@@ -11,8 +11,14 @@ let axios = Axios.create({
     : {}
 });
 
-export const callGetArticlesApi = () => {
-  return axios.get(API_BASE_URL + "/articles/");
+export const callGetArticlesApi = ({
+  page = "",
+  pageSize = "",
+  query = ""
+}) => {
+  return axios.get(
+    API_BASE_URL + `/articles?page=${page}&size=${pageSize}&query=${query}`
+  );
 };
 
 export const callGetStatusDataApi = () => {
@@ -125,4 +131,8 @@ export const callGetUserTreesApi = userID => {
  */
 export const callPatchTreeApi = (treeID, payload) => {
   return Axios.patch(API_BASE_URL + `/tree/${treeID}`, payload);
+};
+
+export const callGetTagsApi = () => {
+  return Axios.get("http://localhost:3007/tags");
 };
