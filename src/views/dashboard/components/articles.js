@@ -128,7 +128,7 @@ class ArticlesPage extends Component {
             />
           </div>
         </FormGroup>
-        {articleData &&
+        {articleData && articleData.length > 0 ? (
           articleData.map((article, i) => (
             <ExpansionPanel key={i}>
               <ExpansionPanelSummary
@@ -152,7 +152,7 @@ class ArticlesPage extends Component {
                   </Button>
                 )}
               </ExpansionPanelSummary>
-              <ExpansionPanelDetails className="feed-details">
+              <ExpansionPanelDetails className="article-details">
                 {isMobile && (
                   <Button
                     variant="outlined"
@@ -206,7 +206,10 @@ class ArticlesPage extends Component {
                 </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-          ))}
+          ))
+        ) : (
+          <div>No articles available</div>
+        )}
         {isContentDialogOpen && (
           <Dialog
             classes={{ paper: "dialog-cont" }}
