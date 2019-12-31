@@ -31,7 +31,7 @@ export const getArticleDataAsyncAction = payload => {
     dispatch(getArticleDataStartAction());
     callGetArticlesApi(payload)
       .then(res => {
-        dispatch(getArticleDataSuccessAction(res.data.data));
+        dispatch(getArticleDataSuccessAction(res.data));
       })
       .catch(err => {
         console.log(err);

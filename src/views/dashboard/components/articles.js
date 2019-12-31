@@ -91,13 +91,15 @@ class ArticlesPage extends Component {
                   <GenericText size={14} bold indent>
                     Source:
                   </GenericText>
-                  <GenericText size={12}>{article.feedId}</GenericText>
+                  <GenericText size={12}>{article.feedTitle}</GenericText>
                 </div>
                 <div>
                   <GenericText size={14} bold indent>
                     Snippet:
                   </GenericText>
-                  <GenericText size={12}>{article.snippet}</GenericText>
+                  <GenericText size={12}>
+                    {article.description || article.content}
+                  </GenericText>
                 </div>
                 <div>
                   <GenericText size={14} bold indent>
@@ -112,7 +114,7 @@ class ArticlesPage extends Component {
                   <a
                     rel="noopener noreferrer"
                     target="_blank"
-                    href={article.link}
+                    href={article.URL}
                   >
                     Visit
                   </a>
@@ -121,7 +123,7 @@ class ArticlesPage extends Component {
                   <GenericText size={14} bold indent>
                     Id:
                   </GenericText>
-                  <GenericText size={12}>{article.id}</GenericText>
+                  <GenericText size={12}>{article._id}</GenericText>
                 </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
