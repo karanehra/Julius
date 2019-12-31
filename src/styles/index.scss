@@ -1,13 +1,16 @@
-%true-center-flex{
+%true-center-flex {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-%horizontal-flex{
+
+%horizontal-flex {
   display: flex;
   align-items: center;
+  flex-direction: row !important;
 }
-%vertical-centered-flex{
+
+%vertical-centered-flex {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
