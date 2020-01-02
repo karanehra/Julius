@@ -81,53 +81,56 @@ class ArticlesPage extends Component {
     } = this.state;
     return (
       <React.Fragment>
-        <FormGroup className="query-toolbar">
-          <div className="control">
-            <FormControl fullWidth variant="outlined">
-              <InputLabel>Page Size</InputLabel>
-              <Select
-                name="pageSize"
-                value={pageSize}
+        {articleData && articleData.length > 0 && (
+          <FormGroup className="query-toolbar">
+            <div className="control">
+              <FormControl fullWidth variant="outlined">
+                <InputLabel>Page Size</InputLabel>
+                <Select
+                  name="pageSize"
+                  value={pageSize}
+                  onChange={this.handleQueryChange}
+                  input={<OutlinedInput />}
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={50}>Twenty</MenuItem>
+                  <MenuItem value={100}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div className="control">
+              <TextField
+                variant="outlined"
+                label="Page number"
+                value={page}
+                name="page"
                 onChange={this.handleQueryChange}
-                input={<OutlinedInput />}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={50}>Twenty</MenuItem>
-                <MenuItem value={100}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-          <div className="control">
-            <TextField
-              variant="outlined"
-              label="Page number"
-              value={page}
-              name="page"
-              onChange={this.handleQueryChange}
-              fullWidth
-            />
-          </div>
-          <div className="control">
-            <TextField
-              variant="outlined"
-              label="Query"
-              value={query}
-              name="query"
-              fullWidth
-              onChange={this.handleQueryStringChange}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment
-                    onClick={this.handleQueryChange}
-                    position="end"
-                  >
-                    <Search />
-                  </InputAdornment>
-                )
-              }}
-            />
-          </div>
-        </FormGroup>
+                fullWidth
+              />
+            </div>
+            <div className="control">
+              <TextField
+                variant="outlined"
+                label="Query"
+                value={query}
+                name="query"
+                fullWidth
+                onChange={this.handleQueryStringChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment
+                      onClick={this.handleQueryChange}
+                      position="end"
+                    >
+                      <Search />
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </div>
+          </FormGroup>
+        )}
+
         {articleData && articleData.length > 0 ? (
           articleData.map((article, i) => (
             <ExpansionPanel key={i}>
@@ -208,7 +211,7 @@ class ArticlesPage extends Component {
             </ExpansionPanel>
           ))
         ) : (
-          <div>No articles available</div>
+          <div className="no-data">No articles available</div>
         )}
         {isContentDialogOpen && (
           <Dialog

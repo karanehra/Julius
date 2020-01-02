@@ -17,9 +17,9 @@ import {
 } from "@material-ui/core";
 import Cancel from "@material-ui/icons/Cancel";
 import Link from "@material-ui/icons/Link";
-import "@styles/views/feeds.scss";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import GenericText from "@shared/genericText";
+import "@styles/views/feeds.scss";
 
 class FeedsPage extends Component {
   state = {
@@ -92,7 +92,7 @@ class FeedsPage extends Component {
                 </Grid>
               ) : (
                 <React.Fragment>
-                  <Grid item xs={isMobile?12:8}>
+                  <Grid item xs={isMobile ? 12 : 8}>
                     <TextField
                       InputProps={{
                         startAdornment: (
@@ -124,7 +124,7 @@ class FeedsPage extends Component {
             </Grid>
           </Paper>
         )}
-        {feedData &&
+        {feedData && feedData.length > 0 ? (
           feedData.map((feed, i) => (
             <ExpansionPanel key={i}>
               <ExpansionPanelSummary
@@ -163,7 +163,10 @@ class FeedsPage extends Component {
                 </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-          ))}
+          ))
+        ) : (
+          <div className="no-feeds">No Feeds Available</div>
+        )}
       </React.Fragment>
     );
   }

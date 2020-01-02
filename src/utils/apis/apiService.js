@@ -19,8 +19,11 @@ export const callGetStatusDataApi = () => {
   return axios.get(API_BASE_URL + "/datasets");
 };
 
+/**
+ * Fetches feeds from the BE
+ */
 export const callGetFeedsApi = () => {
-  return axios.get(API_BASE_URL + "/feeds/");
+  return axios.get(API_BASE_URL + "/feeds");
 };
 
 export const callAddFeedApi = payload => {

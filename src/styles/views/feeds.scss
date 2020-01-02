@@ -15,7 +15,15 @@
 .feed-details {
   display: block !important;
   background-color: #f3f3f3ab;
+
   .action-btn {
     margin-bottom: 5px;
   }
+}
+
+.no-feeds {
+  text-align: center;
+  margin: 30px;
+  font-size: 40px;
+  color: darkgray;
 }
