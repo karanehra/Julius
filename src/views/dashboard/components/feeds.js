@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  getFeedDataAsyncAction,
-  addFeedAsyncAction
-} from "@actions/feeds.actions";
+import { getFeedDataAsyncAction } from "@actions/feeds.actions";
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -20,6 +17,7 @@ import Link from "@material-ui/icons/Link";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import GenericText from "@shared/genericText";
 import "@styles/views/feeds.scss";
+import { callAddFeedApi } from "../../../utils/apis/apiService";
 
 class FeedsPage extends Component {
   state = {
@@ -50,11 +48,18 @@ class FeedsPage extends Component {
     });
   };
 
-  addFeed = () => {
-    let payload = {
-      url: this.state.addingFeedUrl.split(";")
-    };
-    this.props.dispatch(addFeedAsyncAction(payload));
+  addFeed = async () => {
+    try {
+      let res = callAddFeedApi({
+        URL: this.state.addingFeedUrl.split(";"),
+        title: "Some title"
+      });
+      if (res.status === 200) {
+        this.componentDidMount();
+      }
+    } catch {
+      console.log("Error occured");
+    }
   };
 
   render() {

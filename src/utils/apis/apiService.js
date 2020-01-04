@@ -26,8 +26,14 @@ export const callGetFeedsApi = () => {
   return axios.get(API_BASE_URL + "/feeds");
 };
 
+/**
+ * Adds a feed to DB
+ * @param {object} payload The payload
+ * @param {string} payload.URL The feed URL
+ * @param {string} payload.title The feed title
+ */
 export const callAddFeedApi = payload => {
-  return axios.post(API_BASE_URL + "/feeds/", payload);
+  return axios.post(API_BASE_URL + "/feeds", payload);
 };
 
 export const callGetCronDataApi = () => {
