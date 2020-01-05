@@ -50,11 +50,11 @@ class FeedsPage extends Component {
 
   addFeed = async () => {
     try {
-      let res = callAddFeedApi({
-        URL: this.state.addingFeedUrl.split(";"),
+      let res = await callAddFeedApi({
+        URL: this.state.addingFeedUrl.split(";")[0],
         title: "Some title"
       });
-      if (res.status === 200) {
+      if (res.status === 201) {
         this.componentDidMount();
       }
     } catch {

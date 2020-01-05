@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import ReactDOM from "react-dom";
 import React from "react";
 import Julius from "./julius";
@@ -9,8 +10,6 @@ import { ThemeProvider } from "@material-ui/styles";
 import theme from "./constants/theme";
 
 const MUI_THEME = createMuiTheme(theme);
-
-console.log(process.env)
 
 store.subscribe(() => {
   localStorage.setItem("juliusStore", JSON.stringify(store.getState()));
