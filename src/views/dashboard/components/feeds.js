@@ -17,7 +17,10 @@ import Link from "@material-ui/icons/Link";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import GenericText from "@shared/genericText";
 import "@styles/views/feeds.scss";
-import { callAddFeedApi } from "../../../utils/apis/apiService";
+import {
+  callAddFeedApi,
+  callPurgeFeedsApi
+} from "../../../utils/apis/apiService";
 
 class FeedsPage extends Component {
   state = {
@@ -51,7 +54,7 @@ class FeedsPage extends Component {
   addFeed = async () => {
     try {
       let res = await callAddFeedApi({
-        URL: this.state.addingFeedUrl.split(";")[0],
+        URL: this.state.addingFeedUrl.split(";"),
         title: "Some title"
       });
       if (res.status === 201) {
@@ -59,6 +62,13 @@ class FeedsPage extends Component {
       }
     } catch {
       console.log("Error occured");
+    }
+  };
+
+  purgeFeeds = async () => {
+    let res = await callPurgeFeedsApi();
+    if (res.status === 200) {
+      this.componentDidMount();
     }
   };
 
@@ -82,6 +92,10 @@ class FeedsPage extends Component {
             onClick={this.switchAddFeed}
           >
             {feedAddPanelVisible ? <Cancel /> : "Add Feed"}
+          </Button>
+          &nbsp;
+          <Button color="primary" variant="contained" onClick={this.purgeFeeds}>
+            Purge Feeds
           </Button>
         </div>
         {feedAddPanelVisible && (

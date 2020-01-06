@@ -36,6 +36,13 @@ export const callAddFeedApi = payload => {
   return axios.post(API_BASE_URL + "/feeds", payload);
 };
 
+/**
+ * Empties feeds from DB
+ */
+export const callPurgeFeedsApi = () => {
+  return Axios.delete(API_BASE_URL + "/feeds");
+};
+
 export const callGetCronDataApi = () => {
   return axios.get(CRON_SERVER_BASE_URL);
 };
