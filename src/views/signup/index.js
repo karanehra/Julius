@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 class SignupPage extends Component {
-  state = {};
+  state = {}
   render() {
-    return <React.Fragment>Signup</React.Fragment>;
+    return <React.Fragment></React.Fragment>
   }
 }
 
-export default SignupPage;
+export default SignupPage
