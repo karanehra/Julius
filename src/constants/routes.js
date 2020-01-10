@@ -6,26 +6,18 @@ import {
   ARTICLES_ROUTE_PATH,
   CRONJOBS_ROUTE_PATH,
   LOGS_ROUTE_PATH,
-  LOGIN_ROUTE_PATH,
-  SIGNUP_ROUTE_PATH,
   HOME_ROUTE_PATH,
   BOARDS_ROUTE_PATH,
   TREES_ROUTE_PATH,
-  TREE_DETAIL_ROUTE_PATH
+  TREE_DETAIL_ROUTE_PATH,
+  HOMEPAGE_ROUTE_PATH
 } from './routeUrls'
 
 export const juliusRoutes = [
   {
-    path: LOGIN_ROUTE_PATH,
+    path: HOMEPAGE_ROUTE_PATH,
     component: Loadable({
       loader: () => import('@views/auth'),
-      loading: Loader
-    })
-  },
-  {
-    path: SIGNUP_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/signup'),
       loading: Loader
     })
   },
