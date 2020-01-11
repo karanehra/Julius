@@ -1,15 +1,69 @@
-import React, { Component } from 'react'
-import { Paper } from '@material-ui/core'
+import React, { useState } from 'react'
+import GenericText from '@shared/genericText'
+import { TextField } from '@material-ui/core/'
+import { Button } from '@material-ui/core'
+import Validator from '../../../utils/validator'
 
-class SignupPage extends Component {
-  state = {}
-  render() {
-    return (
-      <React.Fragment>
-        <Paper>Hello</Paper>
-      </React.Fragment>
-    )
+const SignupPage = () => {
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+    emailError: '',
+    passwordError: ''
+  })
+
+  const { email, password, emailError, passwordError } = values
+
+  const handleChange = event => {
+    const { name, value } = event.target
+    console.log(name, value)
+    setValues({ ...values, [name]: value })
   }
+
+  const handleSubmit = () => {
+    let emailValidator = new Validator(email).email().required()
+    let passwordValidator = new Validator(password).required()
+    setValues({
+      ...values,
+      emailError: !emailValidator.isValid,
+      passwordError: !passwordValidator.isValid
+    })
+    console.log(emailValidator.isValid)
+    if (emailValidator.isValid && passwordValidator.isValid) {
+      console.log('valid')
+    }
+  }
+
+  return (
+    <React.Fragment>
+      <GenericText size={34} gutters={35} bold>
+        Signup
+      </GenericText>
+      <TextField
+        label='Email'
+        value={email}
+        name='email'
+        variant='outlined'
+        onChange={handleChange}
+        className='field'
+        error={emailError}
+        helperText={emailError ? 'Enter a valid Email' : ''}
+      />
+      <TextField
+        label='Password'
+        value={password}
+        name='password'
+        variant='outlined'
+        type='password'
+        onChange={handleChange}
+        error={passwordError}
+        className='field'
+      />
+      <Button color='primary' variant='contained' onClick={handleSubmit}>
+        Signup
+      </Button>
+    </React.Fragment>
+  )
 }
 
 export default SignupPage

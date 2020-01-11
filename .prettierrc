@@ -5,5 +5,5 @@
   "tabWidth": 2,
   "arrowParens": "avoid",
   "jsxBracketSameLine": false,
-  ""
+  "jsxSingleQuote": true
 }

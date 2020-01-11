@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Paper, TextField, Button } from '@material-ui/core/'
+import { TextField, Button } from '@material-ui/core/'
 import { isMobile } from 'react-device-detect'
 import GenericText from '@shared/genericText'
 import { withRouter } from 'react-router-dom'
@@ -38,39 +38,32 @@ class LoginPage extends Component {
 
   render() {
     const { email, password } = this.state
-    const { isMobile } = this.props
     return (
-      <div className="login-wrapper">
-        <Paper className={isMobile ? 'login-box mb' : 'login-box'}>
-          <GenericText size={34} bold gutters={35}>
-            Login To Julius
-          </GenericText>
-          <TextField
-            label="Email"
-            value={email}
-            name="email"
-            variant="outlined"
-            onChange={this.handleChange}
-            className="field"
-          />
-          <TextField
-            label="Password"
-            value={password}
-            name="password"
-            variant="outlined"
-            type="password"
-            onChange={this.handleChange}
-            className="field"
-          />
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={this.handleSubmit}
-          >
-            Login
-          </Button>
-        </Paper>
-      </div>
+      <React.Fragment>
+        <GenericText size={34} bold gutters={35}>
+          Login To Julius
+        </GenericText>
+        <TextField
+          label="Email"
+          value={email}
+          name="email"
+          variant="outlined"
+          onChange={this.handleChange}
+          className="field"
+        />
+        <TextField
+          label="Password"
+          value={password}
+          name="password"
+          variant="outlined"
+          type="password"
+          onChange={this.handleChange}
+          className="field"
+        />
+        <Button color="primary" variant="contained" onClick={this.handleSubmit}>
+          Login
+        </Button>
+      </React.Fragment>
     )
   }
 }
