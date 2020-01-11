@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import GenericText from '@shared/genericText'
 import { TextField } from '@material-ui/core/'
 import { Button } from '@material-ui/core'
+import { callUserLoginpApi } from '@utils/apis/login.api'
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -12,13 +13,24 @@ const Login = () => {
   })
   const { email, password } = values
 
+  useEffect(() => {
+    console.log('adsadsda')
+  })
+
   const handleChange = event => {
     const { name, value } = event.target
     setValues({ ...values, [name]: value })
   }
 
-  const handleSubmit = () => {
-    console.log('submit')
+  const handleSubmit = async () => {
+    try {
+      let res = await callUserLoginpApi({ email, password })
+      if (res.status === 200) {
+        console.log('done')
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (

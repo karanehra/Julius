@@ -1,31 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   AppBar,
   Toolbar,
   Typography,
   Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Button
-} from "@material-ui/core";
-import { Switch, Route } from "react-router-dom";
-import "@styles/views/app.scss";
-import ControlCamera from "@material-ui/icons/ControlCamera";
-import RssFeed from "@material-ui/icons/RssFeed";
-import ListIcon from "@material-ui/icons/List";
-import SelectAll from "@material-ui/icons/SelectAll";
-import CloudDownload from "@material-ui/icons/CloudDownload";
-import Info from "@material-ui/icons/Info";
-import Timer from "@material-ui/icons/Timer";
-import Note from "@material-ui/icons/Note";
-import Loader from "@shared/loader";
-import { isAppLoading } from "@utils/helpers";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { deviceDetectAcion } from "@actions/device.actions";
-import { isMobile } from "react-device-detect";
+} from '@material-ui/core'
+import { Switch, Route } from 'react-router-dom'
+import '@styles/views/app.scss'
+import ListIcon from '@material-ui/icons/List'
+import SelectAll from '@material-ui/icons/SelectAll'
+import Loader from '@shared/loader'
+import { isAppLoading } from '@utils/helpers'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { deviceDetectAcion } from '@actions/device.actions'
+import { isMobile } from 'react-device-detect'
 import {
   FEEDS_ROUTE_PATH,
   ARTICLES_ROUTE_PATH,
@@ -33,184 +23,89 @@ import {
   LOGS_ROUTE_PATH,
   LOGIN_ROUTE_PATH,
   HOME_ROUTE_PATH,
-  BOARDS_ROUTE_PATH,
-  TREES_ROUTE_PATH
-} from "@constants/routeUrls";
-import { juliusDashboardRoutes } from "@constants/routes";
-import GenericText from "../../shared/genericText";
+} from '@constants/routeUrls'
+import { juliusDashboardRoutes } from '@constants/routes'
+import GenericText from '../../shared/genericText'
+import Sidenav from './sidenav'
 
 class Dashboard extends Component {
   state = {
     isMobileDrawerOpen: false,
     isProfileDrawerOpen: false
-  };
-
-  componentDidMount() {
-    const { userData, history } = this.props;
-    if (!userData) {
-      history.push(LOGIN_ROUTE_PATH);
-    } else {
-      this.props.dispatch(deviceDetectAcion(isMobile));
-    }
   }
 
-  routeTo = route => () => {
-    this.setState({ isMobileDrawerOpen: false });
-    this.props.history.push(route);
-  };
+  componentDidMount() {
+    const { userData, history } = this.props
+    if (!userData) {
+      history.push(LOGIN_ROUTE_PATH)
+    } else {
+      this.props.dispatch(deviceDetectAcion(isMobile))
+    }
+  }
 
   getHeader = () => {
     switch (this.props.location.pathname) {
       case ARTICLES_ROUTE_PATH:
-        return "Articles";
+        return 'Articles'
       case HOME_ROUTE_PATH:
-        return "Dashboard";
+        return 'Dashboard'
       case FEEDS_ROUTE_PATH:
-        return "Feeds";
+        return 'Feeds'
       case CRONJOBS_ROUTE_PATH:
-        return "Cron Jobs";
+        return 'Cron Jobs'
       case LOGS_ROUTE_PATH:
-        return "Logs";
+        return 'Logs'
     }
-  };
-
-  getActiveClass = link => {
-    return link === this.props.location.pathname ? "active" : "";
-  };
+  }
 
   toggleMobileDrawer = () => {
     this.setState({
       isMobileDrawerOpen: !this.state.isMobileDrawerOpen
-    });
-  };
+    })
+  }
 
   toggleProfileDrawer = () => {
     this.setState({
       isProfileDrawerOpen: !this.state.isProfileDrawerOpen
-    });
-  };
+    })
+  }
 
   logout = () => {
-    this.props.history.push(LOGIN_ROUTE_PATH);
-    localStorage.clear();
-  };
-
-  getNavigationMarkup = () => (
-    <List component="nav">
-      <ListItem
-        button
-        className={this.getActiveClass("/dashboard/home")}
-        onClick={this.routeTo("/dashboard/home")}
-      >
-        <ListItemIcon classes={{ root: "white" }}>
-          <ControlCamera />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItem>
-      <ListItem
-        button
-        className={this.getActiveClass(FEEDS_ROUTE_PATH)}
-        onClick={this.routeTo(FEEDS_ROUTE_PATH)}
-      >
-        <ListItemIcon classes={{ root: "white" }}>
-          <RssFeed />
-        </ListItemIcon>
-        <ListItemText primary="Feeds" />
-      </ListItem>
-      <ListItem
-        button
-        className={this.getActiveClass(ARTICLES_ROUTE_PATH)}
-        onClick={this.routeTo(ARTICLES_ROUTE_PATH)}
-      >
-        <ListItemIcon classes={{ root: "white" }}>
-          <ListIcon />
-        </ListItemIcon>
-        <ListItemText primary="Articles" />
-      </ListItem>
-      <ListItem
-        button
-        className={this.getActiveClass(CRONJOBS_ROUTE_PATH)}
-        onClick={this.routeTo(CRONJOBS_ROUTE_PATH)}
-      >
-        <ListItemIcon classes={{ root: "white" }}>
-          <Timer />
-        </ListItemIcon>
-        <ListItemText primary="Cron" />
-      </ListItem>
-      <ListItem
-        button
-        className={this.getActiveClass("/dumps")}
-        onClick={this.routeTo("/dumps")}
-      >
-        <ListItemIcon classes={{ root: "white" }}>
-          <CloudDownload />
-        </ListItemIcon>
-        <ListItemText primary="Dumps" />
-      </ListItem>
-      <ListItem
-        button
-        className={this.getActiveClass(LOGS_ROUTE_PATH)}
-        onClick={this.routeTo(LOGS_ROUTE_PATH)}
-      >
-        <ListItemIcon classes={{ root: "white" }}>
-          <Info />
-        </ListItemIcon>
-        <ListItemText primary="Logs" />
-      </ListItem>
-      <ListItem
-        button
-        className={this.getActiveClass(BOARDS_ROUTE_PATH)}
-        onClick={this.routeTo(BOARDS_ROUTE_PATH)}
-      >
-        <ListItemIcon classes={{ root: "white" }}>
-          <Note />
-        </ListItemIcon>
-        <ListItemText primary="Boards" />
-      </ListItem>
-      <ListItem
-        button
-        className={this.getActiveClass(TREES_ROUTE_PATH)}
-        onClick={this.routeTo(TREES_ROUTE_PATH)}
-      >
-        <ListItemIcon classes={{ root: "white" }}>
-          <Note />
-        </ListItemIcon>
-        <ListItemText primary="Trees" />
-      </ListItem>
-    </List>
-  );
+    this.props.history.push(LOGIN_ROUTE_PATH)
+    localStorage.clear()
+  }
 
   render() {
-    const { isMobileDrawerOpen, isProfileDrawerOpen } = this.state;
-    const { loading, isMobile, userData } = this.props;
+    const { isMobileDrawerOpen, isProfileDrawerOpen } = this.state
+    const { loading, isMobile, userData } = this.props
     return (
-      <div className={isMobile ? "julius mb" : "julius"}>
+      <div className={isMobile ? 'julius mb' : 'julius'}>
         <AppBar
-          color="primary"
-          position="fixed"
-          className={isMobile ? "navbar mb" : "navbar"}
+          color='primary'
+          position='fixed'
+          className={isMobile ? 'navbar mb' : 'navbar'}
         >
-          <Toolbar color="primary" className="navbar-toolbar">
+          <Toolbar color='primary' className='navbar-toolbar'>
             {isMobile ? (
               <React.Fragment>
-                <div className="menu" onClick={this.toggleMobileDrawer}>
+                <div className='menu' onClick={this.toggleMobileDrawer}>
                   <ListIcon />
                 </div>
                 <SelectAll />
-                <Typography className="brand" variant="h5" noWrap>
+                <Typography className='brand' variant='h5' noWrap>
                   Julius
                 </Typography>
               </React.Fragment>
             ) : (
-              <div className="toolbar-cont">
-                <Typography variant="h6" noWrap>
+              <div className='toolbar-cont'>
+                <Typography variant='h6' noWrap>
                   {this.getHeader()}
                 </Typography>
-                <div className="left">
-                  <Typography variant="h6" noWrap>
+                <div className='left'>
+                  <Typography variant='h6' noWrap>
                     Hello, {userData.firstName}
                   </Typography>
-                  <div onClick={this.toggleProfileDrawer} className="dp"></div>
+                  <div onClick={this.toggleProfileDrawer} className='dp'></div>
                 </div>
               </div>
             )}
@@ -220,16 +115,16 @@ class Dashboard extends Component {
           <Drawer
             open={isProfileDrawerOpen}
             onClose={this.toggleProfileDrawer}
-            anchor="right"
+            anchor='right'
           >
-            <div className="profile-drawer">
+            <div className='profile-drawer'>
               <GenericText size={34} gutters={5} bold>
-                {userData.firstName + " " + userData.lastName}
+                {userData.firstName + ' ' + userData.lastName}
               </GenericText>
               <GenericText gutters={15} size={14}>
                 {userData.email}
               </GenericText>
-              <Button onClick={this.logout} color="primary" variant="contained">
+              <Button onClick={this.logout} color='primary' variant='contained'>
                 Logout
               </Button>
             </div>
@@ -237,32 +132,32 @@ class Dashboard extends Component {
         )}
         {isMobile ? (
           <Drawer open={isMobileDrawerOpen} onClose={this.toggleMobileDrawer}>
-            <div className="mb-drawer-profile">
-              {userData.firstName + " " + userData.lastName}
+            <div className='mb-drawer-profile'>
+              {userData.firstName + ' ' + userData.lastName}
             </div>
-            {this.getNavigationMarkup()}
-            <Button onClick={this.logout} color="primary" variant="contained">
+            <Sidenav />
+            <Button onClick={this.logout} color='primary' variant='contained'>
               Logout
             </Button>
           </Drawer>
         ) : (
           <Drawer
-            variant="permanent"
-            anchor="left"
+            variant='permanent'
+            anchor='left'
             classes={{
-              paper: "sidenav"
+              paper: 'sidenav'
             }}
           >
-            <Toolbar className="topbar">
+            <Toolbar className='topbar'>
               <SelectAll />
-              <Typography className="brand" variant="h5" noWrap>
+              <Typography className='brand' variant='h5' noWrap>
                 Julius
               </Typography>
             </Toolbar>
-            {this.getNavigationMarkup()}
+            <Sidenav />
           </Drawer>
         )}
-        <div className={isMobile ? "content mb" : "content"}>
+        <div className={isMobile ? 'content mb' : 'content'}>
           {loading && <Loader />}
           <Switch>
             {juliusDashboardRoutes.map((route, i) => (
@@ -276,7 +171,7 @@ class Dashboard extends Component {
           </Switch>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -284,6 +179,6 @@ const mapStateToProps = state => ({
   loading: isAppLoading(state),
   isMobile: state.deviceReducer.isMobile,
   userData: state.usersReducer.userData
-});
+})
 
-export default withRouter(connect(mapStateToProps)(Dashboard));
+export default withRouter(connect(mapStateToProps)(Dashboard))
