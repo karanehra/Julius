@@ -1,77 +1,53 @@
-import React, { Component } from 'react'
-import { TextField, Button } from '@material-ui/core/'
-import { isMobile } from 'react-device-detect'
+import React, { useState } from 'react'
 import GenericText from '@shared/genericText'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { userLoginAsyncAction } from '@actions/users.actions'
-import { HOME_ROUTE_PATH } from '@constants/routeUrls'
-import { deviceDetectAcion } from '@actions/device.actions'
-import '@styles/views/login.scss'
+import { TextField } from '@material-ui/core/'
+import { Button } from '@material-ui/core'
 
-class LoginPage extends Component {
-  state = {
+const Login = () => {
+  const [values, setValues] = useState({
     email: '',
-    password: ''
+    password: '',
+    emailError: '',
+    passwordError: ''
+  })
+  const { email, password } = values
+
+  const handleChange = event => {
+    const { name, value } = event.target
+    setValues({ ...values, [name]: value })
   }
 
-  componentDidMount() {
-    this.props.dispatch(deviceDetectAcion(isMobile))
+  const handleSubmit = () => {
+    console.log('submit')
   }
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value })
-  }
-
-  handleSubmit = () => {
-    this.props
-      .dispatch(userLoginAsyncAction(this.state))
-      .then(res => {
-        if (res.status === 200) {
-          this.props.history.push(HOME_ROUTE_PATH)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  render() {
-    const { email, password } = this.state
-    return (
-      <React.Fragment>
-        <GenericText size={34} bold gutters={35}>
-          Login To Julius
-        </GenericText>
-        <TextField
-          label="Email"
-          value={email}
-          name="email"
-          variant="outlined"
-          onChange={this.handleChange}
-          className="field"
-        />
-        <TextField
-          label="Password"
-          value={password}
-          name="password"
-          variant="outlined"
-          type="password"
-          onChange={this.handleChange}
-          className="field"
-        />
-        <Button color="primary" variant="contained" onClick={this.handleSubmit}>
-          Login
-        </Button>
-      </React.Fragment>
-    )
-  }
+  return (
+    <React.Fragment>
+      <GenericText size={34} bold gutters={35}>
+        Login To Julius
+      </GenericText>
+      <TextField
+        label='Email'
+        value={email}
+        name='email'
+        variant='outlined'
+        onChange={handleChange}
+        className='field'
+      />
+      <TextField
+        label='Password'
+        value={password}
+        name='password'
+        variant='outlined'
+        type='password'
+        onChange={handleChange}
+        className='field'
+      />
+      <Button color='primary' variant='contained' onClick={handleSubmit}>
+        Login
+      </Button>
+    </React.Fragment>
+  )
 }
 
-const mapStateToProps = state => ({
-  userData: state.usersReducer.userData,
-  loading: state.usersReducer.loading,
-  isMobile: state.deviceReducer.isMobile
-})
-
-export default withRouter(connect(mapStateToProps)(LoginPage))
+export default Login

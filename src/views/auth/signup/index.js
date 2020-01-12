@@ -28,7 +28,6 @@ const SignupPage = () => {
       emailError: !emailValidator.isValid,
       passwordError: !passwordValidator.isValid
     })
-    console.log(emailValidator.isValid)
     if (emailValidator.isValid && passwordValidator.isValid) {
       console.log('valid')
     }

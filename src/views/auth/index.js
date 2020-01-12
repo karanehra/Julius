@@ -1,10 +1,10 @@
 import React from 'react'
-import './auth.scss'
+import { Paper } from '@material-ui/core'
 import { Switch, Route } from 'react-router-dom'
 import { LOGIN_ROUTE_PATH, SIGNUP_ROUTE_PATH } from '@constants/routeUrls'
 import LoginPage from './login'
 import SignupPage from './signup'
-import { Paper } from '@material-ui/core'
+import './auth.scss'
 
 const Auth = () => {
   return (
