@@ -3,6 +3,7 @@ import GenericText from '@shared/genericText'
 import { TextField } from '@material-ui/core/'
 import { Button } from '@material-ui/core'
 import Validator from '../../../utils/validator'
+import { callUserSignupApi } from '@utils/apis/login.api'
 
 const SignupPage = () => {
   const [values, setValues] = useState({
@@ -20,7 +21,7 @@ const SignupPage = () => {
     setValues({ ...values, [name]: value })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let emailValidator = new Validator(email).email().required()
     let passwordValidator = new Validator(password).required()
     setValues({
@@ -29,7 +30,18 @@ const SignupPage = () => {
       passwordError: !passwordValidator.isValid
     })
     if (emailValidator.isValid && passwordValidator.isValid) {
-      console.log('valid')
+      try {
+        let res = await callUserSignupApi({
+          email,
+          password,
+          firstName: 'Karan',
+          lastName: 'Nehra',
+          role: 'MASTER'
+        })
+        console.log(res)
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 

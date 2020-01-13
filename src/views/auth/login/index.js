@@ -3,6 +3,7 @@ import GenericText from '@shared/genericText'
 import { TextField } from '@material-ui/core/'
 import { Button } from '@material-ui/core'
 import { callUserLoginpApi } from '@utils/apis/login.api'
+import history from '@utils/history'
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -26,7 +27,7 @@ const Login = () => {
     try {
       let res = await callUserLoginpApi({ email, password })
       if (res.status === 200) {
-        console.log('done')
+        history.push('/dashboard/')
       }
     } catch (e) {
       console.log(e)

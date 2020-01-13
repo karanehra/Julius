@@ -13,7 +13,7 @@ Axios.interceptors.request.use(
 )
 
 export const callUserSignupApi = payload => {
-  return Axios.post(API_BASE_URL + '/users/', payload)
+  return Axios.post(API_BASE_URL + '/user', payload)
 }
 
 /**
