@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Drawer,
-  Button
-} from '@material-ui/core'
+import { AppBar, Toolbar, Typography, Drawer, Button } from '@material-ui/core'
 import { Switch, Route } from 'react-router-dom'
 import '@styles/views/app.scss'
 import ListIcon from '@material-ui/icons/List'
@@ -14,18 +8,16 @@ import Loader from '@shared/loader'
 import { isAppLoading } from '@utils/helpers'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { deviceDetectAcion } from '@actions/device.actions'
-import { isMobile } from 'react-device-detect'
 import {
   FEEDS_ROUTE_PATH,
   ARTICLES_ROUTE_PATH,
   CRONJOBS_ROUTE_PATH,
   LOGS_ROUTE_PATH,
   LOGIN_ROUTE_PATH,
-  HOME_ROUTE_PATH,
+  HOME_ROUTE_PATH
 } from '@constants/routeUrls'
 import { juliusDashboardRoutes } from '@constants/routes'
-import GenericText from '../../shared/genericText'
+import GenericText from '@shared/genericText'
 import Sidenav from './sidenav'
 
 class Dashboard extends Component {
@@ -35,12 +27,12 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const { userData, history } = this.props
-    if (!userData) {
-      history.push(LOGIN_ROUTE_PATH)
-    } else {
-      this.props.dispatch(deviceDetectAcion(isMobile))
-    }
+    // const { userData, history } = this.props
+    // if (!userData) {
+    //   history.push(LOGIN_ROUTE_PATH)
+    // } else {
+    //   this.props.dispatch(deviceDetectAcion(isMobile))
+    // }
   }
 
   getHeader = () => {
@@ -77,7 +69,8 @@ class Dashboard extends Component {
 
   render() {
     const { isMobileDrawerOpen, isProfileDrawerOpen } = this.state
-    const { loading, isMobile, userData } = this.props
+    let { loading, isMobile, userData } = this.props
+    userData = userData || {}
     return (
       <div className={isMobile ? 'julius mb' : 'julius'}>
         <AppBar

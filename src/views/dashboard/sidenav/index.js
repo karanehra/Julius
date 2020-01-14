@@ -14,15 +14,16 @@ import {
   TREES_ROUTE_PATH
 } from '@constants/routeUrls'
 import { Note, Timer } from '@material-ui/icons'
-import history from '@utils/history';
+import history from '@utils/history'
+import { useLocation } from 'react-router-dom'
 
 const Sidenav = () => {
+  const location = useLocation()
   const getActiveClass = link => {
-    return link === this.props.location.pathname ? 'active' : ''
+    return link === location.pathname ? 'active' : ''
   }
 
   const routeTo = route => () => {
-    this.setState({ isMobileDrawerOpen: false })
     history.push(route)
   }
 
