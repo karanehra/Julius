@@ -4,6 +4,7 @@ import { TextField } from '@material-ui/core/'
 import { Button } from '@material-ui/core'
 import { callUserLoginpApi } from '@utils/apis/login.api'
 import history from '@utils/history'
+import { userLoginNewAction } from '../../../actions/users.actions'
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -24,14 +25,20 @@ const Login = () => {
   }
 
   const handleSubmit = async () => {
-    try {
-      let res = await callUserLoginpApi({ email, password })
-      if (res.status === 200) {
-        history.push('/dashboard/')
-      }
-    } catch (e) {
-      console.log(e)
-    }
+    let res = await userLoginNewAction({ email, password })
+    // if(res){
+
+    // } else {
+
+    // }
+    // try {
+    //   let res = await callUserLoginpApi({ email, password })
+    //   if (res.status === 200) {
+    //     history.push('/dashboard/')
+    //   }
+    // } catch (e) {
+    //   console.log(e)
+    // }
   }
 
   return (

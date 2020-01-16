@@ -76,7 +76,7 @@ export const userLoginNewAction = async ({ email, password }) => {
     }
     store.dispatch(setAppLoadingAction(false))
   } catch (e) {
-    store.dispatch(userLoginSuccessAction(null))
+    store.dispatch(userLoginFailureAction(e))
     store.dispatch(setAppLoadedErrorAction(e))
   }
 }
