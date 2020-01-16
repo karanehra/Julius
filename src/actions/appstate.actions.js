@@ -1,6 +1,7 @@
 import {
   SET_APP_LOADED_FAILURE,
-  SET_APP_LOADING
+  SET_APP_LOADING,
+  OPEN_SNACKBAR_ACTION
 } from '../constants/actionTypes'
 
 /**
@@ -20,5 +21,10 @@ export const setAppLoadingAction = payload => ({
  */
 export const setAppLoadedErrorAction = payload => ({
   type: SET_APP_LOADED_FAILURE,
+  payload
+})
+
+export const openSnackbarAction = payload => ({
+  type: OPEN_SNACKBAR_ACTION,
   payload
 })

@@ -1,12 +1,14 @@
 import {
   SET_APP_LOADED_FAILURE,
-  SET_APP_LOADING
+  SET_APP_LOADING,
+  OPEN_SNACKBAR_ACTION
 } from '../constants/actionTypes'
 
 const initialState = {
   loading: false,
   error: null,
-  errorMessage: null
+  errorMessage: null,
+  isSnackbarOpen: false
 }
 
 export default function appstateReducer(state = initialState, action) {
@@ -22,6 +24,13 @@ export default function appstateReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: payload
+      }
+    case OPEN_SNACKBAR_ACTION:
+      return {
+        ...state,
+        isSnackbarOpen: payload.isOpen,
+        snackbarMessage: payload.message,
+        snackbarType: payload.type
       }
     default:
       return state
