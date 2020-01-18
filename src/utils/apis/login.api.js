@@ -1,16 +1,6 @@
-import Axios from 'axios'
+import Axios from './interceptors'
 // const API_BASE_URL = "http://api.karanehra.me";
 const API_BASE_URL = 'http://localhost:3007'
-
-Axios.interceptors.request.use(
-  req => {
-    return req
-  },
-  err => {
-    console.log(err)
-    return Promise.reject(err)
-  }
-)
 
 export const callUserSignupApi = payload => {
   return Axios.post(API_BASE_URL + '/user', payload)

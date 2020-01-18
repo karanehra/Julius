@@ -16,10 +16,6 @@ const Login = () => {
   const { email, password } = values
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    console.log('adsadsda')
-  })
-
   const handleChange = event => {
     const { name, value } = event.target
     setValues({ ...values, [name]: value })
@@ -30,10 +26,6 @@ const Login = () => {
     if (res) {
       dispatch(
         openSnackbarAction({ type: 'SUCCESS', message: 'Login', isOpen: true })
-      )
-    } else {
-      dispatch(
-        openSnackbarAction({ type: 'ERROR', message: 'ERROR', isOpen: true })
       )
     }
   }

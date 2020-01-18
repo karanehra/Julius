@@ -39,7 +39,6 @@ const Julius = () => {
         open={isSnackbarOpen}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         message={snackbarMessage}
-        classes={{ paper: 'snackbar error' }}
         onClose={closeSnackbar}
         autoHideDuration={2000}
       />
