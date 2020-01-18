@@ -5,37 +5,37 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_START
-} from "../constants/actionTypes";
+} from '../constants/actionTypes'
 const initialState = {
   signupData: null,
   loading: false,
   userData: null,
   errorData: null,
   token: null
-};
+}
 
 export default function usersReducer(state = initialState, action) {
-  const { type, payload } = action;
+  const { type, payload } = action
   switch (type) {
     case USER_SIGNUP_START:
-      return { ...state, loading: true };
+      return { ...state, loading: true }
     case USER_SIGNUP_SUCCESS:
-      return { ...state, loading: false, signupData: payload, errorData: null };
+      return { ...state, loading: false, signupData: payload, errorData: null }
     case USER_SIGNUP_FAILURE:
-      return { ...state, loading: false, errorData: payload, signupata: null };
+      return { ...state, loading: false, errorData: payload, signupata: null }
     case USER_LOGIN_START:
-      return { ...state, loading: true };
+      return { ...state, loading: true }
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
-        userData: payload.data,
+        userData: payload,
         token: payload.token,
         errorData: null
-      };
+      }
     case USER_LOGIN_FAILURE:
-      return { ...state, loading: false, errorData: payload, userData: null };
+      return { ...state, loading: false, errorData: payload, userData: null }
     default:
-      return state;
+      return state
   }
 }

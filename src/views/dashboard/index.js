@@ -7,7 +7,7 @@ import SelectAll from '@material-ui/icons/SelectAll'
 import Loader from '@shared/loader'
 import { isAppLoading } from '@utils/helpers'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import {
   FEEDS_ROUTE_PATH,
   ARTICLES_ROUTE_PATH,
@@ -96,7 +96,7 @@ class Dashboard extends Component {
                 </Typography>
                 <div className='left'>
                   <Typography variant='h6' noWrap>
-                    Hello, {userData.firstName}
+                    Hello, {userData.firstname}
                   </Typography>
                   <div onClick={this.toggleProfileDrawer} className='dp'></div>
                 </div>
@@ -112,7 +112,7 @@ class Dashboard extends Component {
           >
             <div className='profile-drawer'>
               <GenericText size={34} gutters={5} bold>
-                {userData.firstName + ' ' + userData.lastName}
+                {userData.firstname + ' ' + userData.lastname}
               </GenericText>
               <GenericText gutters={15} size={14}>
                 {userData.email}
@@ -153,6 +153,11 @@ class Dashboard extends Component {
         <div className={isMobile ? 'content mb' : 'content'}>
           {loading && <Loader />}
           <Switch>
+            <Route
+              exact
+              path='/dashboard'
+              component={() => <Redirect to='/dashboard/home' />}
+            />
             {juliusDashboardRoutes.map((route, i) => (
               <Route
                 exact

@@ -13,6 +13,8 @@ import {
   setAppLoadedErrorAction
 } from './appstate.actions'
 
+import history from '@utils/history'
+
 const userSignupStartAction = () => ({
   type: USER_SIGNUP_START
 })
