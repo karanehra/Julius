@@ -8,7 +8,9 @@ const initialState = {
   loading: false,
   error: null,
   errorMessage: null,
-  isSnackbarOpen: false
+  isSnackbarOpen: false,
+  snackbarMessage: '',
+  snackbarType: 'INFO'
 }
 
 export default function appstateReducer(state = initialState, action) {
@@ -29,8 +31,8 @@ export default function appstateReducer(state = initialState, action) {
       return {
         ...state,
         isSnackbarOpen: payload.isOpen,
-        snackbarMessage: payload.message,
-        snackbarType: payload.type
+        snackbarMessage: payload.message || '',
+        snackbarType: payload.type || 'INFO'
       }
     default:
       return state

@@ -1,31 +1,47 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { juliusRoutes } from '@constants/routes'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { LOGIN_ROUTE_PATH } from './constants/routeUrls'
 import { Snackbar } from '@material-ui/core'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import '@styles/views/app.scss'
-import { setAppLoadingAction } from './actions/appstate.actions'
+import { openSnackbarAction } from './actions/appstate.actions'
+import { useDispatch } from 'react-redux'
 
 const Julius = () => {
-  const { isSnackbarOpen } = useSelector(
-    state => ({
-      isSnackbarOpen: state.appstateReducer.isSnackbarOpen
-    }),
-    ({ isSnackbarOpenOld }, { isSnackbarOpenNew }) =>
-      {console.log(isSnackbarOpenOld)
-        return isSnackbarOpenNew !== isSnackbarOpenOld;}
-  )
   const dispatch = useDispatch()
-  useEffect(() => {
-    // dispatch(setAppLoadingAction(false))
-    // console.log('helllo')
-  })
+  const { isSnackbarOpen, snackbarMessage, snackbarType } = useSelector(
+    state => ({
+      isSnackbarOpen: state.appstateReducer.isSnackbarOpen,
+      snackbarMessage: state.appstateReducer.snackbarMessage,
+      snackbarType: state.appstateReducer.snackbarType
+    })
+  )
+
+  const getSnackbarClass = () => {
+    switch (snackbarType) {
+      case 'INFO':
+        return 'snackbar info'
+      case 'SUCCESS':
+        return 'snackbar success'
+      case 'ERROR':
+        return 'snackbar error'
+    }
+  }
+
+  const closeSnackbar = () => {
+    dispatch(openSnackbarAction({ isOpen: false }))
+  }
+
   return (
     <React.Fragment>
       <Snackbar
         open={isSnackbarOpen}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        message={snackbarMessage}
+        classes={{ paper: 'snackbar error' }}
+        onClose={closeSnackbar}
+        autoHideDuration={2000}
       />
       <Switch>
         <Route exact path='/'>

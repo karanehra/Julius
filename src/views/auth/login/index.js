@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import GenericText from '@shared/genericText'
 import { TextField } from '@material-ui/core/'
 import { Button } from '@material-ui/core'
-import { callUserLoginpApi } from '@utils/apis/login.api'
-import history from '@utils/history'
 import { userLoginNewAction } from '../../../actions/users.actions'
+import { useDispatch } from 'react-redux'
+import { openSnackbarAction } from '../../../actions/appstate.actions'
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -14,6 +14,7 @@ const Login = () => {
     passwordError: ''
   })
   const { email, password } = values
+  const dispatch = useDispatch()
 
   useEffect(() => {
     console.log('adsadsda')
@@ -26,19 +27,15 @@ const Login = () => {
 
   const handleSubmit = async () => {
     let res = await userLoginNewAction({ email, password })
-    // if(res){
-
-    // } else {
-
-    // }
-    // try {
-    //   let res = await callUserLoginpApi({ email, password })
-    //   if (res.status === 200) {
-    //     history.push('/dashboard/')
-    //   }
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    if (res) {
+      dispatch(
+        openSnackbarAction({ type: 'SUCCESS', message: 'Login', isOpen: true })
+      )
+    } else {
+      dispatch(
+        openSnackbarAction({ type: 'ERROR', message: 'ERROR', isOpen: true })
+      )
+    }
   }
 
   return (

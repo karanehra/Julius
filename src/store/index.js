@@ -12,7 +12,7 @@ import usersReducer from '../reducers/users.reducer'
 import notesReducer from '../reducers/notes.reducer'
 import appstateReducer from '../reducers/appstate.reducer'
 
-let persistedState = JSON.parse(localStorage.getItem('juliusStore')) || {}
+let persistedState = JSON.parse(localStorage.getItem('juliusStore'))
 
 export default createStore(
   combineReducers({

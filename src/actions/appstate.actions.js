@@ -24,6 +24,14 @@ export const setAppLoadedErrorAction = payload => ({
   payload
 })
 
+/**
+ * Redux action
+ * Controls the global snackbar
+ * @param {Object} payload The snackbar info payload
+ * @param {string} payload.type The snackbar type. SUCCESS,INFO,ERROR,WARN
+ * @param {string} payload.message The snackbar message
+ * @param {boolean} payload.isOpen The snackbar state
+ */
 export const openSnackbarAction = payload => ({
   type: OPEN_SNACKBAR_ACTION,
   payload
