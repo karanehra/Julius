@@ -2,7 +2,7 @@ import Axios from 'axios'
 import { openSnackbarAction } from '../../actions/appstate.actions'
 import store from '../../store'
 
-const errorResponseHandler = err => {
+const errorResponseInterceptor = err => {
   const { message } = err.toJSON()
   if (message === 'Network Error') {
     store.dispatch(
@@ -17,11 +17,20 @@ const errorResponseHandler = err => {
   return Promise.reject(err)
 }
 
-const errorRequesrHandler = err => {
-  throw err
+const successRequestInterceptor = req => {
+  if (req.url) {
+    if (!req.url.includes('/user')) {
+      const {
+        usersReducer: { token }
+      } = store.getState()
+      if (!!token) req.headers.Authorization = `Bearer ${token}`
+      return req
+    }
+  }
+  return req
 }
 
-Axios.interceptors.response.use(res => res, errorResponseHandler)
-Axios.interceptors.request.use(req => req, errorRequesrHandler)
+Axios.interceptors.response.use(res => res, errorResponseInterceptor)
+Axios.interceptors.request.use(successRequestInterceptor)
 
 export default Axios

@@ -23,13 +23,11 @@ export default function usersReducer(state = initialState, action) {
       return { ...state, loading: false, signupData: payload, errorData: null }
     case USER_SIGNUP_FAILURE:
       return { ...state, loading: false, errorData: payload, signupata: null }
-    case USER_LOGIN_START:
-      return { ...state, loading: true }
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
-        userData: payload,
+        userData: payload.user,
         token: payload.token,
         errorData: null
       }

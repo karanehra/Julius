@@ -40,9 +40,6 @@ export const userSignupAsyncAction = payload => {
       })
   }
 }
-const userLoginStartAction = () => ({
-  type: USER_LOGIN_START
-})
 const userLoginSuccessAction = userData => ({
   type: USER_LOGIN_SUCCESS,
   payload: userData
@@ -53,20 +50,6 @@ const userLoginFailureAction = errData => ({
   payload: errData
 })
 
-export const userLoginAsyncAction = payload => {
-  return dispatch => {
-    dispatch(userLoginStartAction())
-    return callUserLoginpApi(payload)
-      .then(res => {
-        dispatch(userLoginSuccessAction(res.data))
-        return res
-      })
-      .catch(err => {
-        dispatch(userLoginFailureAction(err))
-        throw err
-      })
-  }
-}
 
 export const userLoginNewAction = async ({ email, password }) => {
   store.dispatch(setAppLoadingAction(true))
