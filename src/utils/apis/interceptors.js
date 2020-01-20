@@ -24,6 +24,7 @@ const errorResponseInterceptor = err => {
         isOpen: true
       })
     )
+    return
   }
   return Promise.reject(err)
 }

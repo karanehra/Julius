@@ -40,6 +40,15 @@ export const callPurgeFeedsApi = () => {
   return Axios.delete(API_BASE_URL + '/feeds')
 }
 
+/**
+ * Updates a single feed in DB against payload provided
+ * @param {string} feedID The ID against which update is issued
+ * @param {Object} payload The updated feed payload
+ */
+export const callUpdateFeedByIDApi = (feedID, payload) => {
+  return Axios.post(API_BASE_URL + `/feeds/${feedID}`, payload)
+}
+
 export const callGetCronDataApi = () => {
   return Axios.get(CRON_SERVER_BASE_URL)
 }

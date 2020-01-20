@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getFeedDataAsyncAction } from "@actions/feeds.actions";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getFeedDataAsyncAction } from '@actions/feeds.actions'
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -11,102 +11,113 @@ import {
   TextField,
   Grid,
   InputAdornment
-} from "@material-ui/core";
-import Cancel from "@material-ui/icons/Cancel";
-import Link from "@material-ui/icons/Link";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import GenericText from "@shared/genericText";
-import "@styles/views/feeds.scss";
+} from '@material-ui/core'
+import Cancel from '@material-ui/icons/Cancel'
+import Link from '@material-ui/icons/Link'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import GenericText from '@shared/genericText'
+import '@styles/views/feeds.scss'
 import {
   callAddFeedApi,
-  callPurgeFeedsApi
-} from "../../../utils/apis/apiService";
+  callPurgeFeedsApi,
+  callUpdateFeedByIDApi
+} from '../../../utils/apis/apiService'
 
 class FeedsPage extends Component {
   state = {
     expandedPanel: null,
     feedAddPanelVisible: false,
-    addingFeedUrl: null
-  };
+    addingFeedUrl: null,
+    tagstring: ''
+  }
 
   componentDidMount() {
-    this.getFeedData();
+    this.getFeedData()
   }
 
   expandPanel = event => {
-    this.setState({ expandedPanel: event.target.id });
-  };
+    this.setState({ expandedPanel: event.target.id })
+  }
 
   getFeedData = () => {
-    this.props.dispatch(getFeedDataAsyncAction());
-  };
+    this.props.dispatch(getFeedDataAsyncAction())
+  }
 
   switchAddFeed = () => {
-    this.setState({ feedAddPanelVisible: !this.state.feedAddPanelVisible });
-  };
+    this.setState({ feedAddPanelVisible: !this.state.feedAddPanelVisible })
+  }
 
   handleInput = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
+    const { name, value } = event.target
+    this.setState({ [name]: value })
+  }
 
   addFeed = async () => {
     try {
       let res = await callAddFeedApi({
-        URL: this.state.addingFeedUrl.split(";"),
-        title: "Some title"
-      });
+        URL: this.state.addingFeedUrl.split(';'),
+        title: 'Some title'
+      })
       if (res.status === 201) {
-        this.componentDidMount();
+        this.componentDidMount()
       }
     } catch {
-      console.log("Error occured");
+      console.log('Error occured')
     }
-  };
+  }
 
   purgeFeeds = async () => {
-    let res = await callPurgeFeedsApi();
+    let res = await callPurgeFeedsApi()
     if (res.status === 200) {
-      this.componentDidMount();
+      this.componentDidMount()
     }
-  };
+  }
+
+  updateFeed = feedData => async () => {
+    const { tagstring } = this.state
+    console.log(tagstring)
+    const { _id } = feedData
+    let res = await callUpdateFeedByIDApi(_id, feedData)
+    if (res) {
+      console.log(res)
+    }
+  }
 
   render() {
-    const { feedData, addFeedData, isMobile } = this.props;
-    const { expandedPanel, feedAddPanelVisible } = this.state;
+    const { feedData, addFeedData, isMobile } = this.props
+    const { expandedPanel, feedAddPanelVisible, tagstring } = this.state
     return (
       <React.Fragment>
-        <div className="actions">
+        <div className='actions'>
           <Button
-            color="secondary"
-            variant="contained"
+            color='secondary'
+            variant='contained'
             onClick={this.getFeedData}
           >
             Refresh
           </Button>
           &nbsp;
           <Button
-            color="primary"
-            variant="contained"
+            color='primary'
+            variant='contained'
             onClick={this.switchAddFeed}
           >
-            {feedAddPanelVisible ? <Cancel /> : "Add Feed"}
+            {feedAddPanelVisible ? <Cancel /> : 'Add Feed'}
           </Button>
           &nbsp;
-          <Button color="primary" variant="contained" onClick={this.purgeFeeds}>
+          <Button color='primary' variant='contained' onClick={this.purgeFeeds}>
             Purge Feeds
           </Button>
         </div>
         {feedAddPanelVisible && (
-          <Paper className="add-feed-cont">
+          <Paper className='add-feed-cont'>
             <Grid container spacing={2}>
-              <Grid item xs={isMobile ? 12 : 2} className="add-text">
-                <Typography variant="h6">Add New Feed</Typography>
+              <Grid item xs={isMobile ? 12 : 2} className='add-text'>
+                <Typography variant='h6'>Add New Feed</Typography>
               </Grid>
 
               {addFeedData ? (
-                <Grid item xs={10} className="add-text">
+                <Grid item xs={10} className='add-text'>
                   Added Feed
                 </Grid>
               ) : (
@@ -115,24 +126,24 @@ class FeedsPage extends Component {
                     <TextField
                       InputProps={{
                         startAdornment: (
-                          <InputAdornment position="start">
+                          <InputAdornment position='start'>
                             <Link />
                           </InputAdornment>
                         )
                       }}
                       fullWidth
-                      variant="outlined"
-                      label="Add RSS url"
+                      variant='outlined'
+                      label='Add RSS url'
                       onChange={this.handleInput}
-                      name="addingFeedUrl"
+                      name='addingFeedUrl'
                     />
                   </Grid>
-                  <Grid item xs={2} className="add-text">
+                  <Grid item xs={2} className='add-text'>
                     <Button
                       fullWidth
-                      color="primary"
-                      size="large"
-                      variant="outlined"
+                      color='primary'
+                      size='large'
+                      variant='outlined'
                       onClick={this.addFeed}
                     >
                       Add
@@ -145,17 +156,16 @@ class FeedsPage extends Component {
         )}
         {feedData && feedData.length > 0 ? (
           feedData.map((feed, i) => (
-            <ExpansionPanel key={i}>
+            <ExpansionPanel key={i} expanded={expandedPanel === 'panel-' + i}>
               <ExpansionPanelSummary
                 expandIcon={<ExpandMore />}
-                aria-controls={"panel-" + i + "-content"}
-                id={"panel-" + i}
-                expanded={expandedPanel === "panel-" + i}
+                aria-controls={'panel-' + i + '-content'}
+                id={'panel-' + i}
                 onClick={this.expandPanel}
               >
                 <Typography>{feed.title}</Typography>
               </ExpansionPanelSummary>
-              <ExpansionPanelDetails className="feed-details">
+              <ExpansionPanelDetails className='feed-details'>
                 <div>
                   <GenericText size={14} bold>
                     Id:
@@ -176,18 +186,27 @@ class FeedsPage extends Component {
                 </div>
                 <div>
                   <GenericText size={14} bold>
-                    Image Url:
+                    Tags:
                   </GenericText>
-                  <GenericText size={12}>{feed.image_url}</GenericText>
+                  <GenericText size={12}>{feed.tags}</GenericText>
                 </div>
+                <TextField
+                  name='tagstring'
+                  value={tagstring}
+                  onChange={this.handleInput}
+                />
+                <Button onClick={this.updateFeed(feed)} variant='contained'>
+                  {' '}
+                  Update
+                </Button>
               </ExpansionPanelDetails>
             </ExpansionPanel>
           ))
         ) : (
-          <div className="no-feeds">No Feeds Available</div>
+          <div className='no-feeds'>No Feeds Available</div>
         )}
       </React.Fragment>
-    );
+    )
   }
 }
 
@@ -196,6 +215,6 @@ const mapStateToProps = state => ({
   addLoading: state.feedsReducer.addLoading,
   addFeedData: state.feedsReducer.addFeedData,
   isMobile: state.deviceReducer.isMobile
-});
+})
 
-export default connect(mapStateToProps)(FeedsPage);
+export default connect(mapStateToProps)(FeedsPage)
