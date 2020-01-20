@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getFeedDataAsyncAction } from '@actions/feeds.actions'
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
   Typography,
-  ExpansionPanelDetails,
   Button,
   Paper,
   TextField,
@@ -14,8 +11,6 @@ import {
 } from '@material-ui/core'
 import Cancel from '@material-ui/icons/Cancel'
 import Link from '@material-ui/icons/Link'
-import ExpandMore from '@material-ui/icons/ExpandMore'
-import GenericText from '@shared/genericText'
 import '@styles/views/feeds.scss'
 import {
   callAddFeedApi,
@@ -75,8 +70,9 @@ class FeedsPage extends Component {
 
   updateFeed = feedData => async () => {
     const { tagstring } = this.state
-    console.log(tagstring)
     const { _id } = feedData
+    const tags = tagstring.split(',')
+    feedData.tags = tags
     let res = await callUpdateFeedByIDApi(_id, feedData)
     if (res) {
       console.log(res)
@@ -85,7 +81,7 @@ class FeedsPage extends Component {
 
   render() {
     const { feedData, addFeedData, isMobile } = this.props
-    const { expandedPanel, feedAddPanelVisible, tagstring } = this.state
+    const { feedAddPanelVisible } = this.state
     return (
       <React.Fragment>
         <div className='actions'>
@@ -155,53 +151,19 @@ class FeedsPage extends Component {
           </Paper>
         )}
         {feedData && feedData.length > 0 ? (
-          feedData.map((feed, i) => (
-            <ExpansionPanel key={i} expanded={expandedPanel === 'panel-' + i}>
-              <ExpansionPanelSummary
-                expandIcon={<ExpandMore />}
-                aria-controls={'panel-' + i + '-content'}
-                id={'panel-' + i}
-                onClick={this.expandPanel}
-              >
-                <Typography>{feed.title}</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails className='feed-details'>
-                <div>
-                  <GenericText size={14} bold>
-                    Id:
-                  </GenericText>
-                  <GenericText size={12}>{feed.id}</GenericText>
-                </div>
-                <div>
-                  <GenericText size={14} bold>
-                    Description:
-                  </GenericText>
-                  <GenericText size={12}>{feed.description}</GenericText>
-                </div>
-                <div>
-                  <GenericText size={14} bold>
-                    Created At:
-                  </GenericText>
-                  <GenericText size={12}>{feed.createdAt}</GenericText>
-                </div>
-                <div>
-                  <GenericText size={14} bold>
-                    Tags:
-                  </GenericText>
-                  <GenericText size={12}>{feed.tags}</GenericText>
-                </div>
-                <TextField
-                  name='tagstring'
-                  value={tagstring}
-                  onChange={this.handleInput}
-                />
-                <Button onClick={this.updateFeed(feed)} variant='contained'>
-                  {' '}
-                  Update
-                </Button>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          ))
+          <Grid container>
+            {feedData.map((feed, i) => (
+              <Grid key={i} item xs={4}>
+                <Paper className='feed-details'>
+                  <div className='title'>
+                    {feed.title} <a href={feed.URL}>Visit</a>
+                  </div>
+                  <div className='description'>{feed.description}</div>
+                  <div className='description'>Tags: {feed.tags}</div>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
         ) : (
           <div className='no-feeds'>No Feeds Available</div>
         )}

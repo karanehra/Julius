@@ -15,6 +15,17 @@
 .feed-details {
   display: block !important;
   background-color: #f3f3f3ab;
+  margin: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .title {
+    font-weight: bold;
+  }
+  .url {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 
   .action-btn {
     margin-bottom: 5px;
