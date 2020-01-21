@@ -16,7 +16,8 @@ import {
   callAddFeedApi,
   callPurgeFeedsApi,
   callUpdateFeedByIDApi
-} from '../../../utils/apis/apiService'
+} from '@utils/apis/apiService'
+import FeedCard from './feedCard'
 
 class FeedsPage extends Component {
   state = {
@@ -154,13 +155,7 @@ class FeedsPage extends Component {
           <Grid container>
             {feedData.map((feed, i) => (
               <Grid key={i} item xs={4}>
-                <Paper className='feed-details'>
-                  <div className='title'>
-                    {feed.title} <a href={feed.URL}>Visit</a>
-                  </div>
-                  <div className='description'>{feed.description}</div>
-                  <div className='description'>Tags: {feed.tags}</div>
-                </Paper>
+                <FeedCard data={feed} />
               </Grid>
             ))}
           </Grid>
