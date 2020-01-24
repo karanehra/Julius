@@ -11,6 +11,7 @@ import deviceReducer from '../reducers/device.reducer'
 import usersReducer from '../reducers/users.reducer'
 import notesReducer from '../reducers/notes.reducer'
 import appstateReducer from '../reducers/appstate.reducer'
+import processReducer from '../reducers/process.reducer'
 
 let persistedState = JSON.parse(localStorage.getItem('juliusStore'))
 
@@ -25,7 +26,8 @@ export default createStore(
     deviceReducer,
     usersReducer,
     notesReducer,
-    appstateReducer
+    appstateReducer,
+    processReducer
   }),
   persistedState,
   applyMiddleware(logger, thunk)

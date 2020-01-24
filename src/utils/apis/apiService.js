@@ -49,6 +49,23 @@ export const callUpdateFeedByIDApi = (feedID, payload) => {
   return Axios.post(API_BASE_URL + `/feeds/${feedID}`, payload)
 }
 
+export const callGetProcessDataApi = () => {
+  return Axios.get(API_BASE_URL + `/process`)
+}
+
+/**
+ * Updates the given process ID
+ * @param {string} processID The ID of the process being updated
+ * @param {string} payload The updated payload
+ */
+export const callUpdateProcessByIDApi = (processID, payload) => {
+  return Axios.patch(API_BASE_URL + `/process/${processID}`, payload)
+}
+
+export const callPostProcessApi = payload => {
+  return Axios.post(API_BASE_URL + `/process`, payload)
+}
+
 export const callGetCronDataApi = () => {
   return Axios.get(CRON_SERVER_BASE_URL)
 }
