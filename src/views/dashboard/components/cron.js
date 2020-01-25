@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
-import { callGetProcessDataApi } from '../../../utils/apis/apiService'
+import {
+  callGetProcessDataApi,
+  callPostProcessApi
+} from '../../../utils/apis/apiService'
 import { Paper } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import { TextField } from '@material-ui/core/'
@@ -8,26 +11,35 @@ import { Button } from '@material-ui/core'
 const CronPage = () => {
   const [jobs, setJobs] = React.useState([])
   const [newJob, setNewJob] = React.useState({
-    name: '',
+    processName: '',
     type: ''
   })
   useEffect(() => {
-    async function getData() {
-      let res = await callGetProcessDataApi()
-      if (res.status === 200) {
-        setJobs(res.data || [])
-      }
-    }
-    getData()
+    getProcessData()
   }, [])
+
+  const getProcessData = async () => {
+    let res = await callGetProcessDataApi()
+    if (res.status === 200) {
+      setJobs(res.data || [])
+    }
+  }
 
   const handleInput = event => {
     const { name, value } = event.target
     setNewJob({ ...newJob, [name]: value })
   }
 
-  const handleSubmit = () => {
-    console.log(newJob)
+  const handleSubmit = async () => {
+    try {
+      let res = await callPostProcessApi(newJob)
+      if (res.status === 201) {
+        getProcessData()
+        setNewJob({ processName: '', type: '' })
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -37,17 +49,17 @@ const CronPage = () => {
           Add Job
           <TextField
             label='name'
-            name='jobName'
-            value={newJob.name}
+            name='processName'
+            value={newJob.processName}
             onChange={handleInput}
           />
           <TextField
             label='type'
-            name='newJobType'
+            name='type'
             value={newJob.type}
             onChange={handleInput}
           />
-          <Button onClick={handleSubmit}></Button>
+          <Button onClick={handleSubmit}>Add</Button>
         </Typography>
       </Paper>
       {jobs.length > 0 ? (
