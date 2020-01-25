@@ -67,7 +67,7 @@ const Sidenav = () => {
         <ListItemIcon classes={{ root: 'white' }}>
           <Timer />
         </ListItemIcon>
-        <ListItemText primary='Cron' />
+        <ListItemText primary='Jobs' />
       </ListItem>
       <ListItem
         button

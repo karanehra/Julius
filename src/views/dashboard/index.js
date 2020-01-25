@@ -44,7 +44,7 @@ class Dashboard extends Component {
       case FEEDS_ROUTE_PATH:
         return 'Feeds'
       case CRONJOBS_ROUTE_PATH:
-        return 'Cron Jobs'
+        return 'Jobs'
       case LOGS_ROUTE_PATH:
         return 'Logs'
     }
