@@ -55,7 +55,7 @@ export const juliusDashboardRoutes = [
   {
     path: CRONJOBS_ROUTE_PATH,
     component: Loadable({
-      loader: () => import('@views/dashboard/components/cron'),
+      loader: () => import('@views/dashboard/components/jobs/'),
       loading: Loader
     })
   },

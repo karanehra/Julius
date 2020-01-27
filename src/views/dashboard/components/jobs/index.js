@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {
   callGetProcessDataApi,
   callPostProcessApi
-} from '../../../utils/apis/apiService'
+} from '../../../../utils/apis/apiService'
 import { Paper } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import { TextField } from '@material-ui/core/'
