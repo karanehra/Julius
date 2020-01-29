@@ -1,35 +1,38 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
-  getDashboardDataAsyncAction,
   dashboardLayoutChangeAction,
   dashboardLayoutChangeMobileAction
-} from "@actions/dashboard.actions";
-import { Typography, Button, Paper } from "@material-ui/core";
-import { getGraphDataAsyncAction } from "@actions/graphs.actions";
-import CustomChart from "@shared/lineChart";
-import GridLayout from "react-grid-layout";
-import "../../../../node_modules/react-grid-layout/css/styles.css";
-import "../../../../node_modules/react-resizable/css/styles.css";
+} from '@actions/dashboard.actions'
+import { Typography, Button, Paper } from '@material-ui/core'
+import CustomChart from '@shared/lineChart'
+import GridLayout from 'react-grid-layout'
+import '../../../../node_modules/react-grid-layout/css/styles.css'
+import '../../../../node_modules/react-resizable/css/styles.css'
+import { callGetStatusDataApi } from '@utils/apis/apiService'
 
 class Home extends Component {
-  state = {};
+  state = {}
 
   componentDidMount() {
-    this.refreshData();
+    this.refreshData()
   }
 
-  refreshData = () => {
-    const { dispatch } = this.props;
-    dispatch(getDashboardDataAsyncAction());
-    dispatch(getGraphDataAsyncAction());
-  };
+  refreshData = async () => {
+    try {
+      let res = await callGetStatusDataApi()
+      this.setState({ ...res.data })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   handleLayoutChange = layout => {
-    const { isMobile, dispatch } = this.props;
+    const { isMobile, dispatch } = this.props
     isMobile
       ? dispatch(dashboardLayoutChangeMobileAction(layout))
-      : dispatch(dashboardLayoutChangeAction(layout));
-  };
+      : dispatch(dashboardLayoutChangeAction(layout))
+  }
 
   render() {
     const {
@@ -38,44 +41,45 @@ class Home extends Component {
       isMobile,
       layout,
       layoutMobile
-    } = this.props;
+    } = this.props
+    const { articleCount, feedCount } = this.state
     return (
       <React.Fragment>
-        <Button variant="contained" color="primary" onClick={this.refreshData}>
+        <Button variant='contained' color='primary' onClick={this.refreshData}>
           Refresh
         </Button>
         {dashboardData && (
           <GridLayout
-            className="layout"
+            className='layout'
             layout={isMobile ? layoutMobile : layout}
             cols={12}
             rowHeight={30}
             width={isMobile ? window.innerWidth - 20 : window.innerWidth - 240}
             onLayoutChange={this.handleLayoutChange}
           >
-            <Paper className="datacard" key="a">
-              <Typography variant="h5">Articles</Typography>
-              <Typography variant="h2">{dashboardData.articles}</Typography>
+            <Paper className='datacard' key='a'>
+              <Typography variant='h5'>Articles</Typography>
+              <Typography variant='h2'>{articleCount}</Typography>
             </Paper>
-            <Paper className="datacard" key="b">
-              <Typography variant="h5">Feeds</Typography>
-              <Typography variant="h2">{dashboardData.feeds}</Typography>
+            <Paper className='datacard' key='b'>
+              <Typography variant='h5'>Feeds</Typography>
+              <Typography variant='h2'>{feedCount}</Typography>
             </Paper>
-            <Paper className="datacard" key="c">
+            <Paper className='datacard' key='c'>
               {graphData && (
                 <CustomChart
-                  type={"bar"}
-                  label={"Articles Added"}
+                  type={'bar'}
+                  label={'Articles Added'}
                   data={graphData.addedDaily}
                   splice={7}
                 />
               )}
             </Paper>
-            <Paper className="datacard" key="d">
+            <Paper className='datacard' key='d'>
               {graphData && (
                 <CustomChart
-                  type={"line"}
-                  label={"Total Articles"}
+                  type={'line'}
+                  label={'Total Articles'}
                   data={graphData.dailyCount}
                 />
               )}
@@ -83,7 +87,7 @@ class Home extends Component {
           </GridLayout>
         )}
       </React.Fragment>
-    );
+    )
   }
 }
 
@@ -94,6 +98,6 @@ const mapStateToProps = state => ({
   isMobile: state.deviceReducer.isMobile,
   layout: state.dashboardReducer.layout,
   layoutMobile: state.dashboardReducer.layoutMobile
-});
+})
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Home)

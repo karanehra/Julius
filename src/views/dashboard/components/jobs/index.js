@@ -3,10 +3,7 @@ import {
   callGetProcessDataApi,
   callPostProcessApi
 } from '../../../../utils/apis/apiService'
-import { Paper } from '@material-ui/core'
-import { Typography } from '@material-ui/core'
-import { TextField } from '@material-ui/core/'
-import { Button } from '@material-ui/core'
+import { Paper, Button, TextField, Typography } from '@material-ui/core'
 
 const CronPage = () => {
   const [jobs, setJobs] = React.useState([])

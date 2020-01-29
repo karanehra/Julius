@@ -13,7 +13,7 @@ export const callGetArticlesApi = ({
 }
 
 export const callGetStatusDataApi = () => {
-  return Axios.get(API_BASE_URL + '/datasets')
+  return Axios.get(API_BASE_URL + '/dataset')
 }
 
 /**
@@ -71,7 +71,7 @@ export const callGetCronDataApi = () => {
 }
 
 export const callGetGraphDataApi = () => {
-  return Axios.get(API_BASE_URL + '/datasets/dataset')
+  return Axios.get(API_BASE_URL + '/dataset')
 }
 
 export const callStopCronApi = id => {
