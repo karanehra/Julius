@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -14,20 +15,20 @@ import {
   TextField,
   OutlinedInput,
   InputAdornment
-} from "@material-ui/core";
-import { connect } from "react-redux";
-import { getArticleDataAsyncAction } from "@actions/articles.actions";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import GenericText from "@shared/genericText";
-import { callParseArticleApi } from "@utils/apis/apiService";
-import { Search } from "@material-ui/icons";
-import "@styles/views/articles.scss";
+} from '@material-ui/core'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import { Search } from '@material-ui/icons'
+import { getArticleDataAsyncAction } from '@actions/articles.actions'
+import { callParseArticleApi } from '@utils/apis/apiService'
+import GenericText from '@shared/genericText'
+import '@styles/views/articles.scss'
+import { callPurgeArticleApi } from '../../../../utils/apis/apiService'
 
 class ArticlesPage extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    const { page, pageSize, query } = this.state;
-    dispatch(getArticleDataAsyncAction({ page, pageSize, query }));
+    const { dispatch } = this.props
+    const { page, pageSize, query } = this.state
+    dispatch(getArticleDataAsyncAction({ page, pageSize, query }))
   }
 
   state = {
@@ -35,59 +36,70 @@ class ArticlesPage extends Component {
     dialogData: null,
     page: 1,
     pageSize: 10,
-    query: ""
-  };
+    query: ''
+  }
 
   parseArticle = article => event => {
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault()
+    event.stopPropagation()
     callParseArticleApi({
       url: article.link
     }).then(res => {
       let data = {
         article,
         parsed: res.data
-      };
-      this.setState({ dialogData: data });
-      this.switchContentDialog();
-    });
-  };
+      }
+      this.setState({ dialogData: data })
+      this.switchContentDialog()
+    })
+  }
 
   switchContentDialog = () => {
     this.setState({
       isContentDialogOpen: !this.state.isContentDialogOpen
-    });
-  };
+    })
+  }
 
   handleQueryChange = event => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     this.setState(
       { [name]: value },
-      value !== "" ? this.componentDidMount : () => {}
-    );
-  };
+      value !== '' ? this.componentDidMount : () => {}
+    )
+  }
 
   handleQueryStringChange = ({ target: { name, value } }) =>
-    this.setState({ [name]: value });
+    this.setState({ [name]: value })
+
+  purgeArticles = async () => {
+    try {
+      let res = await callPurgeArticleApi()
+      if (res.status === 200) {
+        this.componentDidMount()
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   render() {
-    const { articleData, isMobile } = this.props;
+    const { articleData, isMobile } = this.props
     const {
       isContentDialogOpen,
       dialogData,
       pageSize,
       page,
       query
-    } = this.state;
+    } = this.state
     return (
       <React.Fragment>
         {articleData && articleData.length > 0 && (
-          <FormGroup className="query-toolbar">
-            <div className="control">
-              <FormControl fullWidth variant="outlined">
+          <FormGroup className='query-toolbar'>
+            <div className='control'>
+              <FormControl fullWidth variant='outlined'>
                 <InputLabel>Page Size</InputLabel>
                 <Select
-                  name="pageSize"
+                  name='pageSize'
                   value={pageSize}
                   onChange={this.handleQueryChange}
                   input={<OutlinedInput />}
@@ -98,29 +110,29 @@ class ArticlesPage extends Component {
                 </Select>
               </FormControl>
             </div>
-            <div className="control">
+            <div className='control'>
               <TextField
-                variant="outlined"
-                label="Page number"
+                variant='outlined'
+                label='Page number'
                 value={page}
-                name="page"
+                name='page'
                 onChange={this.handleQueryChange}
                 fullWidth
               />
             </div>
-            <div className="control">
+            <div className='control'>
               <TextField
-                variant="outlined"
-                label="Query"
+                variant='outlined'
+                label='Query'
                 value={query}
-                name="query"
+                name='query'
                 fullWidth
                 onChange={this.handleQueryStringChange}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment
                       onClick={this.handleQueryChange}
-                      position="end"
+                      position='end'
                     >
                       <Search />
                     </InputAdornment>
@@ -130,40 +142,41 @@ class ArticlesPage extends Component {
             </div>
           </FormGroup>
         )}
+        <Button onClick={this.purgeArticles}>Purge</Button>
 
         {articleData && articleData.length > 0 ? (
           articleData.map((article, i) => (
             <ExpansionPanel key={i}>
               <ExpansionPanelSummary
                 expandIcon={<ExpandMore />}
-                aria-controls={"panel-" + i + "-content"}
-                id={"panel-" + i}
+                aria-controls={'panel-' + i + '-content'}
+                id={'panel-' + i}
                 classes={{
-                  content: "article-summary"
+                  content: 'article-summary'
                 }}
               >
-                <Typography className="article-title">
+                <Typography className='article-title'>
                   {article.title}
                 </Typography>
                 {!isMobile && (
                   <Button
-                    variant="outlined"
+                    variant='outlined'
                     onClick={this.parseArticle(article)}
-                    color="primary"
+                    color='primary'
                   >
                     Get Content
                   </Button>
                 )}
               </ExpansionPanelSummary>
-              <ExpansionPanelDetails className="article-details">
+              <ExpansionPanelDetails className='article-details'>
                 {isMobile && (
                   <Button
-                    variant="outlined"
+                    variant='outlined'
                     onClick={this.parseArticle(article)}
-                    color="primary"
+                    color='primary'
                     fullWidth
                     classes={{
-                      root: "action-btn"
+                      root: 'action-btn'
                     }}
                   >
                     Get Content
@@ -194,8 +207,8 @@ class ArticlesPage extends Component {
                     Url:
                   </GenericText>
                   <a
-                    rel="noopener noreferrer"
-                    target="_blank"
+                    rel='noopener noreferrer'
+                    target='_blank'
                     href={article.URL}
                   >
                     Visit
@@ -211,11 +224,11 @@ class ArticlesPage extends Component {
             </ExpansionPanel>
           ))
         ) : (
-          <div className="no-data">No articles available</div>
+          <div className='no-data'>No articles available</div>
         )}
         {isContentDialogOpen && (
           <Dialog
-            classes={{ paper: "dialog-cont" }}
+            classes={{ paper: 'dialog-cont' }}
             open={isContentDialogOpen}
             onClose={this.switchContentDialog}
           >
@@ -226,13 +239,13 @@ class ArticlesPage extends Component {
           </Dialog>
         )}
       </React.Fragment>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
   articleData: state.articlesReducer.articleData,
   isMobile: state.deviceReducer.isMobile
-});
+})
 
-export default connect(mapStateToProps)(ArticlesPage);
+export default connect(mapStateToProps)(ArticlesPage)

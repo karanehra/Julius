@@ -41,6 +41,13 @@ export const callPurgeFeedsApi = () => {
 }
 
 /**
+ * Empties articles from DB
+ */
+export const callPurgeArticleApi = () => {
+  return Axios.delete(API_BASE_URL + '/articles')
+}
+
+/**
  * Updates a single feed in DB against payload provided
  * @param {string} feedID The ID against which update is issued
  * @param {Object} payload The updated feed payload

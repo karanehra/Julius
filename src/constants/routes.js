@@ -48,7 +48,7 @@ export const juliusDashboardRoutes = [
   {
     path: ARTICLES_ROUTE_PATH,
     component: Loadable({
-      loader: () => import('@views/dashboard/components/articles'),
+      loader: () => import('@views/dashboard/components/articles/index'),
       loading: Loader
     })
   },
