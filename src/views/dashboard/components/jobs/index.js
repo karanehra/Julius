@@ -4,6 +4,7 @@ import {
   callPostProcessApi
 } from '../../../../utils/apis/apiService'
 import { Paper, Button, TextField, Typography } from '@material-ui/core'
+import ProcessTable from './processTable'
 
 const CronPage = () => {
   const [jobs, setJobs] = React.useState([])
@@ -42,42 +43,32 @@ const CronPage = () => {
   return (
     <React.Fragment>
       <Paper>
-        <Typography variant='h4'>
-          Add Job
-          <TextField
-            label='name'
-            name='processName'
-            value={newJob.processName}
-            onChange={handleInput}
-          />
-          <TextField
-            label='type'
-            name='type'
-            value={newJob.type}
-            onChange={handleInput}
-          />
-          <Button onClick={handleSubmit}>Add</Button>
-        </Typography>
+        <Typography variant='h4'>Add Job</Typography>
+        <TextField
+          label='name'
+          name='processName'
+          value={newJob.processName}
+          onChange={handleInput}
+          variant='outlined'
+        />
+        <TextField
+          label='type'
+          name='type'
+          value={newJob.type}
+          onChange={handleInput}
+          variant='outlined'
+        />
+        <Button
+          size='large'
+          variant='contained'
+          color='primary'
+          onClick={handleSubmit}
+        >
+          Add
+        </Button>
       </Paper>
       {jobs.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {jobs.map((job, i) => (
-              <tr key={i}>
-                <td>{job.name}</td>
-                <td>{job.status}</td>
-                <td>{job.type}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ProcessTable jobs={jobs} />
       ) : (
         <div>No data available</div>
       )}
