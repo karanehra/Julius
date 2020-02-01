@@ -1,6 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import dashboardReducer from '../reducers/dashboard.reducer'
-import feedsReducer from '../reducers/feeds.reducer'
 import { logger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import cronReducer from '../reducers/cron.reducer'
@@ -17,7 +16,6 @@ let persistedState = JSON.parse(localStorage.getItem('juliusStore')) || {}
 export default createStore(
   combineReducers({
     dashboardReducer,
-    feedsReducer,
     cronReducer,
     graphsReducer,
     logsReducer,
