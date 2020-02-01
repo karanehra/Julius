@@ -14,7 +14,7 @@ const ProcessTable = props => {
       <tbody>
         {jobs.map((job, i) => (
           <tr key={i}>
-            <td>{job.name}</td>
+            <td>{job.processName}</td>
             <td>{job.type}</td>
             <td>{job.status}</td>
           </tr>

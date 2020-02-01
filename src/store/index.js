@@ -3,7 +3,6 @@ import dashboardReducer from '../reducers/dashboard.reducer'
 import feedsReducer from '../reducers/feeds.reducer'
 import { logger } from 'redux-logger'
 import thunk from 'redux-thunk'
-import articlesReducer from '../reducers/articles.reducer'
 import cronReducer from '../reducers/cron.reducer'
 import graphsReducer from '../reducers/graphs.reducer'
 import logsReducer from '../reducers/logs.reducer'
@@ -19,7 +18,6 @@ export default createStore(
   combineReducers({
     dashboardReducer,
     feedsReducer,
-    articlesReducer,
     cronReducer,
     graphsReducer,
     logsReducer,
