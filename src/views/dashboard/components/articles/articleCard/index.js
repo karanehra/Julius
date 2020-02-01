@@ -8,8 +8,8 @@ const ArticleCard = props => {
   return (
     <Paper>
       <Typography variant='h4'>{title}</Typography>
-      <Typography variant='p'>{content}</Typography>
-      <Typography variant='p'>{description}</Typography>
+      <Typography variant='subtitle1'>{content}</Typography>
+      <Typography variant='subtitle1'>{description}</Typography>
     </Paper>
   )
 }

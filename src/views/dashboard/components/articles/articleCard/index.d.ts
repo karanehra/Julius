@@ -4,6 +4,6 @@ interface ArticleCardProps {
   data: any
 }
 
-declare const ArticlesPage: React.FC<ArticleCardProps>
+declare const ArticleCard: React.FC<ArticleCardProps>
 
-export default ArticlesPage
+export default ArticleCard
