@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import { Grid } from '@material-ui/core'
 import '@styles/views/feeds.scss'
-import {
-  callAddFeedApi,
-  callPurgeFeedsApi,
-  callUpdateFeedByIDApi
-} from '@utils/apis/apiService'
+import { callUpdateFeedByIDApi } from '@utils/apis/apiService'
 import FeedCard from './feedCard'
 import { callGetFeedsApi } from '@utils/apis/apiService'
 
@@ -32,27 +28,6 @@ class FeedsPage extends Component {
   handleInput = event => {
     const { name, value } = event.target
     this.setState({ [name]: value })
-  }
-
-  addFeed = async () => {
-    try {
-      let res = await callAddFeedApi({
-        URL: this.state.addingFeedUrl.split(';'),
-        title: 'Some title'
-      })
-      if (res.status === 201) {
-        this.componentDidMount()
-      }
-    } catch {
-      console.log('Error occured')
-    }
-  }
-
-  purgeFeeds = async () => {
-    let res = await callPurgeFeedsApi()
-    if (res.status === 200) {
-      this.componentDidMount()
-    }
   }
 
   updateFeed = feedData => async () => {

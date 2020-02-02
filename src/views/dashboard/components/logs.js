@@ -8,7 +8,6 @@ import {
   Button
 } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getLogsAsyncAction } from "@actions/logs.actions";
 import { callClearLogsApi } from "@utils/apis/apiService";
 
 class LogsPage extends Component {
@@ -23,9 +22,7 @@ class LogsPage extends Component {
     });
   };
 
-  getLogData = () => {
-    this.props.dispatch(getLogsAsyncAction());
-  };
+  getLogData = () => {};
 
   render() {
     const { logsData } = this.props;
@@ -66,8 +63,4 @@ class LogsPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  logsData: state.logsReducer.logsData
-});
-
-export default connect(mapStateToProps)(LogsPage);
+export default LogsPage;
