@@ -11,7 +11,6 @@ import {
   CRONJOBS_ROUTE_PATH,
   LOGS_ROUTE_PATH,
   BOARDS_ROUTE_PATH,
-  TREES_ROUTE_PATH
 } from '@constants/routeUrls'
 import { Note, Timer } from '@material-ui/icons'
 import history from '@utils/history'
@@ -98,16 +97,6 @@ const Sidenav = () => {
           <Note />
         </ListItemIcon>
         <ListItemText primary='Boards' />
-      </ListItem>
-      <ListItem
-        button
-        className={getActiveClass(TREES_ROUTE_PATH)}
-        onClick={routeTo(TREES_ROUTE_PATH)}
-      >
-        <ListItemIcon classes={{ root: 'white' }}>
-          <Note />
-        </ListItemIcon>
-        <ListItemText primary='Trees' />
       </ListItem>
     </List>
   )

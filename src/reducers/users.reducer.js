@@ -1,10 +1,6 @@
 import {
-  USER_SIGNUP_START,
-  USER_SIGNUP_SUCCESS,
-  USER_SIGNUP_FAILURE,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
-  USER_LOGIN_START
 } from '../constants/actionTypes'
 const initialState = {
   signupData: null,
@@ -17,12 +13,6 @@ const initialState = {
 export default function usersReducer(state = initialState, action) {
   const { type, payload } = action
   switch (type) {
-    case USER_SIGNUP_START:
-      return { ...state, loading: true }
-    case USER_SIGNUP_SUCCESS:
-      return { ...state, loading: false, signupData: payload, errorData: null }
-    case USER_SIGNUP_FAILURE:
-      return { ...state, loading: false, errorData: payload, signupata: null }
     case USER_LOGIN_SUCCESS:
       return {
         ...state,

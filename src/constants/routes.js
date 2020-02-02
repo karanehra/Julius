@@ -8,8 +8,6 @@ import {
   LOGS_ROUTE_PATH,
   HOME_ROUTE_PATH,
   BOARDS_ROUTE_PATH,
-  TREES_ROUTE_PATH,
-  TREE_DETAIL_ROUTE_PATH,
   HOMEPAGE_ROUTE_PATH
 } from './routeUrls'
 
@@ -73,18 +71,4 @@ export const juliusDashboardRoutes = [
       loading: Loader
     })
   },
-  {
-    path: TREES_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard/components/trees/listing'),
-      loading: Loader
-    })
-  },
-  {
-    path: TREE_DETAIL_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard/components/trees/detailNew'),
-      loading: Loader
-    })
-  }
 ]
