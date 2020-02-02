@@ -10,7 +10,7 @@ import {
   ARTICLES_ROUTE_PATH,
   CRONJOBS_ROUTE_PATH,
   LOGS_ROUTE_PATH,
-  BOARDS_ROUTE_PATH,
+  BOARDS_ROUTE_PATH
 } from '@constants/routeUrls'
 import { Note, Timer } from '@material-ui/icons'
 import history from '@utils/history'
@@ -67,16 +67,6 @@ const Sidenav = () => {
           <Timer />
         </ListItemIcon>
         <ListItemText primary='Jobs' />
-      </ListItem>
-      <ListItem
-        button
-        className={getActiveClass('/dumps')}
-        onClick={routeTo('/dumps')}
-      >
-        <ListItemIcon classes={{ root: 'white' }}>
-          <CloudDownload />
-        </ListItemIcon>
-        <ListItemText primary='Dumps' />
       </ListItem>
       <ListItem
         button

@@ -5,7 +5,6 @@ import {
   dashboardLayoutChangeMobileAction
 } from '@actions/dashboard.actions'
 import { Typography, Button, Paper } from '@material-ui/core'
-import CustomChart from '@shared/lineChart'
 import GridLayout from 'react-grid-layout'
 import '../../../../node_modules/react-grid-layout/css/styles.css'
 import '../../../../node_modules/react-resizable/css/styles.css'
@@ -35,13 +34,7 @@ class Home extends Component {
   }
 
   render() {
-    const {
-      dashboardData,
-      graphData,
-      isMobile,
-      layout,
-      layoutMobile
-    } = this.props
+    const { dashboardData, isMobile, layout, layoutMobile } = this.props
     const { articleCount, feedCount } = this.state
     return (
       <React.Fragment>
@@ -65,7 +58,7 @@ class Home extends Component {
               <Typography variant='h5'>Feeds</Typography>
               <Typography variant='h2'>{feedCount}</Typography>
             </Paper>
-            <Paper className='datacard' key='c'>
+            {/* <Paper className='datacard' key='c'>
               {graphData && (
                 <CustomChart
                   type={'bar'}
@@ -83,7 +76,7 @@ class Home extends Component {
                   data={graphData.dailyCount}
                 />
               )}
-            </Paper>
+            </Paper> */}
           </GridLayout>
         )}
       </React.Fragment>
@@ -94,7 +87,6 @@ class Home extends Component {
 const mapStateToProps = state => ({
   dashboardData: state.dashboardReducer.dashboardData,
   errorData: state.dashboardReducer.errorData,
-  graphData: state.graphsReducer.graphData,
   isMobile: state.deviceReducer.isMobile,
   layout: state.dashboardReducer.layout,
   layoutMobile: state.dashboardReducer.layoutMobile

@@ -42,7 +42,7 @@ class FeedsPage extends Component {
   }
 
   render() {
-    const { feedData } = this.props
+    const { feedData } = this.state
     return (
       <React.Fragment>
         {feedData && feedData.length > 0 ? (
