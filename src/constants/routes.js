@@ -1,5 +1,4 @@
-import Loadable from 'react-loadable'
-import Loader from '@shared/loader'
+import React from 'react'
 import {
   DASHBOARD_ROUTE_PATH,
   FEEDS_ROUTE_PATH,
@@ -11,64 +10,47 @@ import {
   HOMEPAGE_ROUTE_PATH
 } from './routeUrls'
 
+const homepageComponent = React.lazy(() => import('@views/auth'))
+const dashboardComponent = React.lazy(() => import('@views/dashboard'))
+
 export const juliusRoutes = [
   {
     path: HOMEPAGE_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/auth'),
-      loading: Loader
-    })
+    component: homepageComponent
   },
   {
     path: DASHBOARD_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard'),
-      loading: Loader
-    })
+    component: dashboardComponent
   }
 ]
 
 export const juliusDashboardRoutes = [
   {
     path: HOME_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard/components/home'),
-      loading: Loader
-    })
+    component: React.lazy(() => import('@views/dashboard/components/home'))
   },
   {
     path: FEEDS_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard/components/feeds/index'),
-      loading: Loader
-    })
+    component: React.lazy(() =>
+      import('@views/dashboard/components/feeds/index')
+    )
   },
   {
     path: ARTICLES_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard/components/articles/index'),
-      loading: Loader
-    })
+    component: React.lazy(() =>
+      import('@views/dashboard/components/articles/index')
+    )
   },
   {
     path: CRONJOBS_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard/components/jobs/'),
-      loading: Loader
-    })
+    component: React.lazy(() => import('@views/dashboard/components/jobs/'))
   },
   {
     path: LOGS_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard/components/logs'),
-      loading: Loader
-    })
+    component: React.lazy(() => import('@views/dashboard/components/logs'))
   },
   {
     path: BOARDS_ROUTE_PATH,
-    component: Loadable({
-      loader: () => import('@views/dashboard/components/boards'),
-      loading: Loader
-    })
-  },
+    component: React.lazy(() => import('@views/dashboard/components/boards'))
+  }
 ]
