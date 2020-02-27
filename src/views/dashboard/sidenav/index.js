@@ -3,14 +3,14 @@ import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import ControlCamera from '@material-ui/icons/ControlCamera'
 import RssFeed from '@material-ui/icons/RssFeed'
 import ListIcon from '@material-ui/icons/List'
-import CloudDownload from '@material-ui/icons/CloudDownload'
 import Info from '@material-ui/icons/Info'
 import {
   FEEDS_ROUTE_PATH,
   ARTICLES_ROUTE_PATH,
   CRONJOBS_ROUTE_PATH,
   LOGS_ROUTE_PATH,
-  BOARDS_ROUTE_PATH
+  BOARDS_ROUTE_PATH,
+  VAPOUR_ROUTE_PATH
 } from '@constants/routeUrls'
 import { Note, Timer } from '@material-ui/icons'
 import history from '@utils/history'
@@ -87,6 +87,16 @@ const Sidenav = () => {
           <Note />
         </ListItemIcon>
         <ListItemText primary='Boards' />
+      </ListItem>
+      <ListItem
+        button
+        className={getActiveClass(VAPOUR_ROUTE_PATH)}
+        onClick={routeTo(VAPOUR_ROUTE_PATH)}
+      >
+        <ListItemIcon classes={{ root: 'white' }}>
+          <Note />
+        </ListItemIcon>
+        <ListItemText primary='Vapour' />
       </ListItem>
     </List>
   )

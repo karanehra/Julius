@@ -5,6 +5,7 @@ export const ARTICLES_ROUTE_PATH = '/dashboard/articles'
 export const CRONJOBS_ROUTE_PATH = '/dashboard/cronjobs'
 export const LOGS_ROUTE_PATH = '/dashboard/logs'
 export const BOARDS_ROUTE_PATH = '/dashboard/boards'
+export const VAPOUR_ROUTE_PATH = '/dashboard/vapour'
 
 export const HOMEPAGE_ROUTE_PATH = '/user*'
 export const LOGIN_ROUTE_PATH = '/user/login'

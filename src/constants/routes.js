@@ -7,7 +7,8 @@ import {
   LOGS_ROUTE_PATH,
   HOME_ROUTE_PATH,
   BOARDS_ROUTE_PATH,
-  HOMEPAGE_ROUTE_PATH
+  HOMEPAGE_ROUTE_PATH,
+  VAPOUR_ROUTE_PATH
 } from './routeUrls'
 
 const homepageComponent = React.lazy(() => import('@views/auth'))
@@ -52,5 +53,9 @@ export const juliusDashboardRoutes = [
   {
     path: BOARDS_ROUTE_PATH,
     component: React.lazy(() => import('@views/dashboard/components/boards'))
+  },
+  {
+    path: VAPOUR_ROUTE_PATH,
+    component: React.lazy(() => import('@views/dashboard/components/vapour'))
   }
 ]
