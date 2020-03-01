@@ -29,7 +29,14 @@ const Vapour = () => {
       <Typography variant='h4'>Vapour</Typography>
       <Typography>Status:{isOnline ? 'ONLINE' : 'OFFLINE'}</Typography>
       <Button>Refresh</Button>
-      {shards.length && <div>Shard Data:</div>}
+      {shards.length && (
+        <div>
+          <div>Filled shards: {shards.length}</div>
+          {shards.map((shard, i) => (
+            <div key={i}>{shard}</div>
+          ))}
+        </div>
+      )}
     </>
   )
 }
