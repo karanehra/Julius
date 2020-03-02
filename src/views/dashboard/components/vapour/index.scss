@@ -1,0 +1,20 @@
+.shard-cells {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 2%;
+    margin: 5px;
+    background-color: lightblue;
+    border-radius: 3px;
+    &.filled {
+      background-color: #315edc;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}

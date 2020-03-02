@@ -52,11 +52,15 @@ class Home extends Component {
           >
             <Paper className='datacard' key='a'>
               <Typography variant='h5'>Articles</Typography>
-              <Typography variant='h2'>{articleCount}</Typography>
+              <Typography variant='h2'>
+                {articleCount ? articleCount : 'Fetching'}
+              </Typography>
             </Paper>
             <Paper className='datacard' key='b'>
               <Typography variant='h5'>Feeds</Typography>
-              <Typography variant='h2'>{feedCount}</Typography>
+              <Typography variant='h2'>
+                {feedCount ? feedCount : 'Fetching'}
+              </Typography>
             </Paper>
             {/* <Paper className='datacard' key='c'>
               {graphData && (

@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import {
   callGetVapourStatusApi,
   callGetVapourShardsApi
-} from '../../../../utils/apis/vapour'
+} from '@utils/apis/vapour'
 import { Typography, Button } from '@material-ui/core'
+import './index.scss'
 
 const Vapour = () => {
   const [isOnline, setIsOnline] = React.useState(false)
@@ -26,15 +27,22 @@ const Vapour = () => {
 
   return (
     <>
-      <Typography variant='h4'>Vapour</Typography>
-      <Typography>Status:{isOnline ? 'ONLINE' : 'OFFLINE'}</Typography>
-      <Button>Refresh</Button>
+      <div className='status-bar'>
+        <Typography variant='h4'>Vapour</Typography>
+        <div>Filled shards: {shards.length}</div>
+        <Typography>Status:{isOnline ? 'ONLINE' : 'OFFLINE'}</Typography>
+        <Button>Refresh</Button>
+      </div>
+
       {shards.length && (
         <div>
-          <div>Filled shards: {shards.length}</div>
-          {shards.map((shard, i) => (
-            <div key={i}>{shard}</div>
-          ))}
+          <div className='shard-cells'>
+            {new Array(256).fill(0).map((shard, i) => (
+              <div className={shards[i] ? 'cell filled' : 'cell'} key={i}>
+                {shards[i]}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>
