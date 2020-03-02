@@ -1,3 +1,20 @@
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  .keycount {
+    .text {
+      font-size: 12px;
+      font-weight: lighter;
+    }
+    .count {
+      font-weight: 18px;
+      font-weight: bold;
+    }
+  }
+}
+
 .shard-cells {
   display: flex;
   width: 100%;
