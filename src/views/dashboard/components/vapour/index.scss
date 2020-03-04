@@ -3,12 +3,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  .keycount {
+  .metric {
     .text {
       font-size: 12px;
       font-weight: lighter;
     }
-    .count {
+    .data {
       font-weight: 18px;
       font-weight: bold;
     }
@@ -28,6 +28,9 @@
     margin: 5px;
     background-color: lightblue;
     border-radius: 3px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
     &.filled {
       background-color: #315edc;
       color: white;

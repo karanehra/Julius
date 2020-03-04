@@ -9,8 +9,14 @@ import { Paper } from '@material-ui/core/'
 
 const Vapour = () => {
   const [isOnline, setIsOnline] = React.useState(false)
-  const [shards, setShards] = React.useState([])
+  const [shards, setShards] = React.useState({})
   const [keyCount, setKeyCount] = React.useState(0)
+  const [shardData, setShardData] = React.useState({
+    keyCount: 0,
+    cacheHits: 0,
+    cacheMisses: 0,
+    startupMS: 0
+  })
 
   const getStatus = async () => {
     let res = await callGetVapourStatusApi()
@@ -19,11 +25,18 @@ const Vapour = () => {
       let shardsResp = await callGetVapourShardsApi()
       let {
         status,
-        data: { shards, totalKeyCount }
+        data: {
+          shards,
+          totalKeyCount,
+          hits: cacheHits,
+          misses: cacheMisses,
+          startupMS
+        }
       } = shardsResp
       if (status === 200) {
         setShards(shards)
         setKeyCount(totalKeyCount)
+        setShardData({ ...shardData, cacheHits, cacheMisses, startupMS })
       }
     }
   }
@@ -36,26 +49,35 @@ const Vapour = () => {
     <>
       <Paper className='status-bar'>
         <Typography variant='h3'>Vapour</Typography>
-        <div className='keycount'>
+        <div className='metric'>
           <div className='text'>Key Count:</div>
-          <div className='count'>{keyCount}</div>
+          <div className='data'>{keyCount}</div>
+        </div>
+        <div className='metric'>
+          <div className='text'>Cache Hit Ratio:</div>
+          <div className='data'>
+            {shardData.cacheHits / shardData.cacheMisses || '-'}
+          </div>
+        </div>
+        <div className='metric'>
+          <div className='text'>StartUp Time:</div>
+          <div className='data'>{shardData.startupMS}</div>
+        </div>
+        <div className='metric'>
+          <div className='text'>Cache Hits:</div>
+          <div className='data'>{shardData.cacheHits}</div>
         </div>
         <Button color='primary' variant='contained' onClick={getStatus}>
           Refresh
         </Button>
       </Paper>
-
-      {shards.length && (
-        <div>
-          <div className='shard-cells'>
-            {new Array(256).fill(0).map((shard, i) => (
-              <div className={shards[i] ? 'cell filled' : 'cell'} key={i}>
-                {shards[i]}
-              </div>
-            ))}
+      <div className='shard-cells'>
+        {Object.keys(shards).map((shardID, i) => (
+          <div className={shards[shardID] ? 'cell filled' : 'cell'} key={i}>
+            {shards[shardID] || '0'}
           </div>
-        </div>
-      )}
+        ))}
+      </div>
     </>
   )
 }
