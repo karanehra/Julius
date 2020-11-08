@@ -1,4 +1,5 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import Julius from './views/Julius'
 
-ReactDOM.render(<div>Hello</div>, document.getElementById('root'))
+ReactDOM.render(<Julius />, document.getElementById('root'))

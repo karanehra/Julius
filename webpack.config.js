@@ -8,7 +8,7 @@ module.exports = env => {
     module: {
       rules: [
         {
-          test: /\.tsx$/,
+          test: /\.(tsx|ts)$/,
           exclude: /node_modules/,
           use: ['babel-loader']
         },
@@ -60,7 +60,7 @@ module.exports = env => {
         '@utils': path.resolve(__dirname, 'src/utils'),
         '@views': path.resolve(__dirname, 'src/views')
       },
-      extensions: ['.tsx', '.js', '.scss']
+      extensions: ['.ts', '.tsx', '.js', '.scss']
     }
   }
 }
