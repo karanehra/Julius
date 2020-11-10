@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './index.scss'
 import { Paper, TextField, Button } from '@material-ui/core'
 import { callUserSignupApi } from '../../utils/api/user'
+import history from '../../utils/history'
+import { DASHBOARD_PAGE_ROUTE } from '../../constants/routerUrls'
 
 const LoginView: React.FC = () => {
   const [username, setUsername] = useState('')
@@ -14,7 +16,7 @@ const LoginView: React.FC = () => {
     })
 
     if (status === 200) {
-      console.log(data)
+      history.push(DASHBOARD_PAGE_ROUTE)
     }
   }
   return (
