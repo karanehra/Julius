@@ -1,7 +1,7 @@
 import Axios from './axios'
-import { AuthPayload } from '../interfaces'
+import { AuthPayload, SignupPayload } from '../interfaces'
 
-export const callUserSignupApi = (payload: AuthPayload) => {
+export const callUserSignupApi = (payload: SignupPayload) => {
   return Axios.post('/user/signup', payload)
 }
 
