@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Paper, TextField, Button } from '@material-ui/core'
-import { callUserSignupApi } from '../../utils/api/user'
+import { callUserLoginpApi } from '../../utils/api/user'
 import history from '../../utils/history'
 import { DASHBOARD_PAGE_ROUTE } from '../../constants/routerUrls'
 import { USER_TYPE } from '../../utils/interfaces'
@@ -13,16 +13,9 @@ const LoginView: React.FC = () => {
   const handleFormSubmission = async e => {
     e.preventDefault()
 
-    const { status } = await callUserSignupApi({
-      email: username,
-      userType: USER_TYPE.MASTER,
-      username,
-      password
-    })
+    const { status } = await callUserLoginpApi({ email: username, password })
 
-    if (status === 200) {
-      history.push(DASHBOARD_PAGE_ROUTE)
-    }
+    if (status === 200) history.push(DASHBOARD_PAGE_ROUTE)
   }
 
   return (

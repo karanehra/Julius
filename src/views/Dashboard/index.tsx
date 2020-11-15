@@ -1,8 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import './index.scss'
+import { Store } from '../../store/index'
 
 const DashboardView: FC = () => {
-  return <div>Hey</div>
+  const data: any = useContext(Store)
+  return <div>Hey {data.user}</div>
 }
 
 export default DashboardView
