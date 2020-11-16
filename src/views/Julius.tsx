@@ -8,7 +8,7 @@ import { StoreProvider } from '../store'
 
 const Julius: React.SFC = () => {
   return (
-    <StoreProvider value={{ user: 'user' }}>
+    <StoreProvider>
       <Router history={history}>
         <Switch>
           <Route exact path={LOGIN_PAGE_ROUTE} component={LoginView} />

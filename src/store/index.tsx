@@ -1,21 +1,17 @@
-import React, { createContext } from 'react'
+import React, { createContext, useReducer, useContext, Dispatch } from 'react'
+import RootReducer from '../reducers/index'
 
-export const Store = createContext({})
+export const Store = createContext(null)
 
 const initialState = {
-  user: 'user'
+  user: 'users'
 }
 
-function RootReducer(state, action) {
-  const { type, payload } = action
-  switch (type) {
-    case 'USER_LOGIN_SUCCESS':
-      return { ...state, user: payload }
-    default:
-      return state
-  }
+export const useStore = (): { store: any; dispatch: Dispatch<any> } => {
+  return useContext(Store)
 }
 
 export function StoreProvider(props) {
-  return <Store.Provider value={initialState}>{props.children}</Store.Provider>
+  const [store, dispatch] = useReducer(RootReducer, initialState)
+  return <Store.Provider value={{ store, dispatch }}>{props.children}</Store.Provider>
 }
