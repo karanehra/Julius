@@ -4,7 +4,7 @@ import './index.scss'
 
 const DashboardView: FC = () => {
   const { store } = useStore()
-  return <div>Hey {store.user}</div>
+  return <div>Hey {store.user.email}</div>
 }
 
 export default DashboardView

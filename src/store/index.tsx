@@ -3,9 +3,7 @@ import RootReducer from '../reducers/index'
 
 export const Store = createContext(null)
 
-const initialState = {
-  user: 'users'
-}
+const initialState = JSON.parse(localStorage.getItem('JULIUS_STORE')) || {}
 
 export const useStore = (): { store: any; dispatch: Dispatch<any> } => {
   return useContext(Store)
