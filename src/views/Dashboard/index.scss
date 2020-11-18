@@ -1,0 +1,12 @@
+$navbarHeight: 64px;
+
+.navbar {
+  height: $navbarHeight;
+}
+
+.content {
+  margin-top: $navbarHeight;
+  .sidenav {
+    height: calc(100vh - #{$navbarHeight});
+  }
+}

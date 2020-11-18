@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { callGetJobsApi, callDequeueJobApi, callRequeueJobApi } from '../../../utils/api/job'
 
-const JobsView: FunctionComponent = () => {
+const DashboardJobsView: FunctionComponent = () => {
   const [jobsData, setoJobsData] = useState(null)
 
   const populateJobsData = async () => {
@@ -26,4 +26,4 @@ const JobsView: FunctionComponent = () => {
   return <div>helelo</div>
 }
 
-export default JobsView
+export default DashboardJobsView
