@@ -8,5 +8,19 @@ $navbarHeight: 64px;
   margin-top: $navbarHeight;
   .sidenav {
     height: calc(100vh - #{$navbarHeight});
+
+    .link {
+      width: 100%;
+      display: block;
+      text-decoration: none;
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .display-area {
+    padding: 20px;
+    box-sizing: border-box;
   }
 }

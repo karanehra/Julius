@@ -23,7 +23,11 @@ const DashboardJobsView: FunctionComponent = () => {
     populateJobsData()
   }, [])
 
-  return <div>helelo</div>
+  return (
+    <div>
+      <h1>Jobs</h1>
+    </div>
+  )
 }
 
 export default DashboardJobsView
