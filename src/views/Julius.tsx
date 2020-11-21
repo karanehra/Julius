@@ -7,8 +7,17 @@ import { LOGIN_PAGE_ROUTE, DASHBOARD_PAGE_ROUTE } from '../constants/routerUrls'
 import { StoreProvider } from '../store'
 import PrivateRoute from '../shared/PrivateRoute'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+import colors from './styles.scss'
 
 const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: colors.primaryColorT1
+    },
+    secondary: {
+      main: colors.secondaryColorT1
+    }
+  },
   props: {
     MuiButton: {
       variant: 'contained',
