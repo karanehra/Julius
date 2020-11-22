@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react'
 import { Switch, Route, Router } from 'react-router-dom'
-import LoginView from './Login/index'
-import history from '../utils/history'
-import DashboardView from './Dashboard/index'
-import { LOGIN_PAGE_ROUTE, DASHBOARD_PAGE_ROUTE } from '../constants/routerUrls'
-import { StoreProvider } from '../store'
-import PrivateRoute from '../shared/PrivateRoute'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+import LoginView from './Login/index'
+import DashboardView from './Dashboard/'
+import { LOGIN_PAGE_ROUTE, DASHBOARD_PAGE_ROUTE } from '@constants/routerUrls'
+import history from '@utils/history'
+import { StoreProvider } from '../store/index'
+import PrivateRoute from '@shared/PrivateRoute'
 import colors from './styles.scss'
 
 const theme = createMuiTheme({

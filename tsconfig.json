@@ -8,11 +8,26 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
+      "@actions/*": [
+        "./src/actions/*"
+      ],
       "@constants/*": [
         "./src/constants/*"
       ],
+      "@reducers/*": [
+        "./src/reducers/*"
+      ],
+      "@shared/*": [
+        "./src/shared/*"
+      ],
+      "@store/*": [
+        "./src/store/*"
+      ],
       "@utils/*": [
         "./src/utils/*"
+      ],
+      "@views/*": [
+        "./src/views/*"
       ]
     }
   }

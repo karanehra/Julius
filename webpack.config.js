@@ -55,10 +55,10 @@ module.exports = env => {
     resolve: {
       alias: {
         '@actions': path.resolve(__dirname, 'src/actions'),
-        '@assets': path.resolve(__dirname, 'src/assets'),
         '@constants': path.resolve(__dirname, 'src/constants'),
+        '@reducers': path.resolve(__dirname, 'src/reducers'),
         '@shared': path.resolve(__dirname, 'src/shared'),
-        '@styles': path.resolve(__dirname, 'src/styles'),
+        '@store': path.resolve(__dirname, 'src/store'),
         '@utils': path.resolve(__dirname, 'src/utils'),
         '@views': path.resolve(__dirname, 'src/views')
       },

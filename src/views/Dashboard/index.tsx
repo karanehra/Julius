@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
+import { Link, Switch } from 'react-router-dom'
 import { AppBar, Grid, Paper } from '@material-ui/core'
-import './index.scss'
-import PrivateRoute from '../../shared/PrivateRoute'
-import { DASHBOARD_HOME_PAGE_ROUTE, DASHBOARD_JOBS_PAGE_ROUTE } from '../../constants/routerUrls'
+import PrivateRoute from '@shared/PrivateRoute'
+import { DASHBOARD_HOME_PAGE_ROUTE, DASHBOARD_JOBS_PAGE_ROUTE } from '@constants/routerUrls'
 import DashboardHomeView from './Home'
 import DashboardJobsView from './Jobs'
-import { Link, Switch } from 'react-router-dom'
+import './index.scss'
 
 const DashboardView: FC = () => {
   return (
