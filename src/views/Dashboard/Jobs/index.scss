@@ -1,0 +1,15 @@
+.data-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  th,
+  td {
+    border-bottom: 1px solid lightgray;
+    padding: 10px 5px;
+  }
+
+  tr > th {
+    text-align: left;
+  }
+}

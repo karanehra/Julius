@@ -6,6 +6,8 @@ import {
   callRequeueJobApi,
   callQueueJobApi
 } from '@utils/api/job'
+import { formatISODateString } from '@utils/helpers'
+import './index.scss'
 
 const DashboardJobsView: FunctionComponent = () => {
   const [jobsData, setJobsData] = useState<Array<any>>(null)
@@ -47,13 +49,15 @@ const DashboardJobsView: FunctionComponent = () => {
         </Grid>
         <Grid item xs={8}>
           <TextField
+            fullWidth
+            size='small'
             label='Job Name'
             value={newJobName}
             onChange={e => setNewJobName(e.target.value)}
           />
         </Grid>
         <Grid item xs={4}>
-          <Button disabled={!newJobName} onClick={addNewJob}>
+          <Button fullWidth disabled={!newJobName} onClick={addNewJob}>
             Add Job
           </Button>
         </Grid>
@@ -61,7 +65,7 @@ const DashboardJobsView: FunctionComponent = () => {
           {jobsData ? (
             <>
               {jobsData.length > 0 ? (
-                <table>
+                <table className='data-table'>
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -75,14 +79,18 @@ const DashboardJobsView: FunctionComponent = () => {
                       <Fragment key={job._id}>
                         <tr>
                           <td>{job.name}</td>
-                          <td>{job.createdAt}</td>
+                          <td>{formatISODateString(job.createdAt)}</td>
                           <td>{job.status}</td>
                           <td>
                             {job.status === 'QUEUED' && (
-                              <span onClick={dequeueJob(job._id)}>Dequeue</span>
+                              <span className='clickable' onClick={dequeueJob(job._id)}>
+                                Dequeue
+                              </span>
                             )}
                             {job.status === 'CANCELED' && (
-                              <span onClick={requeueJob(job._id)}>Requeue</span>
+                              <span className='clickable' onClick={requeueJob(job._id)}>
+                                Requeue
+                              </span>
                             )}
                           </td>
                         </tr>

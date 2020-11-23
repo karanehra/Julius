@@ -1,7 +1,10 @@
 import crypto from 'crypto'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AppStore } from '../store/index'
+import { setAppLoadingAction } from '@actions/index'
 
 export const decryptIncomingResponse = (response: AxiosResponse) => {
+  AppStore.dispatch(setAppLoadingAction(false))
   let key = process.env.AES_KEY
   let iv = response.data.iv
   let decipher = crypto.createDecipheriv('aes-256-ctr', key, iv)
