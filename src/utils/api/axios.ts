@@ -3,9 +3,9 @@ import { LOGIN_PAGE_ROUTE } from '../../constants/routerUrls'
 import { AppStore } from '../../store'
 import history from '../history'
 import { decryptIncomingResponse, encryptOutgoingRequest } from '@utils/crypto'
-import { setAppLoadingAction } from '@actions/index'
+import { setAppLoadingAction } from '@actions/'
 
-const instance = Axios.create({ baseURL: 'http://localhost:9000' })
+const instance = Axios.create({ baseURL: process.env.API_ENDPOINT })
 
 const outgoingRequestInterceptor = (request: AxiosRequestConfig) => {
   AppStore.dispatch(setAppLoadingAction(true))

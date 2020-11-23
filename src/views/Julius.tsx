@@ -5,7 +5,7 @@ import LoginView from './Login/index'
 import DashboardView from './Dashboard/'
 import { LOGIN_PAGE_ROUTE, DASHBOARD_PAGE_ROUTE } from '@constants/routerUrls'
 import history from '@utils/history'
-import { StoreProvider } from '../store/index'
+import { StoreProvider } from '@store'
 import PrivateRoute from '@shared/PrivateRoute'
 import colors from './styles.scss'
 

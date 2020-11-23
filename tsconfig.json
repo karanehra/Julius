@@ -8,8 +8,8 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@actions/*": [
-        "./src/actions/*"
+      "@actions": [
+        "./src/actions/index"
       ],
       "@constants/*": [
         "./src/constants/*"
@@ -20,8 +20,8 @@
       "@shared/*": [
         "./src/shared/*"
       ],
-      "@store/*": [
-        "./src/store/*"
+      "@store": [
+        "./src/store/index"
       ],
       "@utils/*": [
         "./src/utils/*"

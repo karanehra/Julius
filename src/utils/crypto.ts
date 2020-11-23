@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { AppStore } from '../store/index'
-import { setAppLoadingAction } from '@actions/index'
+import { AppStore } from '@store'
+import { setAppLoadingAction } from '@actions'
 
 export const decryptIncomingResponse = (response: AxiosResponse) => {
   AppStore.dispatch(setAppLoadingAction(false))

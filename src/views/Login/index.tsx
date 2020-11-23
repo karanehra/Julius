@@ -2,9 +2,9 @@ import React, { useState, FunctionComponent } from 'react'
 import { Paper, TextField, Button } from '@material-ui/core'
 import { callUserLoginpApi } from '@utils/api/user'
 import history from '@utils/history'
-import { DASHBOARD_HOME_PAGE_ROUTE, DASHBOARD_PAGE_ROUTE } from '@constants/routerUrls'
-import { userLoginSuccessAction } from '@actions/index'
-import { useStore } from '../../store'
+import { DASHBOARD_HOME_PAGE_ROUTE } from '@constants/routerUrls'
+import { userLoginSuccessAction } from '@actions'
+import { useStore } from '@store'
 import './index.scss'
 
 const LoginView: FunctionComponent = () => {
