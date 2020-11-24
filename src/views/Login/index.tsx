@@ -24,18 +24,32 @@ const LoginView: FunctionComponent = () => {
   }
 
   return (
-    <Paper>
-      <form onSubmit={handleFormSubmission}>
-        <TextField label='username' value={username} onChange={e => setUsername(e.target.value)} />
-        <TextField
-          label='password'
-          type='password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <Button type='submit'>Submit</Button>
-      </form>
-    </Paper>
+    <div className='login-wrapper'>
+      <Paper className='login-box'>
+        <h1>Julius</h1>
+        <h3>Login</h3>
+        <form onSubmit={handleFormSubmission}>
+          <TextField
+            label='username'
+            margin='normal'
+            autoComplete='on'
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
+          <TextField
+            label='password'
+            type='password'
+            margin='normal'
+            autoComplete='on'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <br />
+          <br />
+          <Button type='submit'>Submit</Button>
+        </form>
+      </Paper>
+    </div>
   )
 }
 

@@ -44,7 +44,7 @@ const Main: FunctionComponent = () => {
           horizontal: 'center'
         }}
         open={!!message}
-        autoHideDuration={60000}
+        autoHideDuration={6000}
         onClose={() => dispatch(setSnackbarDataAction({ message: '', type: 'INFO' }))}
         message={message}
         classes={{ root: `snackbar-${type}` }}

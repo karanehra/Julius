@@ -10,7 +10,9 @@ import './index.scss'
 const DashboardView: FC = () => {
   return (
     <>
-      <AppBar className='navbar'>Hello</AppBar>
+      <AppBar className='navbar'>
+        <div className='brand'>Julius</div>
+      </AppBar>
       <Grid container className='content'>
         <Grid item xs={3}>
           <Paper className='sidenav'>
