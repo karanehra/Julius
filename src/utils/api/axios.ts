@@ -3,7 +3,7 @@ import { LOGIN_PAGE_ROUTE } from '../../constants/routerUrls'
 import { AppStore } from '../../store'
 import history from '../history'
 import { decryptIncomingResponse, encryptOutgoingRequest } from '@utils/crypto'
-import { setAppLoadingAction } from '@actions/'
+import { setAppLoadingAction, setSnackbarDataAction } from '@actions'
 
 const instance = Axios.create({ baseURL: process.env.API_ENDPOINT })
 
@@ -21,10 +21,15 @@ const outgoingRequestInterceptor = (request: AxiosRequestConfig) => {
 
 const incomingResponseErrorInterceptor = (error: AxiosError) => {
   AppStore.dispatch(setAppLoadingAction(false))
-  const res = decryptIncomingResponse(error.response)
-  if (res.status === 401) {
-    history.push(LOGIN_PAGE_ROUTE)
+
+  if (error.message === 'Network Error') {
+    AppStore.dispatch(setSnackbarDataAction({ message: 'Server Unreachable', type: 'ERROR' }))
+    return error
   }
+
+  const res = decryptIncomingResponse(error.response)
+  if (res.status === 401) history.push(LOGIN_PAGE_ROUTE)
+
   return error
 }
 

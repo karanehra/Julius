@@ -1,4 +1,8 @@
-import { SET_APP_LOADING_ACTION, USER_LOGIN_SUCCESS_ACTION } from '@constants/actionTypes'
+import {
+  SET_APP_LOADING_ACTION,
+  SET_SNACKBAR_DATA_ACTION,
+  USER_LOGIN_SUCCESS_ACTION
+} from '@constants/actionTypes'
 
 export default function RootReducer(state, action) {
   const { type, payload } = action
@@ -9,6 +13,9 @@ export default function RootReducer(state, action) {
       break
     case SET_APP_LOADING_ACTION:
       newState = { ...state, isAppLoading: payload }
+      break
+    case SET_SNACKBAR_DATA_ACTION:
+      newState = { ...state, snackbarData: payload }
       break
     default:
       newState = state
