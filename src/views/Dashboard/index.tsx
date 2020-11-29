@@ -6,8 +6,14 @@ import { DASHBOARD_HOME_PAGE_ROUTE, DASHBOARD_JOBS_PAGE_ROUTE } from '@constants
 import DashboardHomeView from './Home'
 import DashboardJobsView from './Jobs'
 import './index.scss'
+import history from '@utils/history'
 
 const DashboardView: FC = () => {
+  const getLinkClass = (url: string) => {
+    const isActive = url === history.location.pathname
+    return isActive ? 'link active' : 'link'
+  }
+
   return (
     <>
       <AppBar className='navbar'>
@@ -16,10 +22,16 @@ const DashboardView: FC = () => {
       <Grid container className='content'>
         <Grid item xs={3}>
           <Paper className='sidenav'>
-            <Link className='link' to={DASHBOARD_HOME_PAGE_ROUTE}>
+            <Link
+              className={getLinkClass(DASHBOARD_HOME_PAGE_ROUTE)}
+              to={DASHBOARD_HOME_PAGE_ROUTE}
+            >
               Home
             </Link>
-            <Link className='link' to={DASHBOARD_JOBS_PAGE_ROUTE}>
+            <Link
+              className={getLinkClass(DASHBOARD_JOBS_PAGE_ROUTE)}
+              to={DASHBOARD_JOBS_PAGE_ROUTE}
+            >
               Jobs
             </Link>
           </Paper>

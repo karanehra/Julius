@@ -15,3 +15,7 @@ export const callDequeueJobApi = (jobID: string) => {
 export const callRequeueJobApi = (jobID: string) => {
   return Axios.get(`/jobs/requeue/${jobID}`)
 }
+
+export const callPostRssFeedUrlsApi = (urlString: string) => {
+  return Axios.post(`/jobs/addFeeds`, { feeds: urlString })
+}
