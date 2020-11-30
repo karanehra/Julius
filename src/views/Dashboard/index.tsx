@@ -2,11 +2,16 @@ import React, { FC } from 'react'
 import { Link, Switch } from 'react-router-dom'
 import { AppBar, Grid, Paper } from '@material-ui/core'
 import PrivateRoute from '@shared/PrivateRoute'
-import { DASHBOARD_HOME_PAGE_ROUTE, DASHBOARD_JOBS_PAGE_ROUTE } from '@constants/routerUrls'
+import {
+  DASHBOARD_HOME_PAGE_ROUTE,
+  DASHBOARD_JOBS_PAGE_ROUTE,
+  LOGIN_PAGE_ROUTE
+} from '@constants/routerUrls'
 import DashboardHomeView from './Home'
 import DashboardJobsView from './Jobs'
-import './index.scss'
 import history from '@utils/history'
+import { callUserLogoutApi } from '@utils/api/user'
+import './index.scss'
 
 const DashboardView: FC = () => {
   const getLinkClass = (url: string) => {
@@ -14,10 +19,18 @@ const DashboardView: FC = () => {
     return isActive ? 'link active' : 'link'
   }
 
+  const logoutUser = async () => {
+    const { status } = await callUserLogoutApi()
+    if (status === 200) history.push(LOGIN_PAGE_ROUTE)
+  }
+
   return (
     <>
       <AppBar className='navbar'>
         <div className='brand'>Julius</div>
+        <div className='clickable' onClick={logoutUser}>
+          Logout
+        </div>
       </AppBar>
       <Grid container className='content'>
         <Grid item xs={3}>

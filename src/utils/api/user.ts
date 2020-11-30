@@ -8,3 +8,7 @@ export const callUserSignupApi = (payload: SignupPayload) => {
 export const callUserLoginpApi = (payload: AuthPayload) => {
   return Axios.post('/user/login', payload)
 }
+
+export const callUserLogoutApi = () => {
+  return Axios.get('/user/logout')
+}

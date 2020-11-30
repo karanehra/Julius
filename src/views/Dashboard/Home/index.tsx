@@ -4,17 +4,28 @@ import './index.scss'
 import { callPostRssFeedUrlsApi } from '@utils/api/job'
 import { useStore } from '@store'
 import { setSnackbarDataAction } from '@actions'
+import { isURLValid } from '@utils/helpers'
 
 const DashboardHomeView: FunctionComponent = () => {
   const [urlString, setUrlString] = useState<string>('')
+  const [urlStringError, setUrlStringError] = useState<boolean>(false)
 
   const { dispatch } = useStore()
 
+  const isUrlStringValid = () => {
+    const urls = urlString.split(';')
+    return urls.every(val => isURLValid(val))
+  }
+
   const submitRssFeedUrls = async () => {
-    const { status } = await callPostRssFeedUrlsApi(urlString)
-    if (status === 200) {
-      dispatch(setSnackbarDataAction({ message: 'URLs Submitted', type: 'SUCCESS' }))
-      setUrlString('')
+    if (isUrlStringValid()) {
+      const { status } = await callPostRssFeedUrlsApi(urlString)
+      if (status === 200) {
+        dispatch(setSnackbarDataAction({ message: 'URLs Submitted', type: 'SUCCESS' }))
+        setUrlString('')
+      }
+    } else {
+      setUrlStringError(true)
     }
   }
 
@@ -29,10 +40,15 @@ const DashboardHomeView: FunctionComponent = () => {
       <Grid item xs={10}>
         <TextField
           fullWidth
+          error={urlStringError}
+          helperText={urlStringError ? 'String Contains an Invalid URL' : ''}
           size='small'
           label='Enter URLs seperated by ;'
           value={urlString}
-          onChange={e => setUrlString(e.target.value)}
+          onChange={e => {
+            setUrlString(e.target.value)
+            setUrlStringError(false)
+          }}
         />
       </Grid>
       <Grid item xs={2}>

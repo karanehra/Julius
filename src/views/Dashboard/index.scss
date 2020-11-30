@@ -4,6 +4,7 @@ $navbarHeight: 64px;
   height: $navbarHeight;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-direction: row !important;
   padding: 10px;
 
